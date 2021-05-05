@@ -1,0 +1,16 @@
+{
+  "name": "wiwa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/geektutor/wiwa.git",
+  "author": "Dro <lorddro1532@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "mongoose": "^5.12.7"
+  }
+}

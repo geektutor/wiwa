@@ -1,0 +1,33 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Dro\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add express helmet cors mongoose dotenv bcryptjs
+
+PATH: 
+  C:\cmder\bin;C:\cmder\vendor\bin;C:\cmder\vendor\conemu-maximus5\ConEmu\Scripts;C:\cmder\vendor\conemu-maximus5;C:\cmder\vendor\conemu-maximus5\ConEmu;C:\Python39\Scripts\;C:\Python39\;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files\Microsoft VS Code\bin;C:\ProgramData\chocolatey\bin;C:\Users\Dro\AppData\Local\Microsoft\WindowsApps;C:\Users\Dro\AppData\Roaming\npm;C:\src\flutter\bin;C:\Program Files\heroku\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\cmder
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  12.18.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, copyfile 'C:\Users\Dro\AppData\Local\Yarn\Cache\v6\npm-sift-13.5.2-24a715e13c617b086166cd04917d204a591c9da6-integrity\node_modules\sift\MIT-LICENSE.txt' -> 'C:\Users\Dro\Documents\THE WORKS\PETHS\wiwa\node_modules\sift\MIT-LICENSE.txt'
+
+npm manifest: 
+  {
+    "name": "wiwa",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "https://github.com/geektutor/wiwa.git",
+    "author": "Dro <lorddro1532@gmail.com>",
+    "license": "MIT"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
