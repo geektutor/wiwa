@@ -245,6 +245,7 @@ module.exports = {
 	getUsersByName,
 	getUsersBySkill,
 	changePassword,
+	forgotPassword,
 	getUsers,
 	login,
 	signup,
