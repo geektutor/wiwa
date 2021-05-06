@@ -1,0 +1,58 @@
+.topSearch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2rem auto;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.formGroup {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+  width: 80%;
+}
+.formGroup i {
+  color: white;
+}
+.formGroup input {
+  height: 100%;
+  background-color: white;
+  border: 1px solid var(--input-border);
+  border-radius: 10px 0 0 10px;
+  padding: 5px 10px;
+  flex-grow: 2;
+}
+.topSearch select {
+  width: auto;
+}
+.topSearch input:focus,
+textarea:focus {
+  outline: none;
+  border: 1px solid var(--primary-color);
+  box-shadow: none;
+}
+::placeholder {
+  color: var(--grey);
+}
+.formGroup button {
+  border-radius: 0 10px 10px 0;
+  width: 50px;
+  height: 100%;
+  color: white;
+  background-color: var(--primary-color);
+  border: none;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 700px) {
+  .topSearch {
+    margin: 0.5rem 0;
+  }
+  .formGroup,
+  select {
+    width: 100%;
+    margin: 0.4rem auto;
+  }
+}

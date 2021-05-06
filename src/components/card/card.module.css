@@ -1,0 +1,37 @@
+.cardSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.Card {
+  width: 30%;
+  margin: 1rem 0;
+  background-color: var(--sec-color);
+  padding: 1rem;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+.Card a {
+  display: inline-block;
+}
+.Card:hover {
+  box-shadow: 0px 44px 100px 0px #e2e2e2;
+}
+.Card h3 {
+  margin: 0.5rem 0;
+}
+
+@media (max-width: 800px) {
+  .Card {
+    min-width: 300px;
+    margin: 1rem auto;
+  }
+}
+@media (max-width: 500px) {
+  .Card {
+    width: 100%;
+  }
+}
