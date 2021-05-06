@@ -17,16 +17,15 @@ const Login = () => {
     <main className="container align-top">
       <form className="login-form">
         <div class="signup-text">
-          {/* <h1 className="logo">wiwa</h1> */}
-          <h3>Login</h3>
+          <h3 className="logo">wiwa</h3>
         </div>
         <div className="form-group">
-          <label htmlFor="email">Username / Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="text"
             id="email"
             required
-            placeholder="Username / Email"
+            placeholder="johndoe@gmail.com"
           />
         </div>
         <div className="form-group">
@@ -50,11 +49,11 @@ const Login = () => {
           Login
         </button>
         <p className="bottom-text" id="forgetpwd">
-          <a href="./forgetpassword.html"> Forgot Password?</a>
+          <Link to="/forgotpwd"> Forgot Password?</Link>
         </p>
 
         <p className="bottom-text">
-          You don't have an account? <Link to="/signup">Login.</Link>
+          You don't have an account? <Link to="/signup">Sign Up.</Link>
         </p>
       </form>
     </main>

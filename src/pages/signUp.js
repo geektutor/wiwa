@@ -23,7 +23,7 @@ const SignUp = () => {
       {isAuthorized && (
         <form className="login-form">
           <div class="signup-text">
-            <h3>Sign Up</h3>
+            <h3 className="logo">wiwa</h3>
           </div>
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
@@ -39,10 +39,19 @@ const SignUp = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="bio">Bio</label>
+            <label htmlFor="s-bio">Short Bio</label>
             <textarea
-              name="bio"
-              id="bio"
+              name="sBio"
+              id="s-bio"
+              required
+              placeholder="Not more than 100 characters..."
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label htmlFor="f-bio">Full Bio</label>
+            <textarea
+              name="fBio"
+              id="f-bio"
               required
               placeholder="Enter bio..."
             ></textarea>

@@ -28,7 +28,7 @@
   width: auto;
 }
 .topSearch input:focus,
-textarea:focus {
+.topSearch textarea:focus {
   outline: none;
   border: 1px solid var(--primary-color);
   box-shadow: none;

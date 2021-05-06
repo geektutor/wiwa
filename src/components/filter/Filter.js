@@ -4,7 +4,7 @@ const Filter = () => {
   return (
     <section className={classes.topSearch}>
       <form className={classes.formGroup} id="search-title">
-        <input type="search" placeholder="Search for a topic" required />
+        <input type="search" placeholder="Search..." required />
         <button aria-label="Search Topic" type="submit">
           <i className="fa fa-search"></i>
         </button>

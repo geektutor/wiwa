@@ -7,7 +7,7 @@ const Navbar = () => {
       <ul className="navList">
         <li className="navLink">
           <a href="#f">
-            <button className="btn">+ Add Directory</button>
+            <button className="btn">+ Add</button>
           </a>
         </li>
         <li className="navLink">

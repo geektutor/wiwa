@@ -68,6 +68,10 @@ p {
   background: var(--sec-color);
   color: var(--primary-color);
 }
+.btn-tp:hover {
+  background: var(--primary-color);
+  color: var(--sec-color);
+}
 .btn:disabled {
   background-color: #96b7db;
   cursor: wait;
