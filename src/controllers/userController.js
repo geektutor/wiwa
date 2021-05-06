@@ -23,33 +23,40 @@ const getUserById = async (req, res) => {
 };
 
 const getUsersByName = async (req, res) => {
+	console.log('name');
 	const { name } = req.params;
 	if (!name) sendError('Name for searching was not provided', 400, res);
 
-	let users = await User.find({ name });
-	users = users.map(sanitizeUser);
-	sendData(users, 200, res);
+	try {
+		let users = await User.find({ name: { $regex: name, $options: 'ig' } });
+		console.log(users);
+		users = users.map(sanitizeUser);
+		sendData(users, 200, res);
+	} catch (e) {
+		console.log(e);
+	}
 };
 
 const getUsers = async (req, res) => {
-	const { skills } = req.query;
-	if (!skills) {
-		let users = await User.find({});
-		users = users.map(sanitizeUser);
-		return sendData(users, 200, res);
-	}
-	// let skillsArr = skills.split(',');
-	// skillsArr = skillsArr.map((skill) => ({
-	//     $where: function() { return (this.credits == this.debits) }
-	// 	$text: { $search: skill.toLowerCase() },
-	// }));
-	// console.log(skillsArr);
+	let users = await User.find({});
+	users = users.map(sanitizeUser);
+	return sendData(users, 200, res);
+};
 
-	// const users = await User.find({
-	// 	$and: skillsArr,
-	// });
-	// console.log(users);
-	// sendData(users, 200, res);
+const getUsersBySkill = async (req, res) => {
+	const { skill } = req.params;
+	console.log(skill);
+	if (!skill) sendError('Query Param of skill required', 400, res);
+	try {
+		let users = await User.find({
+			skills: { $regex: skill, $options: 'ig' },
+		});
+		console.log(users);
+		users = users.map(sanitizeUser);
+		sendData(users, 200, res);
+	} catch (e) {
+		console.log(e);
+	}
 };
 
 const login = async (req, res) => {
@@ -85,6 +92,49 @@ const login = async (req, res) => {
 			user: sanitizeUser(user),
 			token,
 			refToken,
+		},
+		200,
+		res
+	);
+};
+
+const refreshToken = async (req, res) => {
+	const refToken = req.get('refresh_token');
+	if (!refToken) return sendError('No Refresh Token', 401, res);
+
+	const verifiedRefToken = jwt.verify(
+		refToken,
+		process.env.REFRESH_TOKEN_SECRET
+	);
+	if (!verifiedRefToken) return sendError('Invalid Refresh Token', 401, res);
+
+	const user = await User.findById(verifiedRefToken.userId);
+	if (!user) return sendError('Invalid Refresh Token', 401, res);
+
+	console.log(user);
+
+	const token = jwt.sign(
+		{
+			userId: user._id.toString(),
+		},
+		process.env.TOKEN_SECRET,
+		{
+			expiresIn: '1hr',
+		}
+	);
+
+	const newRefToken = jwt.sign(
+		{
+			userId: user._id.toString(),
+		},
+		process.env.REFRESH_TOKEN_SECRET
+	);
+
+	sendData(
+		{
+			user: sanitizeUser(user),
+			token,
+			refToken: newRefToken,
 		},
 		200,
 		res
@@ -180,9 +230,11 @@ const deleteUser = async (req, res) => {
 module.exports = {
 	getUserById,
 	getUsersByName,
+	getUsersBySkill,
 	getUsers,
 	login,
 	signup,
 	editUser,
 	deleteUser,
+	refreshToken,
 };
