@@ -6,12 +6,23 @@ const Question = require('../models/question');
 
 const { sendData, sendError, sendSuccess } = responders;
 
+const QUESTIONS = {
+	0: "What is your mother's maiden name",
+	1: 'What is the name of your childhood street',
+	2: 'What is the name of your childhood pet',
+	3: "What is your maternal grandmother's maiden name?",
+	4: 'What is the name of your favorite teacher',
+};
+
 const BCRYPT_SALT = 11;
 
 const sanitizeUser = (user) => ({
 	id: user._id,
 	name: user.name,
 	email: user.email,
+	shortBio: user.shortBio,
+	fullBio: user.fullBio,
+	cvLink: user.cvLink,
 	skills: user.skills,
 });
 
@@ -139,51 +150,125 @@ const refreshToken = async (req, res) => {
 	);
 };
 
-const signup = async (req, res) => {
-	const {
-		name,
-		email,
-		password,
-		questionId,
-		answer,
-		accessKey,
-		adminKey,
-	} = req.body;
-	if (!name || !email || !password)
-		return sendError(
-			'User requires a name, email, and password for signup',
-			400,
-			res
-		);
-	if (!(questionId && answer) && !accessKey)
-		return sendError(
-			'User requires question & answer, or Access Key',
-			400,
-			res
-		);
+const signupSecret = async (req, res) => {
+	const { accessKey } = req.body;
 
-	if (!accessKey) {
-		const question = Question.findById(questionId);
-		if (!question) return sendError('Question Not Found', 404, res);
+	if (!accessKey) return sendError('Access Key Required', 400, res);
 
-		if (question.answer !== answer)
-			return sendError('Incorrect Answer', 400, res);
-	} else {
-		if (accessKey !== process.env.USER_ACCESS_KEY)
-			return sendError('Incorrect Access Key', 400, res);
+	if (accessKey && accessKey === process.env.USER_ACCESS_KEY) {
+		const token = jwt.sign(
+			{
+				userType: 'user',
+			},
+			process.env.TOKEN_SECRET,
+			{
+				expiresIn: 60 * 20,
+			}
+		);
+		return sendData({ token }, 200, res);
+	} else if (accessKey && accessKey === process.env.ADMIN_ACCESS_KEY) {
+		const token = jwt.sign(
+			{
+				userType: 'admin',
+			},
+			process.env.TOKEN_SECRET,
+			{
+				expiresIn: 60 * 20,
+			}
+		);
+		return sendData({ token }, 200, res);
 	}
+
+	sendError('Incorrect Access Key', 400, res);
+};
+
+const signupInfo = async (req, res) => {
+	const token = req.get('token');
+	if (!token) return sendError('No Token Provided', 401, res);
+	let verifiedToken;
+	try {
+		verifiedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+	} catch (e) {
+		console.log(e.message);
+		return sendError('Invalid Token', 401, res);
+	}
+
+	const isAdmin = verifiedToken.userType === 'admin';
+
+	const { name, email, password, shortBio, fullBio, cvLink } = req.body;
+	if (!name || !email || !password || !shortBio || !cvLink)
+		return sendError(
+			'Ensure you send all necessary info for signup',
+			400,
+			res
+		);
+
+	const userExists = await User.findOne({ email });
+	if (userExists) return sendError('This email has been taken', 400, res);
 
 	const salt = await bcrypt.genSalt(BCRYPT_SALT);
 	const hash = await bcrypt.hash(password, salt);
-
-	const isAdmin = adminKey === process.env.ADMIN_ACCESS_KEY;
 
 	const user = new User({
 		name,
 		email,
 		password: hash,
+		shortBio,
+		fullBio,
+		cvLink,
 		isAdmin,
 	});
+	await user.save();
+	sendData(sanitizeUser(user), 201, res);
+};
+
+const signupQuestions = async (req, res) => {
+	const token = req.get('token');
+	if (!token) return sendError('No Token Provided', 401, res);
+	let verifiedToken;
+	try {
+		verifiedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+	} catch (e) {
+		console.log(e.message);
+		return sendError('Invalid Token', 401, res);
+	}
+
+	if (!verifiedToken.userType) sendError('Invalid Token', 401, res);
+
+	const { userId, question1Id, answer1, question2Id, answer2 } = req.body;
+	if (!question1Id || !answer1 || !question2Id || !answer2 || !userId)
+		return sendError(
+			'User requires questionIds and answers for signup',
+			400,
+			res
+		);
+
+	if (question1Id === question2Id)
+		return sendError('Question Ids must be different', 400, res);
+
+	if (parseInt(question1Id) > 4 || parseInt(question2Id) > 4)
+		return sendError('Invalid Question Id', 400, res);
+
+	let user;
+	try {
+		user = await User.findById(userId);
+	} catch (e) {
+		console.log(e.message);
+		return sendError('User not found', 404, res);
+	}
+
+	const questions = [
+		{
+			questionIndex: parseInt(question1Id),
+			answer: answer1,
+		},
+		{
+			questionIndex: parseInt(question2Id),
+			answer: answer2,
+		},
+	];
+
+	user.questions = questions;
 	await user.save();
 	sendData(sanitizeUser(user), 201, res);
 };
@@ -225,19 +310,40 @@ const deleteUser = async (req, res) => {
 	sendSuccess('User deleted', 202, res);
 };
 
-const forgotPassword = async (req, res) => {
-	//SEND MAIL TO USER EMAIL
-};
-
 const changePassword = async (req, res) => {
-	// const { password } = req.body;
-	// if (!password) return sendError('You have to send a password', 400, res);
-	// const isPassSame = await bcrypt.compare(password, req.user.password);
-	// if (isPassSame) return sendError("You can't use this password", 400, res);
-	// const salt = await bcrypt.genSalt(BCRYPT_SALT);
-	// const hash = await bcrypt.hash(password, salt);
-	// req.user.password = hash;
-	// await req.user.save();
+	const { questionId, answer, email, password } = req.body;
+
+	if (!questionId || !email || !answer || !password)
+		return sendError(
+			'Ensure questionId, email and answer are being sent',
+			400,
+			res
+		);
+	if (questionId > 4) return sendError('Invalid Question Id', 400, res);
+
+	const user = await User.find({ email });
+	if (!user) return sendError('User not found', 404, res);
+
+	let shouldChangePassword = false;
+
+	user.questions.forEach((questionObj) => {
+		if (
+			questionObj.questionIndex === parseInt(questionId) &&
+			questionObj.answer === answer
+		)
+			shouldChangePassword = true;
+	});
+
+	if (!shouldChangePassword)
+		return sendError('Wrong Question / Answer Combination', 400, res);
+
+	const salt = await bcrypt.genSalt(BCRYPT_SALT);
+	const hash = await bcrypt.hash(password, salt);
+
+	user.password = hash;
+	await user.save();
+
+	sendSuccess('Password Changed', 202, res);
 };
 
 module.exports = {
@@ -245,10 +351,11 @@ module.exports = {
 	getUsersByName,
 	getUsersBySkill,
 	changePassword,
-	forgotPassword,
 	getUsers,
 	login,
-	signup,
+	signupSecret,
+	signupInfo,
+	signupQuestions,
 	editUser,
 	deleteUser,
 	refreshToken,

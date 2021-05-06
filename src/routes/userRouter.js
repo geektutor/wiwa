@@ -20,13 +20,15 @@ userRouter.get('/', userAuth, userController.getUsers);
 
 userRouter.post('/login', userController.login);
 
-userRouter.post('/signup', userController.signup);
+userRouter.post('/signup/secret', userController.signupSecret);
+
+userRouter.post('/signup/info', userController.signupInfo);
+
+userRouter.post('/signup/questions', userController.signupQuestions);
 
 userRouter.post('/refresh-token', userController.refreshToken);
 
-userRouter.post('/forgot-password', userController.forgotPassword);
-
-userRouter.post('/change-password', userAuth, userController.changePassword);
+userRouter.post('/change-password', userController.changePassword);
 
 userRouter.put('/edit/:userId', userAuth, userController.editUser);
 

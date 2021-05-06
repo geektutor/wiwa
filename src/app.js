@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(helmet());
 
-app.use('/questions', questionRouter);
+// app.use('/questions', questionRouter);
 app.use('/users', userRouter);
 
 app.use('/', (req, res) => {

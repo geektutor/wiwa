@@ -17,14 +17,29 @@ const userSchema = new mongoose.Schema(
 		},
 		cvLink: {
 			type: String,
+			required: true,
 		},
-		bio: {
+		shortBio: {
+			type: String,
+			required: true,
+		},
+		fullBio: {
 			type: String,
 		},
 		isAdmin: {
 			type: Boolean,
 			default: false,
 		},
+		questions: [
+			{
+				questionIndex: {
+					type: Number,
+				},
+				answer: {
+					type: String,
+				},
+			},
+		],
 		skills: [{ type: String }],
 	},
 	{ timestamps: true }
