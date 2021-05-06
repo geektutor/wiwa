@@ -2,6 +2,10 @@
   "name": "wiwa",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
   "repository": "https://github.com/geektutor/wiwa.git",
   "author": "Dro <lorddro1532@gmail.com>",
   "license": "MIT",
@@ -11,6 +15,7 @@
     "dotenv": "^9.0.0",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.7"
   }
 }
