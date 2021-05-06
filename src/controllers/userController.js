@@ -45,13 +45,11 @@ const getUsers = async (req, res) => {
 
 const getUsersBySkill = async (req, res) => {
 	const { skill } = req.params;
-	console.log(skill);
 	if (!skill) sendError('Query Param of skill required', 400, res);
 	try {
 		let users = await User.find({
 			skills: { $regex: skill, $options: 'ig' },
 		});
-		console.log(users);
 		users = users.map(sanitizeUser);
 		sendData(users, 200, res);
 	} catch (e) {
@@ -227,10 +225,26 @@ const deleteUser = async (req, res) => {
 	sendSuccess('User deleted', 202, res);
 };
 
+const forgotPassword = async (req, res) => {
+	//SEND MAIL TO USER EMAIL
+};
+
+const changePassword = async (req, res) => {
+	// const { password } = req.body;
+	// if (!password) return sendError('You have to send a password', 400, res);
+	// const isPassSame = await bcrypt.compare(password, req.user.password);
+	// if (isPassSame) return sendError("You can't use this password", 400, res);
+	// const salt = await bcrypt.genSalt(BCRYPT_SALT);
+	// const hash = await bcrypt.hash(password, salt);
+	// req.user.password = hash;
+	// await req.user.save();
+};
+
 module.exports = {
 	getUserById,
 	getUsersByName,
 	getUsersBySkill,
+	changePassword,
 	getUsers,
 	login,
 	signup,

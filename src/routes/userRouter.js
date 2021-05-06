@@ -24,6 +24,10 @@ userRouter.post('/signup', userController.signup);
 
 userRouter.post('/refresh-token', userController.refreshToken);
 
+userRouter.post('/forgot-password', userController.forgotPassword);
+
+userRouter.post('/change-password', userAuth, userController.changePassword);
+
 userRouter.put('/edit/:userId', userAuth, userController.editUser);
 
 userRouter.delete('/delete/:userId', adminAuth, userController.deleteUser);
