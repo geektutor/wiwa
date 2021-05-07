@@ -4,7 +4,7 @@ const ForgotPassword = () => {
   return (
     <main className="container align-top">
       <form className="login-form">
-        <div class="signup-text">
+        <div className="signup-text">
           <h3 className="logo">wiwa</h3>
           {/* <h4 style={{textAlign: "center"}}>Enter Email Address</h4> */}
           <p style={{fontSize: "1rem", textAlign: "center", color: "black"}}>

@@ -14,10 +14,8 @@ const Card = ({user}) => {
         ))}
       </p>
       <p>Bio: {user.shortBio}</p>
-      <Link to="/user/details:user.id">
-        <button type="button" className="btn">
-          View Details
-        </button>
+      <Link to={`/user/details/${user.id}`} className="btn">
+        View Details
       </Link>
     </div>
   );

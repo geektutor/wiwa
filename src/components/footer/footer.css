@@ -24,3 +24,19 @@ footer a,
 footer p {
   margin-right: 1rem;
 }
+
+@media (max-width: 600px) {
+  footer {
+    flex-direction: column;
+    justify-content: center;
+  }
+  footer h1 {
+    font-size: 1.5rem;
+  }
+  footer > div {
+    margin: 0.4rem 0;
+  }
+  footer .link-last {
+    margin-right: 0;
+  }
+}

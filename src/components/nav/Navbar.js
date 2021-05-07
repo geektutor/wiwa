@@ -7,13 +7,13 @@ const Navbar = () => {
       <h2 className="logo">wiwa</h2>
       <ul className="navList">
         <li className="navLink">
-          <a href="#f">
-            <button className="btn">+ Add</button>
+          <a href="#f" className="btn">
+            + Add
           </a>
         </li>
         <li className="navLink">
-          <Link to="/profile">
-            <button className="btn btn-tp">Profile</button>
+          <Link to="/profile" className="btn btn-tp">
+            Profile
           </Link>
         </li>
       </ul>
