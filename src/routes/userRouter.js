@@ -6,7 +6,7 @@ const { userAuth, adminAuth } = require('../middlewares/auth');
 
 const userRouter = express.Router();
 
-userRouter.get('/:userId', userController.getUserById);
+userRouter.get('/:username', userController.getUserByUsername);
 
 userRouter.get('/search/:name', userController.getUsersByName);
 

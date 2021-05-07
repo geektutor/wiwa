@@ -18,9 +18,12 @@ const QUESTIONS = {
 
 const BCRYPT_SALT = 11;
 
-const getUserById = async (req, res) => {
-	const { userId } = req.params;
-	const user = await User.findOne({ _id: userId, active: true });
+const getUserByUsername = async (req, res) => {
+	const { username } = req.params;
+	const user = await User.findOne({
+		username_lower: username.toLowerCase(),
+		active: true,
+	});
 	if (!user) return sendError('User not found', 404, res);
 	sendData(sanitizeUser(user), 200, res);
 };
@@ -186,16 +189,30 @@ const signupInfo = async (req, res) => {
 
 	if (!verifiedToken.userType) return sendError('Invalid Token', 401, res);
 
-	const { name, email, password, shortBio, fullBio, cvLink } = req.body;
-	if (!name || !email || !password || !shortBio || !cvLink)
+	const {
+		name,
+		email,
+		password,
+		shortBio,
+		fullBio,
+		cvLink,
+		username,
+	} = req.body;
+	if (!name || !email || !password || !shortBio || !cvLink || !username)
 		return sendError(
 			'Ensure you send all necessary info for signup',
 			400,
 			res
 		);
 
-	const userExists = await User.findOne({ email });
-	if (userExists) return sendError('This email has been taken', 400, res);
+	const isUsernameTaken = await User.findOne({
+		username_lower: username.toLowerCase(),
+	});
+	if (isUsernameTaken)
+		return sendError('This username has been taken', 400, res);
+
+	const isEmailTaken = await User.findOne({ email });
+	if (isEmailTaken) return sendError('This email has been taken', 400, res);
 
 	const salt = await bcrypt.genSalt(BCRYPT_SALT);
 	const hash = await bcrypt.hash(password, salt);
@@ -203,6 +220,8 @@ const signupInfo = async (req, res) => {
 	const user = new User({
 		name,
 		email,
+		username,
+		username_lower: username.toLowerCase(),
 		password: hash,
 		shortBio,
 		fullBio,
@@ -286,7 +305,16 @@ const createFeedback = async (req, res) => {
 };
 
 const editUser = async (req, res) => {
-	const { name, email, password, cvLink, bio, skills } = req.body;
+	const {
+		username,
+		name,
+		email,
+		password,
+		cvLink,
+		shortBio,
+		fullBio,
+		skills,
+	} = req.body;
 	const { userId } = req.params;
 	if (!req.user.isAdmin && req.user._id != userId)
 		return sendError('Invalid Authorization', 403, res);
@@ -297,6 +325,16 @@ const editUser = async (req, res) => {
 	const user = await User.findById(userId);
 	if (!user) sendError('User not found', 404, res);
 
+	const isUsernameTaken = await User.findOne({
+		username_lower: username.toLowerCase(),
+	});
+	if (isUsernameTaken)
+		return sendError('This username has been taken', 400, res);
+
+	const isEmailTaken = await User.findOne({ email });
+	if (isEmailTaken) return sendError('This email has been taken', 400, res);
+	user.username = username || user.username;
+	user.username_lower = username.toLowerCase() || user.username_lower;
 	user.name = name || user.name;
 	user.email = email || user.email;
 
@@ -315,7 +353,8 @@ const editUser = async (req, res) => {
 		user.cvChanged = currentDay;
 	}
 
-	user.bio = bio || user.bio;
+	user.shortBio = shortBio || user.shortBio;
+	user.fullBio = fullBio || user.fullBio;
 	user.skills = skills && skills.length > 0 ? skills : user.skills;
 
 	await user.save();
@@ -367,7 +406,7 @@ const changePassword = async (req, res) => {
 };
 
 module.exports = {
-	getUserById,
+	getUserByUsername,
 	getUsersByName,
 	getUsersBySkill,
 	createFeedback,

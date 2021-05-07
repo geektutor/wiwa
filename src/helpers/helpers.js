@@ -6,6 +6,7 @@ const formatString = (text) => {
 
 const sanitizeUser = (user) => ({
 	id: user._id,
+	username: user.username,
 	name: user.name,
 	email: user.email,
 	shortBio: user.shortBio,
