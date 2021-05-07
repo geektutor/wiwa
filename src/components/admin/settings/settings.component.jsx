@@ -13,12 +13,12 @@ const Settings = () => {
         setIsLoading(false)
     },500)
 
-    const[openForm,setOpenForm] = useState(false)
+    // const[openForm,setOpenForm] = useState(false)
     const[openAffirm,setOpenAffirm]= useState(false)
 
-     const handleOpen=()=>{       
-         setOpenForm(!openForm)
-     }
+    //  const handleOpen=()=>{       
+    //      setOpenForm(!openForm)
+    //  }
 
      const handleAffirm=(id)=>{
          console.log(id)
@@ -49,8 +49,8 @@ const Settings = () => {
                                 Who is the leader of your group in Christian Church Of God Mission
                             </p>
                             
-                                <button className="edit" onClick={handleOpen} >Edit</button>
-                            
+                                {/* <button className="edit" onClick={handleOpen} >Edit</button>
+                             */}
                         </div>
 
                         
@@ -86,7 +86,7 @@ const Settings = () => {
                 </section>
 
 
-                <div className={`${openForm?'open':'closed'} modal`} onClick={handleOpen} >
+                {/* <div className={`${openForm?'open':'closed'} modal`} onClick={handleOpen} >
                         <div className="modal-content">
                             <span  onClick={handleOpen }className="close">&times;</span>
                         
@@ -107,7 +107,7 @@ const Settings = () => {
                             </form>
                         </div>
                 </div>
-                
+                 */}
                 <div className={`${openAffirm?'open':'closed'} modal`} onClick={handleAffirm } >
                         <div className="modal-content">
                             <span  onClick={handleAffirm }className="close">&times;</span>
