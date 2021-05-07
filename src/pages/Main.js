@@ -1,17 +1,26 @@
 import CardWrap from "../components/card/CardWrap";
+// import ErrorBoundary from "../components/errors/ErrorBoundary";
 import Filter from "../components/filter/Filter";
 import Footer from "../components/footer/Footer";
 import Navbar from "../components/nav/Navbar";
-// import useFetch from "../hooks/useFetch";
+import useFetch from "../hooks/useFetch";
+import Loader from "../components/Loader";
+import ConnectionError from "../components/errors/connectionError";
+import {useState} from "react";
 
 function Main() {
-  // const {data, error, isLoading} = useFetch("../assets/users.json");
-  // console.log(data, error, isLoading);
+  const [url, setUrl] = useState("https://wiwa.herokuapp.com/users");
+  const {data, error, isPending} = useFetch(url);
+  console.log(data, error, isPending);
+
+  const filterHandler = formData => setUrl(formData);
   return (
     <div className="main">
       <div className="main-wrap">
-        <Filter />
-        <CardWrap />
+        <Loader close={!isPending} />
+        <Filter filterUrl={filterHandler} />
+        {data && !isPending && <CardWrap users={data} />}
+        {error && <ConnectionError />}
       </div>
       <Navbar />
       <Footer />

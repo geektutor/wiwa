@@ -1,10 +1,12 @@
+import classes from "../../assets/css/error.module.css";
+
 const NoContent = ({msg}) => {
   return (
-    <div className="oops">
+    <div className={classes.oops}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         data-name="Layer 1"
-        className="heart"
+        className={classes.svg}
         width="100"
         height="100"
         viewBox="0 0 32 32"

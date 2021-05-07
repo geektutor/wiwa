@@ -11,7 +11,10 @@ import UserDetail from "./pages/UserDetail";
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div
+        style={{background: "var(--bg-color)", width: "100vw"}}
+        className="App"
+      >
         <Switch>
           <Route exact path="/">
             <Main />

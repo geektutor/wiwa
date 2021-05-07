@@ -11,7 +11,8 @@
   justify-content: flex-start;
   align-items: center;
   height: 40px;
-  width: 80%;
+  width: 70%;
+  /* max-width: 80%; */
 }
 .formGroup i {
   color: white;
@@ -25,7 +26,7 @@
   flex-grow: 2;
 }
 .topSearch select {
-  width: auto;
+  width: 15%;
 }
 .topSearch input:focus,
 .topSearch textarea:focus {
@@ -50,8 +51,12 @@
   .topSearch {
     margin: 0.5rem 0;
   }
+  .formGroup input {
+    max-width: none;
+  }
   .formGroup,
-  select {
+  .topSearch select {
+    max-width: none;
     width: 100%;
     margin: 0.4rem auto;
   }
