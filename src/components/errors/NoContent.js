@@ -1,10 +1,12 @@
+import classes from "../../assets/css/error.module.css";
+
 const NoContent = ({msg}) => {
   return (
-    <div className="oops">
+    <div className={classes.oops}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         data-name="Layer 1"
-        className="heart"
+        className={classes.svg}
         width="100"
         height="100"
         viewBox="0 0 32 32"
@@ -12,22 +14,22 @@ const NoContent = ({msg}) => {
         <path
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="M23.5,27.5H6.5l-1-15.19a.76.76,0,0,1,.77-.81H10a1.11,1.11,0,0,1,.89.44l1.22,1.56H23.5v2"
         />
         <path
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="M26.3,20.7l.84-3.2H9.25L6.5,27.5H23.41a1.42,1.42,0,0,0,1.37-1.06l.76-2.88"
         />
         <path
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="M16.5,24.5h0a1.42,1.42,0,0,1,2,0h0"
         />
         <line
@@ -37,8 +39,8 @@ const NoContent = ({msg}) => {
           y2="21.5"
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <line
           x1="20.5"
@@ -47,14 +49,14 @@ const NoContent = ({msg}) => {
           y2="21.5"
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="M20.62,3.61C18.25,4,16.5,5.37,16.5,7a2.57,2.57,0,0,0,.7,1.7l-.7,2.8,2.86-1.43A8.12,8.12,0,0,0,22,10.5c3,0,5.5-1.57,5.5-3.5,0-1.6-1.69-2.95-4-3.37"
         />
         <line
@@ -64,8 +66,8 @@ const NoContent = ({msg}) => {
           y2="7.75"
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <line
           x1="22.75"
@@ -74,17 +76,13 @@ const NoContent = ({msg}) => {
           y2="7.75"
           fill="none"
           stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
       <br />
       <h1>Oops!</h1>
-      <p>${msg}</p>
-      <p>
-        <a href="../forum/index.html">Go here</a>, Click on "Start-discussion"
-        to create a new topic for discussion
-      </p>
+      <p>{msg}</p>
     </div>
   );
 };

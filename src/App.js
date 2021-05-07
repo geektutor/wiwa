@@ -18,7 +18,10 @@ import ForgotPasswordAdmin from "./components/admin/forgetpwd/forgetpwd.componen
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div
+        style={{background: "var(--bg-color)", width: "100vw"}}
+        className="App"
+      >
         <Switch>
           <Route exact path="/">
             <Main />
@@ -61,7 +64,7 @@ function App() {
           <Route path="/profile">
             <Profile />
           </Route>
-          <Route path="/user/details">
+          <Route path="/user/details/:id">
             <UserDetail />
           </Route>
         </Switch>

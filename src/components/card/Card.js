@@ -1,19 +1,21 @@
 import {Link} from "react-router-dom";
 import classes from "./card.module.css";
 
-const Card = () => {
+const Card = ({user}) => {
   return (
     <div className={classes.Card}>
-      <h3>Ajayi Emmanuel</h3>
-      <p>Skill: HTML CSS JAVASCRIPT</p>
+      <h3>{user.name}</h3>
       <p>
-        Bio: Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam,
-        harum.
+        Skill:
+        {user.skills.map((skill, index) => (
+          <span key={index} className="skill">
+            {skill}
+          </span>
+        ))}
       </p>
-      <Link to="/user/details">
-        <button type="button" className="btn">
-          View Details
-        </button>
+      <p>Bio: {user.shortBio}</p>
+      <Link to={`/user/details/${user.id}`} className="btn">
+        View Details
       </Link>
     </div>
   );

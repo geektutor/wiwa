@@ -16,7 +16,7 @@ const Login = () => {
   return (
     <main className="container align-top">
       <form className="login-form">
-        <div class="signup-text">
+        <div className="signup-text">
           <h3 className="logo">wiwa</h3>
         </div>
         <div className="form-group">
@@ -36,7 +36,7 @@ const Login = () => {
               id="pwd"
               required
               placeholder="Password"
-              minlength="6"
+              minLength="6"
             />
             <i
               onClick={e => handlePasswordType(e)}

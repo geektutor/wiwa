@@ -1,26 +1,50 @@
+import {useState} from "react";
 import classes from "./filter.module.css";
 
-const Filter = () => {
+const Filter = ({filterUrl}) => {
+  const [url, seturl] = useState("https://wiwa.herokuapp.com/users/search/");
+  const [searchVal, setsearchVal] = useState("");
+  const handleSubmit = e => {
+    e.preventDefault();
+    filterUrl(`${url}${searchVal}`);
+    setsearchVal("");
+  };
   return (
-    <section className={classes.topSearch}>
-      <form className={classes.formGroup} id="search-title">
-        <input type="search" placeholder="Search..." required />
-        <button aria-label="Search Topic" type="submit">
-          <i className="fa fa-search"></i>
-        </button>
+    <section>
+      <form
+        onSubmit={e => handleSubmit(e)}
+        className={classes.topSearch}
+        id="search-title"
+      >
+        <div className={classes.formGroup}>
+          <input
+            type="search"
+            placeholder="Search..."
+            value={searchVal}
+            onChange={e => setsearchVal(e.target.value)}
+            required
+          />
+          <button aria-label="Search Topic" type="submit">
+            <i className="fa fa-search"></i>
+          </button>
+        </div>
+        <select
+          value={url}
+          onChange={e => seturl(e.target.value)}
+          name="filterSkill"
+          id="filterSkill"
+        >
+          <option value="https://wiwa.herokuapp.com/users/search/">
+            Filter By Name
+          </option>
+          <option
+            required
+            value="https://wiwa.herokuapp.com/users/search/skill/"
+          >
+            Filter By Skill
+          </option>
+        </select>
       </form>
-      <select name="filterSkill" id="filterSkill">
-        <option value="">Filter</option>
-        <option required value="html">
-          HTML
-        </option>
-        <option required value="html">
-          HTML
-        </option>
-        <option required value="html">
-          HTML
-        </option>
-      </select>
     </section>
   );
 };

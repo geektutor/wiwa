@@ -4,7 +4,7 @@ const Otp = () => {
   return (
     <main className="container align-top">
       <form className="login-form">
-        <div class="signup-text">
+        <div className="signup-text">
           <h3 className="logo">wiwa</h3>
           <h4 style={{textAlign: "center"}}>Enter OTP</h4>
         </div>

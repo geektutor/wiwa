@@ -25,12 +25,7 @@ main.container {
 .signup-text * {
   margin-bottom: 0.5rem;
 }
-@media (max-width: 800px) {
-  #signup form,
-  form {
-    width: 100%;
-  }
-}
+
 .signup-text {
   text-align: center;
 }
@@ -180,4 +175,10 @@ label.file-upload {
   height: auto;
   justify-content: center;
   align-items: center;
+}
+@media (max-width: 800px) {
+  #signup form,
+  main.container form {
+    width: 100%;
+  }
 }

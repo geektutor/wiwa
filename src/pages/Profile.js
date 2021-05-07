@@ -1,7 +1,7 @@
 import Footer from "../components/footer/Footer";
 import Navbar from "../components/nav/Navbar";
 import "../assets/css/profile.css";
-import {Link} from "react-router-dom";
+// import {Link} from "react-router-dom";
 import {useState} from "react";
 const Profile = () => {
   const [fileName, setfileName] = useState("No File Chosen");

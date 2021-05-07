@@ -13,7 +13,7 @@ const Footer = () => {
           Login
         </Link>{" "}
         <p>|</p>
-        <a href="#g" className="footer-link">
+        <a href="#g" className="footer-link link-last">
           Terms Of Use
         </a>
       </div>

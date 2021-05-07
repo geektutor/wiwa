@@ -1,0 +1,32 @@
+/* error display */
+.oops {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--text-color);
+  padding: 0 1rem;
+  width: 95%;
+  font-family: "Nunito";
+}
+.topics .oops,
+.main-discussion .oops {
+  display: flex;
+  min-height: auto;
+  margin: 2rem auto;
+  font-size: 15px;
+}
+.oops p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  width: 100%;
+  text-align: center;
+}
+.svg {
+  color: var(--text-color) !important;
+  font-size: 6rem;
+  width: 120px;
+  height: 120px;
+  animation: heartbeat 0.6s infinite;
+}

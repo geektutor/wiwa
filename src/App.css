@@ -1,7 +1,3 @@
-.App {
-  background: var(--bg-color);
-  width: 100vw;
-}
 .main-wrap,
 main {
   margin: 0 auto;
@@ -20,6 +16,8 @@ main {
 .pre-loader {
   width: 100vw;
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 1000;
   pointer-events: none;
   height: 100vh;
@@ -28,7 +26,18 @@ main {
   align-items: center;
   background-color: #dd5500;
 }
-
+.pre-loader.close {
+  animation: closeLoader 0.5s 2s linear forwards;
+}
+@keyframes closeLoader {
+  from {
+    clip-path: inset(0 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 100% 0);
+    display: none;
+  }
+}
 .pre-loader #wrap {
   position: relative;
   width: 170px;
@@ -39,7 +48,7 @@ main {
 .pre-loader svg {
   width: 100%;
   height: 100%;
-  animation: svgFill 1s 1.2s linear forwards, translateSvg 1s ease forwards;
+  animation: svgFill 0.7s 0.9s linear forwards, translateSvg 0.8s ease forwards;
   stroke-width: 2;
   transform: translateX(-150px);
 }
@@ -63,7 +72,7 @@ main {
   height: 2px;
   margin-top: -2.6rem;
   background-color: white;
-  animation: load 1s 3s infinite linear alternate-reverse;
+  animation: load 1s 2s infinite linear alternate-reverse;
   transform-origin: left;
   transform: scaleX(0) translateX(150px);
 }

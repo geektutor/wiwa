@@ -23,7 +23,7 @@ const SignUp = () => {
       {!isAuthorized && <AccessKey showForm={showForm} />}
       {isAuthorized && (
         <form className="login-form">
-          <div class="signup-text">
+          <div className="signup-text">
             <h3 className="logo">wiwa</h3>
           </div>
           <div className="form-group">
@@ -45,6 +45,8 @@ const SignUp = () => {
               name="sBio"
               id="s-bio"
               required
+              minLength="10"
+              maxLength="100"
               placeholder="Not more than 100 characters..."
             ></textarea>
           </div>
@@ -76,7 +78,7 @@ const SignUp = () => {
                 id="pwd"
                 required
                 placeholder="Password"
-                minlength="6"
+                minLength="6"
               />
               <i
                 onClick={e => handlePasswordType(e)}
