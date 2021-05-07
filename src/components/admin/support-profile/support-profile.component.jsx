@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Loader from '../../Loader';
 import Navbar from '../../nav/Navbar';
 import MobileNav from '../mobileNav/mobileNav.component'

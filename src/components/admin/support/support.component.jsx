@@ -4,10 +4,11 @@ import SideBar from '../sideBar/sideBar.component';
 import MobileNav from '../mobileNav/mobileNav.component';
 import { Link } from 'react-router-dom';
 import Loader from '../../Loader';
+import { useState } from 'react';
 
 const Support = () => {
     const [isLoading,setIsLoading]=useState(true)
-
+ 
     setTimeout(()=>{
         setIsLoading(false)
     },1000)

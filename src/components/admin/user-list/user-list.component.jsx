@@ -78,13 +78,13 @@ const UserList = () => {
 
                   </div>
 
-                  <div className="page">
+                  {/* <div className="page">
                       <p>Select Page:</p>
                       <select className="selector" name="" id="">
                           <option value="">1</option>
                           <option value="">2</option>
                       </select>
-                  </div>
+                  </div> */}
 
 
                 </div>
