@@ -11,7 +11,7 @@ import {useState} from "react";
 function Main() {
   const [url, setUrl] = useState("https://wiwa.herokuapp.com/users");
   const {data, error, isPending} = useFetch(url);
-  console.log(data, error, isPending);
+  console.log(url);
 
   const filterHandler = formData => setUrl(formData);
   return (
