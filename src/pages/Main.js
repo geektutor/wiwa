@@ -1,8 +1,12 @@
 import CardWrap from "../components/card/CardWrap";
 import Filter from "../components/filter/Filter";
+import Footer from "../components/footer/Footer";
 import Navbar from "../components/nav/Navbar";
+// import useFetch from "../hooks/useFetch";
 
 function Main() {
+  // const {data, error, isLoading} = useFetch("../assets/users.json");
+  // console.log(data, error, isLoading);
   return (
     <div className="main">
       <div className="main-wrap">
@@ -10,22 +14,7 @@ function Main() {
         <CardWrap />
       </div>
       <Navbar />
-      <footer>
-        <h1 className="logo logo-white">wiwa</h1>
-        <div className="center">
-          {" "}
-          <a href="#g" className="footer-link">
-            Login
-          </a>{" "}
-          |{" "}
-          <a href="#g" className="footer-link">
-            Terms Of Use
-          </a>
-        </div>
-        <div className="left">
-          <p>&copy; {new Date().getFullYear()}</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

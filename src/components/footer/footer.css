@@ -1,0 +1,26 @@
+/* footer */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-color);
+  width: 100%;
+  padding: 1rem;
+  margin-top: 4rem;
+  color: white;
+}
+footer > div {
+  display: flex;
+  align-items: center;
+}
+footer p {
+  font-size: 1rem;
+}
+footer *,
+footer .logo {
+  color: var(--sec-color) !important;
+}
+footer a,
+footer p {
+  margin-right: 1rem;
+}

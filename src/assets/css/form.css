@@ -11,9 +11,8 @@ main.container {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  /* width: 100%; */
   min-height: 100vh;
-  margin: 1rem 0;
 }
 #signup form {
   width: 60%;
@@ -65,7 +64,8 @@ main.container {
 }
 
 input,
-textarea {
+textarea,
+label.file-upload {
   width: 100%;
   height: 40px;
   margin: 0.4rem 0;
@@ -156,4 +156,28 @@ main.container form {
 }
 main.container form .btn {
   width: 100%;
+}
+.file-chosen {
+  text-align: center;
+}
+.file-chosen i {
+  color: var(--primary-color);
+  margin-right: 0.4rem;
+}
+.upload-wrap {
+  text-align: center;
+  padding: 1rem;
+}
+.upload-wrap h1 {
+  line-height: 1;
+  /* margin-top: 0.5rem; */
+}
+label.file-upload {
+  border: 1px dashed var(--primary-color);
+  background: rgba(221, 85, 0, 0.123);
+  min-height: 70px;
+  display: flex;
+  height: auto;
+  justify-content: center;
+  align-items: center;
 }

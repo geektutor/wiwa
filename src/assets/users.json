@@ -1,0 +1,60 @@
+{
+  "status": "Success",
+  "data": [
+    {
+      "id": "6093ba507f081d3ce02b1bc9",
+      "name": "TheBoy",
+      "email": "wiwa@wiwaa.com",
+      "bio": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae accusantium fugiat numquam maxime, ad culpa nihil illum possimus omnis!",
+      "skills": ["html", "css", "js"]
+    },
+    {
+      "id": "6093bb037f081d3ce02b1bca",
+      "name": "TheBoyAdmin",
+      "email": "wiwa1@wiwaa.com",
+      "skills": ["html", "digital marketing", "react"]
+    },
+    {
+      "id": "6093bbac7f081d3ce02b1bcb",
+      "name": "TheBoy2",
+      "email": "wiwa2@wiwaa.com",
+      "bio": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae accusantium fugiat numquam maxime, ad culpa nihil illum possimus omnis!",
+      "skills": ["digital marketing", "seo", "js"]
+    },
+    {
+      "id": "6093bbb47f081d3ce02b1bcc",
+      "name": "TheBoy3",
+      "email": "wiwa3@wiwaa.com",
+      "bio": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae accusantium fugiat numquam maxime, ad culpa nihil illum possimus omnis!",
+      "skills": ["html", "css", "js"]
+    },
+    {
+      "id": "6093bbbc7f081d3ce02b1bcd",
+      "name": "TheBoy4",
+      "email": "wiwa4@wiwaa.com",
+      "bio": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae accusantium fugiat numquam maxime, ad culpa nihil illum possimus omnis!",
+      "skills": ["wordpress", "php", "js"]
+    },
+    {
+      "id": "6093bbc47f081d3ce02b1bce",
+      "name": "TheBoy5",
+      "email": "wiwa5@wiwaa.com",
+      "bio": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae accusantium fugiat numquam maxime, ad culpa nihil illum possimus omnis!",
+      "skills": []
+    },
+    {
+      "id": "6093bbcb7f081d3ce02b1bcf",
+      "name": "TheBoy6",
+      "email": "wiwa6@wiwaa.com",
+      "bio": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae accusantium fugiat numquam maxime, ad culpa nihil illum possimus omnis!",
+      "skills": []
+    },
+    {
+      "id": "6093bbd67f081d3ce02b1bd0",
+      "name": "TheBoy7",
+      "email": "wiwa7@wiwaa.com",
+      "bio": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae accusantium fugiat numquam maxime, ad culpa nihil illum possimus omnis!",
+      "skills": []
+    }
+  ]
+}

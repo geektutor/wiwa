@@ -1,12 +1,13 @@
 import {useState} from "react";
 import {Link} from "react-router-dom";
-import "../assets/form.css";
+import "../assets/css/form.css";
 import AccessKey from "../components/AccessKey";
 
 const SignUp = () => {
   const [inputType, setInputType] = useState("password");
   // const [accessKey, setAccessKey] = useState("");
   const [isAuthorized, setisAuthorized] = useState(false);
+  const [fileName, setfileName] = useState("No File Chosen");
 
   const handlePasswordType = e => {
     e.target.classList.toggle("fa-eye-slash");
@@ -83,7 +84,30 @@ const SignUp = () => {
               ></i>
             </div>
           </div>
-
+          <div className="form-group">
+            <p>Upload CV in pdf format (must not be more than one page)</p>
+            <label className="file-upload" htmlFor="cv">
+              <div className="upload-wrap">
+                <h1>+</h1>
+                <p>Click To Upload CV</p>
+              </div>
+            </label>
+            <input
+              onChange={e => setfileName(e.target.files[0].name)}
+              type="file"
+              id="cv"
+              required
+              hidden
+            />
+            <br />
+            <span className="file-chosen br">
+              {fileName !== "No File Chosen" && (
+                <i className="fas fa-file-pdf"></i>
+              )}{" "}
+              {fileName}
+            </span>
+            <br />
+          </div>
           <button type="submit" className="btn">
             Sign Up
           </button>
