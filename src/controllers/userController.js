@@ -1,10 +1,12 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const responders = require('./../helpers/responders');
+const { sendData, sendError, sendSuccess } = require('./../helpers/responders');
+const { sanitizeUser } = require('./../helpers/helpers');
 const User = require('../models/user');
-const Question = require('../models/question');
+const Key = require('../models/key');
+const Feedback = require('./../models/feedback');
 
-const { sendData, sendError, sendSuccess } = responders;
+const WEEK_IN_MILLISECONDS = 604800000;
 
 const QUESTIONS = {
 	0: "What is your mother's maiden name",
@@ -16,19 +18,9 @@ const QUESTIONS = {
 
 const BCRYPT_SALT = 11;
 
-const sanitizeUser = (user) => ({
-	id: user._id,
-	name: user.name,
-	email: user.email,
-	shortBio: user.shortBio,
-	fullBio: user.fullBio,
-	cvLink: user.cvLink,
-	skills: user.skills,
-});
-
 const getUserById = async (req, res) => {
 	const { userId } = req.params;
-	const user = await User.findById(userId);
+	const user = await User.find({ _id: userId, active: true });
 	if (!user) sendError('User not found', 404, res);
 	sendData(sanitizeUser(user), 200, res);
 };
@@ -39,7 +31,10 @@ const getUsersByName = async (req, res) => {
 	if (!name) sendError('Name for searching was not provided', 400, res);
 
 	try {
-		let users = await User.find({ name: { $regex: name, $options: 'ig' } });
+		let users = await User.find({
+			name: { $regex: name, $options: 'ig' },
+			active: true,
+		});
 		console.log(users);
 		users = users.map(sanitizeUser);
 		sendData(users, 200, res);
@@ -49,7 +44,7 @@ const getUsersByName = async (req, res) => {
 };
 
 const getUsers = async (req, res) => {
-	let users = await User.find({});
+	let users = await User.find({ active: true });
 	users = users.map(sanitizeUser);
 	return sendData(users, 200, res);
 };
@@ -60,6 +55,7 @@ const getUsersBySkill = async (req, res) => {
 	try {
 		let users = await User.find({
 			skills: { $regex: skill, $options: 'ig' },
+			active: true,
 		});
 		users = users.map(sanitizeUser);
 		sendData(users, 200, res);
@@ -152,34 +148,29 @@ const refreshToken = async (req, res) => {
 
 const signupSecret = async (req, res) => {
 	const { accessKey } = req.body;
-
 	if (!accessKey) return sendError('Access Key Required', 400, res);
 
-	if (accessKey && accessKey === process.env.USER_ACCESS_KEY) {
-		const token = jwt.sign(
-			{
-				userType: 'user',
-			},
-			process.env.TOKEN_SECRET,
-			{
-				expiresIn: 60 * 20,
-			}
-		);
-		return sendData({ token }, 200, res);
-	} else if (accessKey && accessKey === process.env.ADMIN_ACCESS_KEY) {
-		const token = jwt.sign(
-			{
-				userType: 'admin',
-			},
-			process.env.TOKEN_SECRET,
-			{
-				expiresIn: 60 * 20,
-			}
-		);
-		return sendData({ token }, 200, res);
+	let key;
+	try {
+		var regex = new RegExp(['^', accessKey, '$'].join(''), 'ig');
+		key = await Key.find({
+			key: regex,
+		});
+		console.log(key);
+	} catch (e) {
+		return sendError('Invalid Access Key Provided', 400, res);
 	}
 
-	sendError('Incorrect Access Key', 400, res);
+	const token = jwt.sign(
+		{
+			userType: 'user',
+		},
+		process.env.TOKEN_SECRET,
+		{
+			expiresIn: 60 * 20,
+		}
+	);
+	return sendData({ token }, 200, res);
 };
 
 const signupInfo = async (req, res) => {
@@ -193,7 +184,7 @@ const signupInfo = async (req, res) => {
 		return sendError('Invalid Token', 401, res);
 	}
 
-	const isAdmin = verifiedToken.userType === 'admin';
+	if (!verifiedToken.userType) return sendError('Invalid Token', 401, res);
 
 	const { name, email, password, shortBio, fullBio, cvLink } = req.body;
 	if (!name || !email || !password || !shortBio || !cvLink)
@@ -216,7 +207,7 @@ const signupInfo = async (req, res) => {
 		shortBio,
 		fullBio,
 		cvLink,
-		isAdmin,
+		isAdmin: false,
 	});
 	await user.save();
 	sendData(sanitizeUser(user), 201, res);
@@ -273,6 +264,27 @@ const signupQuestions = async (req, res) => {
 	sendData(sanitizeUser(user), 201, res);
 };
 
+const createFeedback = async (req, res) => {
+	const { title, message } = req.body;
+	if (!title || !message)
+		return sendError('Title and/or Message not included', 400, res);
+
+	let feedback = new Feedback({
+		title,
+		message,
+		user: req.user._id,
+	});
+
+	try {
+		await feedback.save();
+	} catch (e) {
+		console.log(e.message);
+		return sendError('Server Error', 500, res);
+	}
+
+	sendSuccess('Feedback Created', 201, res);
+};
+
 const editUser = async (req, res) => {
 	const { name, email, password, cvLink, bio, skills } = req.body;
 	const { userId } = req.params;
@@ -293,8 +305,16 @@ const editUser = async (req, res) => {
 		const hash = await bcrypt.hash(password, salt);
 		user.password = hash;
 	}
+	if (cvLink) {
+		const lastCvChange = new Date(user.cvChanged);
+		const currentDay = new Date(Date.now());
+		const dateDifference = currentDay - lastCvChange;
+		if (dateDifference <= WEEK_IN_MILLISECONDS)
+			return sendError('Minimum of 1 week between changing CV', 403, res);
+		user.cvLink = cvLink;
+		user.cvChanged = currentDay;
+	}
 
-	user.cvLink = cvLink || user.cvLink;
 	user.bio = bio || user.bio;
 	user.skills = skills && skills.length > 0 ? skills : user.skills;
 
@@ -350,6 +370,7 @@ module.exports = {
 	getUserById,
 	getUsersByName,
 	getUsersBySkill,
+	createFeedback,
 	changePassword,
 	getUsers,
 	login,

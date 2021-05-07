@@ -6,17 +6,13 @@ const { userAuth, adminAuth } = require('../middlewares/auth');
 
 const userRouter = express.Router();
 
-userRouter.get('/:userId', userAuth, userController.getUserById);
+userRouter.get('/:userId', userController.getUserById);
 
-userRouter.get('/search/:name', userAuth, userController.getUsersByName);
+userRouter.get('/search/:name', userController.getUsersByName);
 
-userRouter.get(
-	'/search/skill/:skill',
-	userAuth,
-	userController.getUsersBySkill
-);
+userRouter.get('/search/skill/:skill', userController.getUsersBySkill);
 
-userRouter.get('/', userAuth, userController.getUsers);
+userRouter.get('/', userController.getUsers);
 
 userRouter.post('/login', userController.login);
 
@@ -29,6 +25,8 @@ userRouter.post('/signup/questions', userController.signupQuestions);
 userRouter.post('/refresh-token', userController.refreshToken);
 
 userRouter.post('/change-password', userController.changePassword);
+
+userRouter.post('/feedback/create', userAuth, userController.createFeedback);
 
 userRouter.put('/edit/:userId', userAuth, userController.editUser);
 

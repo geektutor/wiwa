@@ -5,14 +5,14 @@ require('dotenv').config();
 
 const dbConnector = require('./utils/db');
 const userRouter = require('./routes/userRouter');
-const questionRouter = require('./routes/questionRouter');
+const adminRouter = require('./routes/adminRouter');
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(helmet());
 
-// app.use('/questions', questionRouter);
+app.use('/admin', adminRouter);
 app.use('/users', userRouter);
 
 app.use('/', (req, res) => {

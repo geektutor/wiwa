@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
+		cvChanged: {
+			type: Date,
+			default: new Date(Date.now()),
+		},
 		shortBio: {
 			type: String,
 			required: true,
@@ -29,6 +33,10 @@ const userSchema = new mongoose.Schema(
 		isAdmin: {
 			type: Boolean,
 			default: false,
+		},
+		active: {
+			type: Boolean,
+			default: true,
 		},
 		questions: [
 			{

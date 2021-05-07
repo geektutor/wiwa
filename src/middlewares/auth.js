@@ -29,7 +29,12 @@ const adminAuth = async (req, res, next) => {
 const userAuth = async (req, res, next) => {
 	const token = req.get('token');
 	if (!token) return sendError('No Auth Token', 401, res);
-	verifiedAccessToken = jwt.verify(token, process.env.TOKEN_SECRET);
+	let verifiedAccessToken;
+	try {
+		verifiedAccessToken = jwt.verify(token, process.env.TOKEN_SECRET);
+	} catch (e) {
+		console.log(e);
+	}
 	if (!verifiedAccessToken) return sendError('Invalid Auth Token', 401, res);
 	if (!verifiedAccessToken.userId)
 		return sendError('Invalid Auth Token', 401, res);
