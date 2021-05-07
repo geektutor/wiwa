@@ -20,8 +20,8 @@ const BCRYPT_SALT = 11;
 
 const getUserById = async (req, res) => {
 	const { userId } = req.params;
-	const user = await User.find({ _id: userId, active: true });
-	if (!user) sendError('User not found', 404, res);
+	const user = await User.findOne({ _id: userId, active: true });
+	if (!user) return sendError('User not found', 404, res);
 	sendData(sanitizeUser(user), 200, res);
 };
 
