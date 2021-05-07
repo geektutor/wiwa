@@ -7,9 +7,9 @@ const Navbar = () => {
       <h2 className="logo">wiwa</h2>
       <ul className="navList">
         <li className="navLink">
-          <a href="#f" className="btn">
-            + Add
-          </a>
+          <Link to="/" className="btn">
+            Home
+          </Link>
         </li>
         <li className="navLink">
           <Link to="/profile" className="btn btn-tp">
