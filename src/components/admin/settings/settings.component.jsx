@@ -11,7 +11,7 @@ const Settings = () => {
 
     setTimeout(()=>{
         setIsLoading(false)
-    },1000)
+    },500)
 
     const[openForm,setOpenForm] = useState(false)
     const[openAffirm,setOpenAffirm]= useState(false)

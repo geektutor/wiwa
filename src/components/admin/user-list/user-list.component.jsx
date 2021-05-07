@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Footer from '../../footer/Footer'
 import Loader from '../../Loader';
 import Navbar from '../../nav/Navbar'
 import MobileNav from '../mobileNav/mobileNav.component';
@@ -13,7 +12,7 @@ const UserList = () => {
 
     setTimeout(()=>{
       setIsLoading(false)
-    },1000)
+    },500)
   
     return ( 
         <div className="overall">

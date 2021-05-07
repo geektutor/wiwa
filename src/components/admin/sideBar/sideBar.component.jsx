@@ -12,18 +12,18 @@ const SideBar = ({active}) => {
               <div className="navList">
                   
             
-                <Link to="/admin/users" className={`${active=='list'?'active':null}`}>
+                <Link to="/admin/users" className={`${active==='list'?'active':null}`}>
                     <img src={list} alt="List Icon"/>
                     <p>Users</p>
 
                 </Link>
-                <Link to="/admin/support" className={`${active=='support'?'active':null}`} >
+                <Link to="/admin/support" className={`${active==='support'?'active':null}`} >
                     <img src={megaphone} alt="Megaphone Icon"/>
                     <p>Support</p>
                 </Link>
                 <div className="circle1"></div>
                 
-                <Link to="/admin/settings" className={`${active=='set'?'active':null}`}>
+                <Link to="/admin/settings" className={`${active==='set'?'active':null}`}>
                     <img src={set} alt="Settigs Icon"/>
                     <p>Settings</p>
                 </Link>

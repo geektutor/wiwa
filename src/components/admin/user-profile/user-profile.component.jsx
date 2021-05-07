@@ -10,7 +10,7 @@ const UserProfile = () => {
 
     setTimeout(()=>{
         setIsLoading(false)
-    },1000)
+    },500)
     
     return ( 
         <div className="overall">
