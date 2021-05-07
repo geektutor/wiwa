@@ -28,7 +28,7 @@ const UserDetail = () => {
           Bio: Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero
           perferendis sapiente minima deserunt debitis! Officia.
         </p>
-        <a href="#" className="btn" download>
+        <a href="#f" className="btn" download>
           Download CV
         </a>
       </main>

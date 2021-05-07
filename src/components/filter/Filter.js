@@ -7,6 +7,7 @@ const Filter = ({filterUrl}) => {
   const handleSubmit = e => {
     e.preventDefault();
     filterUrl(`${url}${searchVal}`);
+    setsearchVal("");
   };
   return (
     <section>

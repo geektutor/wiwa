@@ -7,7 +7,7 @@ const useFetch = url => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // const abortCont = new AbortController();
+    const abortCont = new AbortController();
     setIsPending(true);
     setData(null);
     fetch(url)
@@ -19,15 +19,14 @@ const useFetch = url => {
         return res.json();
       })
       .then(json => {
+        setIsPending(false);
         if (json.status === "Success") {
-          setIsPending(false);
           setData(json.data);
           setError(null);
         } else {
           setError(json.message);
           displayMsg("error", json.message);
         }
-        console.log(json);
       })
       .catch(err => {
         if (err.name === "AbortError") {
@@ -42,7 +41,7 @@ const useFetch = url => {
       });
 
     // abort the fetch
-    // return () => abortCont.abort();
+    return () => abortCont.abort();
   }, [url]);
 
   return {data, isPending, error};
