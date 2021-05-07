@@ -7,6 +7,7 @@ import useFetch from "../hooks/useFetch";
 import Loader from "../components/Loader";
 import ConnectionError from "../components/errors/connectionError";
 import {useState} from "react";
+import NoContent from "../components/errors/NoContent";
 
 function Main() {
   const [url, setUrl] = useState("https://wiwa.herokuapp.com/users");
@@ -16,13 +17,13 @@ function Main() {
   const filterHandler = formData => setUrl(formData);
   return (
     <div className="main">
+      <Navbar />
       <div className="main-wrap">
         <Loader close={!isPending} />
         <Filter filterUrl={filterHandler} />
         {data && !isPending && <CardWrap users={data} />}
         {error && <ConnectionError />}
       </div>
-      <Navbar />
       <Footer />
     </div>
   );
