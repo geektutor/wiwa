@@ -1,9 +1,9 @@
 nav {
-  width: 100vw;
+  width: 100%;
   /* max-width: 1300px; */
   position: fixed;
   top: 0;
-  z-index: inherit;
+  z-index: 100;
   left: 0%;
   background-color: var(--sec-color);
   /* transform: translateX(-50%); */

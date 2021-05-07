@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 import "./nav.css";
 
 const Navbar = () => {
@@ -11,9 +12,9 @@ const Navbar = () => {
           </a>
         </li>
         <li className="navLink">
-          <a href="#f">
+          <Link to="/profile">
             <button className="btn btn-tp">Profile</button>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>

@@ -21,6 +21,7 @@
 body {
   margin: 0;
   height: 100vh;
+  overflow-x: hidden;
   font-family: "Work Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

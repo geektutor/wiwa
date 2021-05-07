@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 import classes from "./card.module.css";
 
 const Card = () => {
@@ -9,11 +10,11 @@ const Card = () => {
         Bio: Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam,
         harum.
       </p>
-      <a href="/">
+      <Link to="/user/details">
         <button type="button" className="btn">
           View Details
         </button>
-      </a>
+      </Link>
     </div>
   );
 };

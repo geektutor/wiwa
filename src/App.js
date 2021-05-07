@@ -5,6 +5,8 @@ import SignUp from "./pages/signUp";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import ForgotPassword from "./pages/forgotpassWord";
 import Otp from "./pages/Otp";
+import Profile from "./pages/Profile";
+import UserDetail from "./pages/UserDetail";
 
 function App() {
   return (
@@ -25,6 +27,12 @@ function App() {
           </Route>
           <Route path="/otp">
             <Otp />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/user/details">
+            <UserDetail />
           </Route>
         </Switch>
       </div>

@@ -1,0 +1,35 @@
+.details-wrap {
+  background-color: var(--sec-color);
+  padding: 1.5rem;
+}
+.details-wrap .name {
+  color: var(--primary-color);
+}
+.details-wrap p {
+  font-size: 1rem;
+}
+.details-wrap .btn {
+  width: auto;
+  display: inline-block;
+}
+.details-wrap .br {
+  margin: 1rem 0;
+}
+.details-wrap .skill {
+  background: rgba(221, 85, 0, 0.123);
+  /* color: white; */
+  padding: 0.1rem 0.5rem;
+  margin: 0 0.5rem;
+  font-size: 0.8rem;
+  border-radius: 5px;
+  min-width: 150px;
+  border: 1px dashed var(--primary-color);
+}
+.wrap {
+  margin-top: 2rem;
+}
+.wrap h3,
+h3 i {
+  color: #474747;
+  font-size: 1.3rem;
+}
