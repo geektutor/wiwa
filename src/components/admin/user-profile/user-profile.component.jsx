@@ -1,8 +1,10 @@
+import Navbar from '../../nav/Navbar';
 import './user-profile.style.scss'
 
 const UserProfile = () => {
     return ( 
         <div className="user-profile">
+            <Navbar/>
         
             <div className="heading">
                 <p className="text usersname">Raji Mustapha</p>

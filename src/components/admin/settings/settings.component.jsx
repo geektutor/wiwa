@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import Navbar from '../../nav/Navbar';
+import MobileNav from '../mobileNav/mobileNav.component';
+import SideBar from '../sideBar/sideBar.component';
 import './settings.style.scss'
 
 const Settings = () => {
@@ -18,8 +21,15 @@ const Settings = () => {
 
 
     return ( 
-        <div className="user-profile">
-        
+        <div className="overall">
+            <Navbar/>
+
+            
+
+            <SideBar active={'set'}/>
+
+            <div className="coverSection">
+
             <div className="heading">
                 <p className="text usersname">Settings</p>
                 
@@ -112,6 +122,10 @@ const Settings = () => {
                     </div>
             </div>
             
+
+            </div>
+        
+            <MobileNav/>
 
         </div> 
      );

@@ -1,76 +1,16 @@
 @import "../scss/mixin";
 @import "../scss/variables";
-
+@import "../scss/heading";
+@import "../scss/layout";
 // .userlist{
 //     width: 100%;
 //     background: $orange;
 //     height: 100vh;
 // }
 
-.heading{
-    width: 80%;
-    margin: auto;
-    margin-top: 90px;
-    background-color: $orange;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 10px;
-    padding: 10px;
-    @include mq(600px){
-        width: 90%;
-        flex-direction: column;
-    }
-    .text{
-        font-size: 20px;
-        font-weight: 700;
-        color: $white;
-        @include mq(600px){
-           font-size: 13px;
-        }
-    }
-    form{
-        width: 40%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        @include mq(600px){
-            width:100%;
-            margin-bottom: 20px;
-            margin-top: 5px
-            
-        }
-        input{
-            @include button;
-            width: 70%;
-            padding:0 8px;
-            border-radius: 0;
-            border-top-left-radius: 3px;
-            border-bottom-left-radius: 3px;
-            height: 40px
 
-        }
-        button{
-            @include button;
-            width: 20%;
-            padding:0 8px;
-            border-radius: 0;
-            background-color: $white;
-            height: 40px;
-            color: white;
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-            border-left: 1px solid $orange;
-            .fas{
-                color: $orange;
-            }
-        }
-    }
-
-}
 .cover{
-    width: 80%;
+    width: 70%;
     margin: auto;
     @include mq(600px){
         width: 90%;

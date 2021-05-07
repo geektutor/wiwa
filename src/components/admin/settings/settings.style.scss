@@ -1,31 +1,9 @@
 @import "../scss/mixin";
 @import "../scss/variables";
+@import "../scss/heading";
 
 
 
-.heading{
-    width: 80%;
-    margin: auto;
-    margin-top: 90px;
-    background-color: $orange;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 10px;
-    @include mq(600px){
-        width: 90%;
-    }
-    .text{
-        font-size: 20px;
-        font-weight: 700;
-        color: $white;
-        @include mq(600px){
-           font-size: 16px;
-        }
-    }
-
-}
 
 section.second{
     width: 80%;
