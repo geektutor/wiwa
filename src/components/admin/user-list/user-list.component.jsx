@@ -6,6 +6,7 @@ import SideBar from '../sideBar/sideBar.component';
 import './user-list.style.scss'
 
 const UserList = () => {
+  
     return ( 
         <div className="overall">
           <Navbar />
