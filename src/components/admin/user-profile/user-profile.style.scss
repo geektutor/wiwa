@@ -1,0 +1,267 @@
+@import "../scss/mixin";
+@import "../scss/variables";
+
+
+
+.heading{
+    width: 80%;
+    margin: auto;
+    margin-top: 90px;
+    background-color: $orange;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    @include mq(600px){
+        width: 90%;
+    }
+    .text{
+        font-size: 20px;
+        font-weight: 700;
+        color: $white;
+        @include mq(600px){
+           font-size: 16px;
+        }
+    }
+
+}
+
+section.second{
+    width: 80%;
+    margin: auto;
+    padding-bottom: 30px;
+    @include mq(600px){
+        width: 90%;
+    }
+
+    .firstBlock{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        margin-top: 30px;
+
+        @include mq(600px){
+            flex-direction: column;
+        }
+
+        .details{
+            @include boxes;
+            padding: 20px;
+            width: 40%;
+            border-radius: 10px;
+            @include mq(600px){
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            p{
+                color: $orange;
+            }
+            .title{
+                font-size: 18px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 20px;
+                @include mq(600px){
+                   font-size: 16px;
+                }
+
+            }
+            .eachDetail{
+                font-size: 16px;
+                font-weight: 400;
+                margin-bottom: 15px;
+                @include mq(600px){
+                    font-size: 14px;
+                }
+            }
+         
+        }
+        .coverall{
+            width:40%;
+            @include boxes;
+            @include mq(600px){
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .actions{
+                width: 100%;
+                display: flex;
+                background: $white;
+                padding: 20px;
+                flex-wrap: wrap;
+                border-radius: 10px;
+                justify-content: space-around;
+                @include mq(600px){
+                    width: 100%;
+                    margin-bottom: 20px;
+                }
+                button{
+                    @include button;
+                    width: 45%;
+                    margin-bottom: 20px;
+                    cursor: pointer;
+                    @include mq(600px){
+                        width: 100%;
+                    }
+                }
+                .enlist{
+                    background: rgb(103, 207, 103);
+                    color:white;
+                }
+                .delist{
+                    background: rgb(207, 60, 60);
+                    color: white;
+                }
+                .delete{
+                    background: $orange;
+                    color: white;
+                }
+    
+    
+            }
+           
+
+        }
+        
+    }
+
+    .secondBlock{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        @include mq(600px){
+            flex-direction: column;
+        }
+        .skill{
+            @include boxes;
+            padding: 20px;
+            width: 40%;
+            border-radius: 10px;
+            @include mq(600px){
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            p{
+                color: $orange;
+            }
+            .title{
+                font-size: 18px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 20px;
+                @include mq(600px){
+                   font-size: 16px;
+                }
+
+            }
+            .skill-box{
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+              
+                p{
+                 background: $orange;
+                 color: $white;
+                 padding: 7px;
+                 border-radius: 5px;
+                //  width: 30%;   
+                 font-size: 16px;
+                font-weight: 600;
+                transition: 0.3s ease;
+                margin-bottom: 15px;
+                @include mq(600px){
+                    font-size: 14px;
+                }
+                &:hover {
+                    box-shadow: var(--focus-shadow);
+                    outline: none;
+                    cursor: pointer;
+                  }
+                }
+            }
+        }
+
+        .small-bio-block{
+            @include boxes;
+            padding: 20px;
+            width: 50%;
+            border-radius: 10px;
+            @include mq(600px){
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .title{
+                font-size: 18px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 20px;
+                color: $orange;
+                @include mq(600px){
+                   font-size: 16px;
+                }
+
+            }
+            .short-bio{
+                font-size: 14px;
+                font-weight: 400;
+                color: $black;
+                line-height: 28px;
+                @include mq(600px){
+                   font-size: 12px;
+                }
+
+            }
+            
+
+        }
+    }
+
+    .thirdBox{
+        width: 100%;
+        margin-bottom: 30px;
+        .full-bio{
+            @include boxes;
+            padding: 20px;
+            width: 80%;
+            margin: auto;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            @include mq(600px){
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .title{
+                font-size: 18px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 20px;
+                color: $orange;
+                @include mq(600px){
+                   font-size: 16px;
+                }
+
+            }
+            .long-bio{
+                font-size: 14px;
+                font-weight: 400;
+                color: $black;
+                line-height: 28px;
+                @include mq(600px){
+                   font-size: 12px;
+                }
+
+            }
+            
+
+        }
+    }
+
+   
+}

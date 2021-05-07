@@ -1,0 +1,128 @@
+@import "../scss/mixin";
+@import "../scss/variables";
+
+
+
+.heading{
+    width: 80%;
+    margin: auto;
+    margin-top: 90px;
+    background-color: $orange;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    @include mq(600px){
+        width: 90%;
+    }
+    .text{
+        font-size: 20px;
+        font-weight: 700;
+        color: $white;
+        @include mq(600px){
+           font-size: 16px;
+        }
+    }
+
+}
+
+section.second{
+    width: 80%;
+    margin: auto;
+    padding-bottom: 30px;
+    @include mq(600px){
+        width: 90%;
+    }
+
+    .firstBlock{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+        margin-top: 30px;
+
+        @include mq(600px){
+            flex-direction: column;
+        }
+
+        .details{
+            @include boxes;
+            padding: 20px;
+            width: 40%;
+            border-radius: 10px;
+            @include mq(600px){
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            p{
+                color: $orange;
+            }
+            .title{
+                font-size: 18px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 20px;
+                @include mq(600px){
+                   font-size: 16px;
+                }
+
+            }
+            .eachDetail{
+                font-size: 16px;
+                font-weight: 400;
+                margin-bottom: 15px;
+                @include mq(600px){
+                    font-size: 14px;
+                }
+            }
+         
+        }
+       
+        
+    }
+
+
+    .thirdBox{
+        width: 100%;
+        margin-bottom: 30px;
+        .full-bio{
+            @include boxes;
+            padding: 20px;
+            width: 100%;
+            margin: auto;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            @include mq(600px){
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            .title{
+                font-size: 18px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 20px;
+                color: $orange;
+                @include mq(600px){
+                   font-size: 16px;
+                }
+
+            }
+            .long-bio{
+                font-size: 14px;
+                font-weight: 400;
+                color: $black;
+                line-height: 28px;
+                @include mq(600px){
+                   font-size: 12px;
+                }
+
+            }
+            
+
+        }
+    }
+
+   
+}

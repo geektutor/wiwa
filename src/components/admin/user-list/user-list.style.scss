@@ -1,0 +1,198 @@
+@import "../scss/mixin";
+@import "../scss/variables";
+
+.heading{
+    width: 80%;
+    margin: auto;
+    margin-top: 90px;
+    background: $orange;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: $orange;
+    @include mq(600px){
+        width: 90%;
+        flex-direction: column;
+    }
+    .text{
+        font-size: 20px;
+        font-weight: 700;
+        color: $orange;
+        @include mq(600px){
+           font-size: 13px;
+        }
+    }
+    form{
+        width: 40%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @include mq(600px){
+            width:100%;
+            margin-bottom: 20px;
+            margin-top: 5px
+            
+        }
+        input{
+            @include button;
+            width: 70%;
+            padding:0 8px;
+            border-radius: 0;
+            border-top-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            height: 40px
+
+        }
+        button{
+            @include button;
+            width: 20%;
+            padding:0 8px;
+            border-radius: 0;
+            background-color: $white;
+            height: 40px;
+            color: white;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            border-left: 1px solid $orange;
+            .fas{
+                color: $orange;
+            }
+        }
+    }
+
+}
+
+.cover{
+    width: 80%;
+    margin: auto;
+    @include mq(600px){
+        width: 90%;
+    }
+
+
+
+    .overFlow{
+        overflow-x:auto;
+        width: 100%;
+        margin-top: 20px;
+        table{
+  
+            width: 800px;    
+            margin: auto;
+            margin-top: 30px;
+            border-spacing:0 15px;
+            thead{
+                tr{
+          
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: $white;
+                        th{
+                            color: $orange;
+                        }
+                    
+          
+
+                }
+            }
+            tbody{
+                tr{
+                  
+                        background: $white;
+                        color: $orange;
+                        text-align: center;
+                       
+                        td{
+                            padding: 15px;
+                            font-size: 16px;
+                          
+                        }
+                        .first{
+                            border-top-left-radius: 10px;
+                            border-bottom-left-radius: 10px;
+
+                        }
+                        .last{
+                            border-top-right-radius: 10px;
+                            border-bottom-right-radius: 10px;
+                            a{
+                                text-decoration: none;
+                                button{
+                                    @include button;
+                                    width: 100px;
+                                    background-color: $orange;
+                                    color: $white;
+                                    transition: 0.5s ease;
+                                    // &:hover{
+                                    //     background-color: $white;
+                                    //     color: $orange;
+                                    //     border: 1px solid $orange;
+
+                                    // }
+                                }
+                            }
+                        }
+                            
+                    }
+                    
+
+                } 
+
+        }
+
+        &::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            background-color: $orange;
+        }
+
+        &::-webkit-scrollbar
+        {
+            height: 7px;
+            background-color: $orange; 
+        }
+
+        &::-webkit-scrollbar-thumb
+        {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+            background-color: $white;
+        
+        }
+           
+            
+         
+    }
+
+    .page{
+        width: 90%;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 20px;
+        @include mq(800px){
+            width: 100%;
+        }
+        p{
+            font-size: 16px;
+            font-weight: 600;
+            color: $orange;
+            margin-right: 5px;
+        }
+        select{
+                    
+            width: 50px;
+            flex-grow: unset;
+            padding: 5px;
+            border-radius: 3px;
+            background: $white;
+            color: $orange;
+        }
+    }
+ 
+        
+}

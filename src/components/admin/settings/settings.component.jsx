@@ -1,0 +1,120 @@
+import { useState } from 'react';
+import './settings.style.scss'
+
+const Settings = () => {
+
+    const[openForm,setOpenForm] = useState(false)
+    const[openAffirm,setOpenAffirm]= useState(false)
+
+     const handleOpen=()=>{
+        
+         setOpenForm(!openForm)
+     }
+
+     const handleAffirm=(id)=>{
+         console.log(id)
+        setOpenAffirm(!openAffirm)
+    }
+
+
+    return ( 
+        <div className="user-profile">
+        
+            <div className="heading">
+                <p className="text usersname">Settings</p>
+                
+            </div>
+
+            <section className="second">
+                
+                <div className="secondBlock">
+
+                   <div className="question">
+                        <p className="title">Question</p>
+                        <p className="text">
+                            Who is the leader of your group in Christian Church Of God Mission
+                        </p>
+                        
+                            <button className="edit" onClick={handleOpen} >Edit</button>
+                        
+                    </div>
+
+                    
+                    <div className="answers">
+                        <p className="title">Answers</p>
+
+                        <div className="ans-box">
+                            <div className="ans"> <span>Tope</span>  <i onClick={()=>{handleAffirm('123')}} className="fas fa-times"></i> </div>
+                            <div className="ans"> <span>Sodiq</span> <i onClick={()=>{handleAffirm('1235')}} className="fas fa-times"></i> </div>
+                            <div className="ans"> <span>Mustapha</span> <i onClick={()=>{handleAffirm('12356')}} className="fas fa-times"></i> </div>
+                            <div className="ans"> <span>Adenuga</span> <i className="fas fa-times"></i> </div>
+                            <div className="ans"> <span>Muqit</span> <i className="fas fa-times"></i> </div>
+                            <div className="ans"> <span>Kanipee</span> <i className="fas fa-times"></i> </div>
+                            
+                        </div>
+
+                        <form action="" className="addAnswer">
+                            <input type="text" name="name" placeholder="Add Answer"/>
+                            <button type="submit"><i className="fas fa-search"></i></button>
+                        </form>
+
+
+                    
+
+                    </div>
+
+                   
+                </div>
+
+               
+
+
+            </section>
+
+
+            <div className={`${openForm?'open':'closed'} modal`} onClick={handleOpen} >
+                    <div className="modal-content">
+                        <span  onClick={handleOpen }className="close">&times;</span>
+                    
+                        <h3>Edit Question</h3>
+                        
+                        <form action="">
+                        
+        
+                        <div className="group">
+                            <label >Question</label>
+                            <input type="text"  /> 
+                        
+                        </div>
+                        <button type="submit">Edit</button>
+        
+                    
+        
+                        </form>
+                    </div>
+            </div>
+            
+            <div className={`${openAffirm?'open':'closed'} modal`} onClick={handleAffirm } >
+                    <div className="modal-content">
+                        <span  onClick={handleAffirm }className="close">&times;</span>
+                    
+                        <h3>Warning</h3>
+                        
+                        <form action="">
+                        
+        
+                        <p>Are you sure you want to delete this answer?</p>
+                        <button >Delete</button>
+        
+                    
+        
+                        </form>
+                    </div>
+            </div>
+            
+
+        </div> 
+     );
+}
+ 
+export default Settings;
