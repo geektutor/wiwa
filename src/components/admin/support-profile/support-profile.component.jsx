@@ -24,7 +24,7 @@ const SupportProfile = () => {
           <div className="coverSection">
 
           <div className="heading">
-                <p className="text usersname">Support Profile</p>
+                <p className="text usersname">Support Message</p>
                 
             </div>
 
@@ -38,10 +38,6 @@ const SupportProfile = () => {
                     </p>   
                     <p className="email eachDetail">
                         Email: <span>rajimustapha30@gmail.com</span>
-                    </p>
-
-                    <p className="status eachDetail">
-                        Status: <span>User</span>
                     </p>
 
                 </div>
