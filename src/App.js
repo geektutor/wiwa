@@ -12,6 +12,8 @@ import SupportProfile from "./components/admin/support-profile/support-profile.c
 import Settings from "./components/admin/settings/settings.component";
 import Profile from "./pages/Profile";
 import UserDetail from "./pages/UserDetail";
+import LoginAdmin from "./components/admin/login/login.component";
+import ForgotPasswordAdmin from "./components/admin/forgetpwd/forgetpwd.component";
 
 function App() {
   return (
@@ -34,6 +36,13 @@ function App() {
             <Otp />
           </Route>
           <Route exact path="/admin">
+            <LoginAdmin/>
+
+          </Route>
+          <Route path="/admin/forgotpwd">
+            <ForgotPasswordAdmin/>
+          </Route>
+          <Route exact path="/admin/users">
             <UserList/>
           </Route>
           <Route path="/admin/userprofile">

@@ -12,7 +12,7 @@ const SideBar = ({active}) => {
               <div className="navList">
                   
             
-                <Link to="/admin" className={`${active=='list'?'active':null}`}>
+                <Link to="/admin/users" className={`${active=='list'?'active':null}`}>
                     <img src={list} alt="List Icon"/>
                     <p>Users</p>
 

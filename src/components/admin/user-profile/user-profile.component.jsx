@@ -4,6 +4,7 @@ import SideBar from '../sideBar/sideBar.component';
 import './user-profile.style.scss'
 
 const UserProfile = () => {
+    
     return ( 
         <div className="overall">
             <Navbar />
