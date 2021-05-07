@@ -1,10 +1,17 @@
 import { useState } from 'react';
+import Loader from '../../Loader';
 import Navbar from '../../nav/Navbar';
 import MobileNav from '../mobileNav/mobileNav.component';
 import SideBar from '../sideBar/sideBar.component';
 import './settings.style.scss'
 
 const Settings = () => {
+
+    const [isLoading,setIsLoading]=useState(true)
+
+    setTimeout(()=>{
+        setIsLoading(false)
+    },1000)
 
     const[openForm,setOpenForm] = useState(false)
     const[openAffirm,setOpenAffirm]= useState(false)
@@ -21,6 +28,7 @@ const Settings = () => {
 
     return ( 
         <div className="overall">
+            <Loader close={!isLoading}/>
             <Navbar/>
             <SideBar active={'set'}/>
 

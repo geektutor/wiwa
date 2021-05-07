@@ -1,12 +1,20 @@
 import Navbar from '../../nav/Navbar';
+import Loader from "../../Loader";
 import MobileNav from '../mobileNav/mobileNav.component';
 import SideBar from '../sideBar/sideBar.component';
 import './user-profile.style.scss'
+import { useState } from 'react';
 
 const UserProfile = () => {
+    const [isLoading,setIsLoading]=useState(true)
+
+    setTimeout(()=>{
+        setIsLoading(false)
+    },1000)
     
     return ( 
         <div className="overall">
+            <Loader close={!isLoading} />
             <Navbar />
           
             <SideBar active={'list'}/>

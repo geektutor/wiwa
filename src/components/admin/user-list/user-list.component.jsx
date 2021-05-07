@@ -1,14 +1,23 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../../footer/Footer'
+import Loader from '../../Loader';
 import Navbar from '../../nav/Navbar'
 import MobileNav from '../mobileNav/mobileNav.component';
 import SideBar from '../sideBar/sideBar.component';
 import './user-list.style.scss'
 
 const UserList = () => {
+
+  const [isLoading,setIsLoading] = useState(true)
+
+    setTimeout(()=>{
+      setIsLoading(false)
+    },1000)
   
     return ( 
         <div className="overall">
+          <Loader close={!isLoading}/>
           <Navbar />
           
           <SideBar active={'list'}/>

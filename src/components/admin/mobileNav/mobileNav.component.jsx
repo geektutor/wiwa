@@ -8,20 +8,20 @@ import { Link } from 'react-router-dom';
 
 const MobileNav = () => {
     return ( 
-        <div class="mobileNav">
-            <div class="navList">
+        <div className="mobileNav">
+            <div className="navList">
                 <Link to="/admin/users">
                     <img src={list} alt="List Icon"/>
                     <p>Users</p>
 
                 </Link>
-                <Link to="/admin/support" class="line">
+                <Link to="/admin/support" className="line">
                     <img src={megaphone} alt="Megaphone Icon"/>
                     <p>Support</p>
                 </Link>
-                <div class="circle1"></div>
+                <div className="circle1"></div>
                 
-                <Link to="/admin/settings" class="line2">
+                <Link to="/admin/settings" className="line2">
                     <img src={set} alt="Settigs Icon"/>
                     <p>Settings</p>
                 </Link>

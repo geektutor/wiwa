@@ -3,10 +3,17 @@ import './support.style.scss'
 import SideBar from '../sideBar/sideBar.component';
 import MobileNav from '../mobileNav/mobileNav.component';
 import { Link } from 'react-router-dom';
+import Loader from '../../Loader';
 
 const Support = () => {
+    const [isLoading,setIsLoading]=useState(true)
+
+    setTimeout(()=>{
+        setIsLoading(false)
+    },1000)
     return ( 
         <div className="overall">
+            <Loader close={!isLoading} />
             <Navbar/>
 
             <SideBar active={'support'}/>
