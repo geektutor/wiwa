@@ -1,11 +1,17 @@
 import Navbar from '../../nav/Navbar';
+import MobileNav from '../mobileNav/mobileNav.component';
+import SideBar from '../sideBar/sideBar.component';
 import './user-profile.style.scss'
 
 const UserProfile = () => {
     return ( 
-        <div className="user-profile">
-            <Navbar/>
-        
+        <div className="overall">
+            <Navbar />
+          
+            <SideBar active={'list'}/>
+
+            <div className="coverSection">
+
             <div className="heading">
                 <p className="text usersname">Raji Mustapha</p>
                 
@@ -83,6 +89,11 @@ const UserProfile = () => {
             </section>
 
        
+
+            </div>
+        
+            <MobileNav/>
+            
         </div> 
      );
 }

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Footer from '../../footer/Footer'
 import Navbar from '../../nav/Navbar'
 import MobileNav from '../mobileNav/mobileNav.component';
@@ -41,22 +42,21 @@ const UserList = () => {
                               <td className="first" >1</td>       
                               <td >Ade</td>
                               <td>rajimustapha30@gmail.com</td>
-                              <td className="last"><a href=""><button>View User</button></a></td>
+                              <td className="last"><Link to="/admin/userprofile"><button>View User</button></Link></td>
                             </tr>
 
                             <tr>
-                            <td className="first" >2</td>
-                              <td>Ade</td>
+                              <td className="first" >1</td>       
+                              <td >Ade</td>
                               <td>rajimustapha30@gmail.com</td>
-                              <td className="last"><a href=""><button>View User</button></a></td>
-                        
+                              <td className="last"><Link to="/admin/userprofile"><button>View User</button></Link></td>
                             </tr>
 
                             <tr>
-                              <td className="first" >3</td>
-                              <td>Ade</td>
+                              <td className="first" >1</td>       
+                              <td >Ade</td>
                               <td>rajimustapha30@gmail.com</td>
-                              <td className="last"><a href=""><button>View User</button></a></td>
+                              <td className="last"><Link to="/admin/userprofile"><button>View User</button></Link></td>
                             </tr>
           
           

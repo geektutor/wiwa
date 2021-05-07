@@ -98,15 +98,25 @@ section.second{
             }
             .ans-box{
                 width: 100%;
-                display: flex;
-                justify-content: space-around;
-                flex-wrap: wrap;
+                // display: flex;
+                // justify-content: space-around;
+                // flex-wrap: wrap;
+                display: grid;
+                gap:2%;
+                grid-template-columns:31% 31% 31%;
+                justify-content: space-between;
+                @include mq(768px){
+                        display: flex;
+                        flex-direction: column;
+                       
+                } 
               
                 .ans{
                  background: $orange;
                  color: $white;
                  display: flex;
                  align-items: center;
+                 justify-content: space-between;
                  padding: 7px;
                  border-radius: 5px;  
                  font-size: 16px;
@@ -121,7 +131,7 @@ section.second{
                 span{
                     color: $white;
                     display: block;
-                    margin-right: 8px;
+                    
                 }
                 @include mq(600px){
                     font-size: 14px;

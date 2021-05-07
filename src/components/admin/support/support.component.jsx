@@ -2,6 +2,7 @@ import Navbar from '../../nav/Navbar'
 import './support.style.scss'
 import SideBar from '../sideBar/sideBar.component';
 import MobileNav from '../mobileNav/mobileNav.component';
+import { Link } from 'react-router-dom';
 
 const Support = () => {
     return ( 
@@ -39,22 +40,21 @@ const Support = () => {
                                     <td className="first" >1</td>       
                                     <td >Ade</td>
                                     <td>rajimustapha30@gmail.com</td>
-                                    <td className="last"><a href=""><button>View Message</button></a></td>
+                                    <td className="last"><Link to="/admin/supportprofile"><button>View Message</button></Link></td>
                                 </tr>
 
                                 <tr>
-                                    <td className="first" >2</td>
+                                    <td className="first" >1</td>       
                                     <td >Ade</td>
                                     <td>rajimustapha30@gmail.com</td>
-                                    <td className="last"><a href=""><button>View Message</button></a></td>
-                            
+                                    <td className="last"><Link to="/admin/supportprofile"><button>View Message</button></Link></td>
                                 </tr>
 
                                 <tr>
-                                    <td className="first" >3</td>
-                                    <td>Ade</td>
+                                    <td className="first" >1</td>       
+                                    <td >Ade</td>
                                     <td>rajimustapha30@gmail.com</td>
-                                    <td className="last"><a href=""><button>View Message</button></a></td>
+                                    <td className="last"><Link to="/admin/supportprofile"><button>View Message</button></Link></td>
                                 </tr>
                 
                 

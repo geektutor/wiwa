@@ -18,6 +18,9 @@
             padding-top: 120px;
             position: relative;
             overflow-x: hidden;
+            position: sticky;
+            top: 0px;
+    
             @include mq(768px){
                 display: none;
             }

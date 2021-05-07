@@ -1,10 +1,19 @@
+import Navbar from '../../nav/Navbar';
+import MobileNav from '../mobileNav/mobileNav.component'
+import SideBar from '../sideBar/sideBar.component';
 import './support-profile.style.scss'
 
 const SupportProfile = () => {
     return ( 
-        <div className="user-profile">
-        
-            <div className="heading">
+        <div className="overall">
+
+           <Navbar />
+          
+          <SideBar active={'support'}/>
+
+          <div className="coverSection">
+
+          <div className="heading">
                 <p className="text usersname">Support Profile</p>
                 
             </div>
@@ -46,6 +55,11 @@ const SupportProfile = () => {
             </section>
 
        
+
+          </div>
+
+          <MobileNav/>
+            
         </div> 
      );
 }
