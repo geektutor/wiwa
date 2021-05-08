@@ -27,6 +27,10 @@ section.second{
             padding: 20px;
             width: 40%;
             border-radius: 10px;
+            @include mq(950px){
+                width: 70%;
+                margin-bottom: 20px;
+            }
             @include mq(600px){
                 width: 100%;
                 margin-bottom: 20px;

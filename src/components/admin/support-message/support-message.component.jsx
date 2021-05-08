@@ -3,9 +3,9 @@ import Loader from '../../Loader';
 import Navbar from '../../nav/Navbar';
 import MobileNav from '../mobileNav/mobileNav.component'
 import SideBar from '../sideBar/sideBar.component';
-import './support-profile.style.scss'
+import './support-message.style.scss'
 
-const SupportProfile = () => {
+const SupportMessage = () => {
     const [isLoading,setIsLoading]=useState(true)
 
     setTimeout(()=>{
@@ -70,4 +70,4 @@ const SupportProfile = () => {
      );
 }
  
-export default SupportProfile;
+export default SupportMessage;

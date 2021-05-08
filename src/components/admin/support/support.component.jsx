@@ -48,14 +48,14 @@ const Support = () => {
                                     <td className="first" >1</td>       
                                     <td >Ade</td>
                                     <td>rajimustapha30@gmail.com</td>
-                                    <td className="last"><Link to="/admin/supportprofile"><button>View Message</button></Link></td>
+                                    <td className="last"><Link to="/admin/supportmessage"><button>View Message</button></Link></td>
                                 </tr>
 
                                 <tr>
                                     <td className="first" >1</td>       
                                     <td >Ade</td>
                                     <td>rajimustapha30@gmail.com</td>
-                                    <td className="last"><Link to="/admin/supportprofile"><button>View Message</button></Link></td>
+                                    <td className="last"><Link to="/admin/supportmessage"><button>View Message</button></Link></td>
                                 </tr>
 
                                 <tr>

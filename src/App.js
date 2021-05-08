@@ -8,7 +8,7 @@ import Otp from "./pages/Otp";
 import UserList from "./components/admin/user-list/user-list.component";
 import UserProfile from "./components/admin/user-profile/user-profile.component";
 import Support from "./components/admin/support/support.component";
-import SupportProfile from "./components/admin/support-profile/support-profile.component";
+import SupportProfile from "./components/admin/support-message/support-message.component";
 import Settings from "./components/admin/settings/settings.component";
 import Profile from "./pages/Profile";
 import UserDetail from "./pages/UserDetail";
@@ -54,7 +54,7 @@ function App() {
           <Route exact path="/admin/support">
             <Support/>
           </Route>
-          <Route path="/admin/supportprofile">
+          <Route path="/admin/supportmessage">
             <SupportProfile/>
           </Route>
           <Route path="/admin/settings" >
