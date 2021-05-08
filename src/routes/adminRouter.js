@@ -18,6 +18,8 @@ adminRouter.delete('/keys/delete/:keyId', adminAuth, adminController.deleteKey);
 
 adminRouter.get('/users', adminAuth, adminController.getAllUsers);
 
+adminRouter.get('/users/:username', adminAuth, adminController.getUser);
+
 adminRouter.put('/user/enlist/:userId', adminAuth, adminController.enlistUser);
 
 adminRouter.put('/user/delist/:userId', adminAuth, adminController.delistUser);
@@ -35,5 +37,11 @@ adminRouter.put(
 );
 
 adminRouter.get('/feedback', adminAuth, adminController.getAllFeedback);
+
+adminRouter.get(
+	'/feedback/:feedbackId',
+	adminAuth,
+	adminController.getAFeedback
+);
 
 module.exports = adminRouter;

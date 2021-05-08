@@ -65,6 +65,7 @@ const getAllUsers = async (req, res) => {
 	users = users.map((user) => ({
 		id: user._id,
 		name: user.name,
+		username: user.username,
 		email: user.email,
 		shortBio: user.shortBio,
 		fullBio: user.fullBio,
@@ -74,6 +75,26 @@ const getAllUsers = async (req, res) => {
 		isAdmin: user.isAdmin,
 	}));
 	return sendData(users, 200, res);
+};
+
+const getUser = async (req, res) => {
+	const { username } = req.params;
+	if (!username) return sendError('Username must be sent', 400, res);
+	let user = await User.findOne({ username_lower: username.toLowerCase() });
+	if (!user) return sendError('User Not Found', 404, res);
+	user = {
+		id: user._id,
+		name: user.name,
+		username: user.username,
+		email: user.email,
+		shortBio: user.shortBio,
+		fullBio: user.fullBio,
+		cvLink: user.cvLink,
+		skills: user.skills,
+		active: user.active,
+		isAdmin: user.isAdmin,
+	};
+	return sendData(user, 200, res);
 };
 
 const enlistUser = async (req, res) => {
@@ -138,8 +159,22 @@ const removeAdmin = async (req, res) => {
 
 const getAllFeedback = async (req, res) => {
 	let feedback = await Feedback.find({}).populate('user');
+	console.log(feedback);
 	feedback = feedback.map(sanitizeFeedback);
 	return sendData(feedback, 200, res);
+};
+
+const getAFeedback = async (req, res) => {
+	const { feedbackId } = req.params;
+	if (!feedbackId) return sendError('feedbackId must be sent', 400, res);
+	let feedback;
+	try {
+		feedback = await Feedback.findById(feedbackId).populate('user');
+	} catch (e) {
+		console.log(e);
+		return sendError('Feedback not found', 404, res);
+	}
+	return sendData(sanitizeFeedback(feedback), 200, res);
 };
 
 module.exports = {
@@ -149,9 +184,11 @@ module.exports = {
 	editKey,
 	deleteKey,
 	getAllUsers,
+	getUser,
 	enlistUser,
 	delistUser,
 	makeAdmin,
 	removeAdmin,
 	getAllFeedback,
+	getAFeedback,
 };

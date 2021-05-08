@@ -29,7 +29,6 @@ const getUserByUsername = async (req, res) => {
 };
 
 const getUsersByName = async (req, res) => {
-	console.log('name');
 	const { name } = req.params;
 	if (!name) sendError('Name for searching was not provided', 400, res);
 
@@ -41,7 +40,6 @@ const getUsersByName = async (req, res) => {
 			name: { $regex: name, $options: 'ig' },
 			active: true,
 		});
-		console.log(users);
 		users = users.map(sanitizeUser);
 		sendData(users, 200, res);
 	} catch (e) {
@@ -75,7 +73,6 @@ const getUsersBySkill = async (req, res) => {
 
 const login = async (req, res) => {
 	const { email, password } = req.body;
-	console.log('Login Route', req.body);
 	const user = await User.findOne({ email });
 	if (!user)
 		return sendError('Invalid Email & Password Combination', 400, res);
@@ -129,8 +126,6 @@ const refreshToken = async (req, res) => {
 	const user = await User.findById(verifiedRefToken.userId);
 	if (!user) return sendError('Invalid Refresh Token', 401, res);
 
-	console.log(user);
-
 	const token = jwt.sign(
 		{
 			userId: user._id.toString(),
@@ -171,7 +166,6 @@ const signupSecret = async (req, res) => {
 		key = await Key.find({
 			key: regex,
 		});
-		console.log(key);
 	} catch (e) {
 		return sendError('Invalid Access Key Provided', 400, res);
 	}
@@ -371,7 +365,6 @@ const editUser = async (req, res) => {
 	user.skills = skills && skills.length > 0 ? skills : user.skills;
 
 	await user.save();
-	console.log(user);
 	sendData(sanitizeUser(user), 202, res);
 };
 
