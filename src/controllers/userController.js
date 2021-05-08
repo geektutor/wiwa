@@ -33,6 +33,9 @@ const getUsersByName = async (req, res) => {
 	const { name } = req.params;
 	if (!name) sendError('Name for searching was not provided', 400, res);
 
+	if (name === '*' || name === '.*')
+		return sendError('Invalid Name Provided', 400, res);
+
 	try {
 		let users = await User.find({
 			name: { $regex: name, $options: 'ig' },
@@ -55,6 +58,9 @@ const getUsers = async (req, res) => {
 const getUsersBySkill = async (req, res) => {
 	const { skill } = req.params;
 	if (!skill) sendError('Query Param of skill required', 400, res);
+
+	if (skill === '*' || skill === '.*')
+		return sendError('Invalid Skill Provided', 400, res);
 	try {
 		let users = await User.find({
 			skills: { $regex: skill, $options: 'ig' },
@@ -156,6 +162,8 @@ const refreshToken = async (req, res) => {
 const signupSecret = async (req, res) => {
 	const { accessKey } = req.body;
 	if (!accessKey) return sendError('Access Key Required', 400, res);
+	if (accessKey === '*' || accessKey === '.*')
+		return sendError('Invalid Access Key Provided', 400, res);
 
 	let key;
 	try {
