@@ -98,7 +98,10 @@ const login = async (req, res) => {
 
 	sendData(
 		{
-			user: sanitizeUserForLogin(user),
+			user: {
+				...sanitizeUserForLogin(user),
+				areQuestionsAnswered: user.questions.length > 0,
+			},
 			token,
 			refToken,
 		},
