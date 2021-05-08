@@ -10,7 +10,7 @@ const MobileNav = () => {
     return ( 
         <div className="mobileNav">
             <div className="navList">
-                <Link to="/admin/users">
+                <Link to="/admin">
                     <img src={list} alt="List Icon"/>
                     <p>Users</p>
 
