@@ -56,7 +56,7 @@ const Login = () => {
           
           if (result.data.user.isAdmin) {
             setTimeout(() => {
-              history.push('/admin/users')
+              history.push('/admin')
             }, 200);
           }
           else{
