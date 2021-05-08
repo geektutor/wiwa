@@ -6,10 +6,12 @@ require('dotenv').config();
 const dbConnector = require('./utils/db');
 const userRouter = require('./routes/userRouter');
 const adminRouter = require('./routes/adminRouter');
+const { jsonParserErrorHandler } = require('./helpers/helpers');
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(jsonParserErrorHandler);
 app.use(helmet());
 
 app.use('/admin', adminRouter);

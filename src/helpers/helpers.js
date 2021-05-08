@@ -1,3 +1,5 @@
+const { sendError } = require('./responders');
+
 const formatString = (text) => {
 	const lastIndex = text.length - 1;
 	if (text[lastIndex] !== '.') return text + '.';
@@ -39,10 +41,16 @@ const sanitizeFeedback = (feedback) => ({
 	user: feedback.user.email,
 });
 
+const jsonParserErrorHandler = (err, req, res, next) => {
+	console.log(err);
+	sendError('Invalid JSON Sent', 400, res);
+};
+
 module.exports = {
 	formatString,
 	sanitizeUser,
 	sanitizeKey,
 	sanitizeFeedback,
 	sanitizeUserForLogin,
+	jsonParserErrorHandler,
 };
