@@ -41,7 +41,7 @@ function App() {
           <Route exact path="/admin">
             <UserList/>
           </Route>
-          <Route path="/admin/userprofile">
+          <Route path="/admin/userprofile/:id">
             <UserProfile/>
           </Route>
           <Route exact path="/admin/support">

@@ -25,8 +25,7 @@ const Login = () => {
       "password": formInput.password 
     };
 
-    console.log(raw)
-
+ 
     var requestOptions = {
       method: 'POST',
       body: JSON.stringify(raw),
@@ -39,11 +38,11 @@ const Login = () => {
 
     fetch("https://wiwa.herokuapp.com/users/login", requestOptions)
       .then((res)=>{
-        // if (!res.ok) {
-        //   console.log(res)
-        //   // error coming back from server
-        //   throw Error("something went wrong, check your netowrk");
-        // }
+        if (!res.ok) {
+          console.log(res)
+          // error coming back from server
+          throw Error("something went wrong");
+        }
         return res.json()
       })
       .then((result) => {

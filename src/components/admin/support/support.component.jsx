@@ -5,21 +5,22 @@ import MobileNav from '../mobileNav/mobileNav.component';
 import { Link } from 'react-router-dom';
 import Loader from '../../Loader';
 import { useState } from 'react';
+import useFetchAdmin from '../../../hooks/useFetchAdmin';
+import ConnectionError from '../../errors/connectionError';
 
 const Support = () => {
-    const [isLoading,setIsLoading]=useState(true)
- 
-    setTimeout(()=>{
-        setIsLoading(false)
-    },500)
+    const [url] = useState("https://wiwa.herokuapp.com/admin/feedback");
+    const {data,error,isPending} = useFetchAdmin(url);
+    
     return ( 
         <div className="overall">
-            <Loader close={!isLoading} />
+            <Loader close={!isPending} />
             <Navbar/>
 
             <SideBar active={'support'}/>
 
-            <div className="coverSection">
+            {data && 
+                <div className="coverSection">
                 <div className="heading">
                     <p className="text"> <span className="nama"></span>Support</p>
                     <form action="" className="searchUser">
@@ -44,28 +45,19 @@ const Support = () => {
                 
                             <tbody>
 
-                                <tr>
-                                    <td className="first" >1</td>       
-                                    <td >Ade</td>
-                                    <td>rajimustapha30@gmail.com</td>
-                                    <td className="last"><Link to="/admin/supportmessage"><button>View Message</button></Link></td>
+                            {data.map((eachData)=>{
+                              return(
+
+                                <tr key={eachData.id}>
+                                  <td className="first">{data.indexOf(eachData) + 1}</td>       
+                                  <td >{eachData.name}</td>
+                                  <td>{eachData.email}</td>
+                                  <td className="last"><Link to={`/admin/userprofile/${eachData.username}`}><button>View User</button></Link></td>
                                 </tr>
 
-                                <tr>
-                                    <td className="first" >1</td>       
-                                    <td >Ade</td>
-                                    <td>rajimustapha30@gmail.com</td>
-                                    <td className="last"><Link to="/admin/supportmessage"><button>View Message</button></Link></td>
-                                </tr>
+                              )})}
 
-                                <tr>
-                                    <td className="first" >1</td>       
-                                    <td >Ade</td>
-                                    <td>rajimustapha30@gmail.com</td>
-                                    <td className="last"><Link to="/admin/supportprofile"><button>View Message</button></Link></td>
-                                </tr>
-                
-                
+                              
                             </tbody>
                             
                             
@@ -86,7 +78,12 @@ const Support = () => {
             </div>
             
             </div>
+            }
 
+            {error && <ConnectionError />}
+
+
+            
             <MobileNav/>
 
            
