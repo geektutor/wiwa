@@ -69,6 +69,7 @@ const getUsersBySkill = async (req, res) => {
 
 const login = async (req, res) => {
 	const { email, password } = req.body;
+	console.log('Login Route', req.body);
 	const user = await User.findOne({ email });
 	if (!user)
 		return sendError('Invalid Email & Password Combination', 400, res);
