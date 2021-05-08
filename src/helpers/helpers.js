@@ -15,6 +15,18 @@ const sanitizeUser = (user) => ({
 	skills: user.skills,
 });
 
+const sanitizeUserForLogin = (user) => ({
+	id: user._id,
+	isAdmin: user.isAdmin,
+	username: user.username,
+	name: user.name,
+	email: user.email,
+	shortBio: user.shortBio,
+	fullBio: user.fullBio,
+	cvLink: user.cvLink,
+	skills: user.skills,
+});
+
 const sanitizeKey = (key) => ({
 	id: key._id,
 	key: key.key,
@@ -32,4 +44,5 @@ module.exports = {
 	sanitizeUser,
 	sanitizeKey,
 	sanitizeFeedback,
+	sanitizeUserForLogin,
 };

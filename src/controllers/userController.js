@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { sendData, sendError, sendSuccess } = require('./../helpers/responders');
-const { sanitizeUser } = require('./../helpers/helpers');
+const { sanitizeUser, sanitizeUserForLogin } = require('./../helpers/helpers');
 const User = require('../models/user');
 const Key = require('../models/key');
 const Feedback = require('./../models/feedback');
@@ -97,7 +97,7 @@ const login = async (req, res) => {
 
 	sendData(
 		{
-			user: sanitizeUser(user),
+			user: sanitizeUserForLogin(user),
 			token,
 			refToken,
 		},
