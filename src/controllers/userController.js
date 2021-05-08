@@ -244,7 +244,8 @@ const signupQuestions = async (req, res) => {
 		return sendError('Invalid Token', 401, res);
 	}
 
-	if (!verifiedToken.userType) sendError('Invalid Token', 401, res);
+	if (!verifiedToken.userType && !verifiedToken.userId)
+		sendError('Invalid Token', 401, res);
 
 	const { userId, question1Id, answer1, question2Id, answer2 } = req.body;
 	if (!question1Id || !answer1 || !question2Id || !answer2 || !userId)
