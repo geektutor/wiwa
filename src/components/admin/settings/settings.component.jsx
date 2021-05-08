@@ -69,7 +69,7 @@ const Settings = () => {
 
                             <form action="" className="addAnswer">
                                 <input type="text" name="name" placeholder="Add Answer"/>
-                                <button type="submit"><i class="fas fa-plus"></i></button>
+                                <button type="submit"><i className="fas fa-plus"></i></button>
                             </form>
 
 
