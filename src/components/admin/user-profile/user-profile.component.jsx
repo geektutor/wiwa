@@ -187,7 +187,7 @@ const UserProfile = () => {
             redirect: 'follow'
           };
       
-          fetch(`https://wiwa.herokuapp.com/admin/user/make-admin/60949a80ad92e33f486fc068`, requestOptions)
+          fetch(`https://wiwa.herokuapp.com/admin/user/make-admin/${data.id}`, requestOptions)
             .then((res)=>{
               if (res.status === 403) {
                 history.push("/login");
@@ -258,7 +258,7 @@ const UserProfile = () => {
             redirect: 'follow'
           };
       
-          fetch(`https://wiwa.herokuapp.com/admin/user/remove-admin/60949a80ad92e33f486fc068`, requestOptions)
+          fetch(`https://wiwa.herokuapp.com/admin/user/remove-admin/${data.id}`, requestOptions)
             .then((res)=>{
               if (res.status === 403) {
                 history.push("/login");

@@ -3,10 +3,21 @@ import list from "../../../assets/image/fi-sr-list 2.svg";
 import megaphone from "../../../assets/image/fi-sr-megaphone 1.svg";
 import set from "../../../assets/image/Group 25.svg";
 import signout from "../../../assets/image/fi-rr-sign-out 1.svg";
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
 const MobileNav = () => {
+    const history = useHistory()
+    const handleLogout = (e) => {
+
+        e.preventDefault()
+        window.localStorage.setItem("token", '');
+        
+        history.push('/login')
+
+
+
+    }
     return ( 
         <div className="mobileNav">
             <div className="navList">
@@ -25,7 +36,7 @@ const MobileNav = () => {
                     <img src={set} alt="Settigs Icon"/>
                     <p>Settings</p>
                 </Link>
-                <Link to="">
+                <Link onClick={handleLogout} to="">
                     <img src={signout} alt="Logout Icon"/>
                     <p>Log Out</p>
                 </Link>
