@@ -9,6 +9,7 @@ import useFetchAdmin from '../../../hooks/useFetchAdmin';
 import BtnLoad from '../bntload/btnload.component';
 import ConnectionError from "../../errors/connectionError";
 import displayMsg from '../../Message';
+import AdminBtn from '../adminBtn/adminBtn.component';
 
 const UserProfile = () => {
     const {id} = useParams()
@@ -19,7 +20,7 @@ const UserProfile = () => {
     const [isPendingAd, setIsPendingAd] = useState(false);
     const [isPendingDelist, setIsPendingDelist] = useState(false);
     const history = useHistory()
-    console.log(data)
+    
   
     
     const handleEnlist = ()=>{
@@ -208,67 +209,67 @@ const UserProfile = () => {
         
     }
 
-    // const handleUnadmin = ()=>{
-    //     setIsPendingAd(true);
-    //     const retrieveToken =  ()=>{
-    //         const token = window.localStorage.getItem("token")
+    const handleUnadmin = ()=>{
+        setIsPendingAd(true);
+        const retrieveToken =  ()=>{
+            const token = window.localStorage.getItem("token")
             
-    //         if (!token) {
-    //             history.push('/login')
-    //           }
-    //           else{
-    //             return(token)
-    //             }
-    //       }
+            if (!token) {
+                history.push('/login')
+              }
+              else{
+                return(token)
+                }
+          }
 
-    //     var requestOptions = {
-    //         method:'PUT',
-    //         headers:{
-    //           "Content-Type":"application/json",
-    //           "token":  retrieveToken()
-    //         },
-    //         redirect: 'follow'
-    //       };
+        var requestOptions = {
+            method:'PUT',
+            headers:{
+              "Content-Type":"application/json",
+              "token":  retrieveToken()
+            },
+            redirect: 'follow'
+          };
       
-    //       fetch(`https://wiwa.herokuapp.com/admin/user/remove-admin/60949a80ad92e33f486fc068`, requestOptions)
-    //         .then((res)=>{
-    //             console.log(res)
-    //             if (res.status===401) {
-    //                 history.push('/login')
-    //               }
-    //               else{
+          fetch(`https://wiwa.herokuapp.com/admin/user/remove-admin/60949a80ad92e33f486fc068`, requestOptions)
+            .then((res)=>{
+                console.log(res)
+                if (res.status===401) {
+                    history.push('/login')
+                  }
+                  else{
           
-    //                 if (!res.ok) {
-    //                   // error coming back from server
-    //                   throw Error("something went wrong");
-    //                 }
+                    if (!res.ok) {
+                      // error coming back from server
+                      throw Error("something went wrong");
+                    }
             
-    //                 return res.json();
+                    return res.json();
           
-    //               }
-    //         })
-    //         .then((result) => {
-    //           console.log(result)
-    //           setIsPendingAd(false);
-    //           if (result.status === "Success") {
-    //             displayMsg("success", result.message);
-    //             setTimeout(()=>{
-    //                 history.go(0)
-    //             },2000)
-    //           } 
-    //           else {
-    //             displayMsg("error", result.message);
-    //           }
+                  }
+            })
+            .then((result) => {
+              console.log(result)
+              setIsPendingAd(false);
+              if (result.status === "Success") {
+                displayMsg("success", result.message);
+                setTimeout(()=>{
+                    history.go(0)
+                },2000)
+              } 
+              else {
+                displayMsg("error", result.message);
+              }
       
-    //         })
-    //         .catch((error )=>{ 
-    //             displayMsg("error", error.message);
-    //             console.log(error.message)
-    //             setIsPendingAd(false);
+            })
+            .catch((error )=>{ 
+                displayMsg("error", error.message);
+                console.log(error.message)
+                setIsPendingAd(false);
               
-    //         });
+            });
         
-    // }
+    }
 
     const handleDelete = ()=>{
         setIsPendingDel(true);
@@ -361,11 +362,11 @@ const UserProfile = () => {
                         </p>
 
                         <p className="status eachDetail">
-                            Status: <span>{data.isAdmin ? 'Admin' : 'User'}</span>
+                            Permission: <span>{data.isAdmin ? 'Admin' : 'User'}</span>
                         </p>
 
                         <p className="status eachDetail">
-                            Activity: <span>{data.active ? 'Enlisted' : 'Delisted'}</span>
+                            Status: <span>{data.active ? 'Enlisted' : 'Delisted'}</span>
                         </p>
 
                     </div>
@@ -376,10 +377,10 @@ const UserProfile = () => {
                             
                             {isPendingDelist ? <BtnLoad className={"delist"} color={'white'}/> : <button className="delist" onClick={handleDelist} id="myBtn2">Delist User</button> }
                             
-                            {isPendingAd ? <BtnLoad className={"delete"} color={'white'}/> : <button className="delete" onClick={handleAdmin} id="myBtn2">Make Admin</button> }
-                            
+                            {isPendingAd ? <BtnLoad className={"delete"} color={'white'}/> :  <AdminBtn isAdmin={data.isAdmin} handleAdmin={handleAdmin} handleUnadmin={handleUnadmin}/>}
+                           
                             {isPendingDel ? <BtnLoad className={"delete"} color={'white'}/> : <button className="delete" onClick={handleDelete} id="myBtn2">Delete User</button> }
-                            
+                           
                         </div>  
                     </div>
                     
