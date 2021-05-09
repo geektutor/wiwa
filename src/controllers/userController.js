@@ -1,7 +1,11 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { sendData, sendError, sendSuccess } = require('./../helpers/responders');
-const { sanitizeUser, sanitizeUserForLogin } = require('./../helpers/helpers');
+const {
+	sanitizeUser,
+	sanitizeUserForLogin,
+	getUsername,
+} = require('./../helpers/helpers');
 const User = require('../models/user');
 const Key = require('../models/key');
 const Feedback = require('./../models/feedback');
@@ -21,7 +25,7 @@ const BCRYPT_SALT = 11;
 const getUserByUsername = async (req, res) => {
 	const { username } = req.params;
 	const user = await User.findOne({
-		username_lower: username.toLowerCase(),
+		username,
 		active: true,
 	});
 	if (!user) return sendError('User not found', 404, res);
@@ -200,34 +204,16 @@ const signupInfo = async (req, res) => {
 
 	if (!verifiedToken.userType) return sendError('Invalid Token', 401, res);
 
-	const {
-		name,
-		email,
-		password,
-		shortBio,
-		fullBio,
-		cvLink,
-		username,
-	} = req.body;
-	if (!name || !email || !password || !shortBio || !cvLink || !username)
+	const { name, email, password, shortBio, fullBio, cvLink } = req.body;
+	if (!name || !email || !password || !shortBio || !cvLink)
 		return sendError(
 			'Ensure you send all necessary info for signup',
 			400,
 			res
 		);
 
-	const isUsernameTaken = await User.findOne({
-		username_lower: username.toLowerCase(),
-	});
-	if (isUsernameTaken)
-		return sendError('This username has been taken', 400, res);
+	const username = await getUsername(name);
 
-	if (username.contains('*' || ' '))
-		return sendError(
-			'This username has unallowed special characters',
-			400,
-			res
-		);
 	const isEmailTaken = await User.findOne({ email });
 	if (isEmailTaken) return sendError('This email has been taken', 400, res);
 
@@ -238,7 +224,6 @@ const signupInfo = async (req, res) => {
 		name,
 		email,
 		username,
-		username_lower: username.toLowerCase(),
 		password: hash,
 		shortBio,
 		fullBio,
@@ -324,7 +309,6 @@ const createFeedback = async (req, res) => {
 
 const editUser = async (req, res) => {
 	const {
-		username,
 		name,
 		email,
 		password,
@@ -343,16 +327,8 @@ const editUser = async (req, res) => {
 	const user = await User.findById(userId);
 	if (!user) sendError('User not found', 404, res);
 
-	const isUsernameTaken = await User.findOne({
-		username_lower: username.toLowerCase(),
-	});
-	if (isUsernameTaken)
-		return sendError('This username has been taken', 400, res);
-
 	const isEmailTaken = await User.findOne({ email });
 	if (isEmailTaken) return sendError('This email has been taken', 400, res);
-	user.username = username || user.username;
-	user.username_lower = username.toLowerCase() || user.username_lower;
 	user.name = name || user.name;
 	user.email = email || user.email;
 

@@ -80,7 +80,7 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res) => {
 	const { username } = req.params;
 	if (!username) return sendError('Username must be sent', 400, res);
-	let user = await User.findOne({ username_lower: username.toLowerCase() });
+	let user = await User.findOne({ username });
 	if (!user) return sendError('User Not Found', 404, res);
 	user = {
 		id: user._id,
