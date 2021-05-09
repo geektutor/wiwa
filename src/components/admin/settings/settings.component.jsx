@@ -58,20 +58,29 @@ const Settings = () => {
     
         fetch("https://wiwa.herokuapp.com/admin/keys/create", requestOptions)
           .then((res)=>{
-            console.log(res)
-            if (res.status===401||res.status===403) {
-                history.push('/login')
-              }
-              else{
-      
-                if (!res.ok) {
-                  // error coming back from server
-                  throw Error("something went wrong");
-                }
-        
-                return res.json();
-      
-              }
+            if (res.status === 403) {
+              history.push("/login");
+            } else if (res.status === 401) {
+              
+              return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  refresh_token: localStorage.getItem("refToken"),
+                },
+                redirect: "follow",
+              })
+                .then(response => response.json())
+                .then(result => {
+                  window.localStorage.setItem("token", result.data.token);
+                  retrieveToken();
+                  console.log(retrieveToken());
+                })
+                .catch(error => console.log("error", error));
+            } else {
+              console.log(res);
+              return res.json();
+            }
           })
           .then((result) => {
             console.log(result)
@@ -124,20 +133,29 @@ const Settings = () => {
       
           fetch(`https://wiwa.herokuapp.com/admin/keys/delete/${id}`, requestOptions)
             .then((res)=>{
-                console.log(res)
-                if (res.status===401) {
-                    history.push('/login')
-                  }
-                  else{
-          
-                    if (!res.ok) {
-                      // error coming back from server
-                      throw Error("something went wrong");
-                    }
-            
-                    return res.json();
-          
-                  }
+              if (res.status === 403) {
+                history.push("/login");
+              } else if (res.status === 401) {
+                
+                return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    refresh_token: localStorage.getItem("refToken"),
+                  },
+                  redirect: "follow",
+                })
+                  .then(response => response.json())
+                  .then(result => {
+                    window.localStorage.setItem("token", result.data.token);
+                    retrieveToken();
+                    console.log(retrieveToken());
+                  })
+                  .catch(error => console.log("error", error));
+              } else {
+                console.log(res);
+                return res.json();
+              }
             })
             .then((result) => {
               console.log(result)
