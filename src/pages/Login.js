@@ -8,7 +8,7 @@ const Login = () => {
   const history = useHistory();
   const [isPending, setIsPending] = useState(false);
 
-  const toks = "Bearer " + window.localStorage.getItem("token");
+  const toks = window.localStorage.getItem("token");
   const [formInput, setFormInput] = useState({
     email: "",
     password: "",
@@ -30,7 +30,7 @@ const Login = () => {
       body: JSON.stringify(raw),
       headers: {
         "Content-Type": "application/json",
-        Authorization: toks,
+        "token": toks,
       },
       redirect: "follow",
     };

@@ -8,6 +8,7 @@ const useFetchAdmin = url => {
   const [error, setError] = useState(null);
   const history = useHistory();
   const token = window.localStorage.getItem("token");
+  
 
   const retrieveToken = useCallback(() => {
     if (!token) {
@@ -34,6 +35,7 @@ const useFetchAdmin = url => {
         if (res.status === 403) {
           history.push("/login");
         } else if (res.status === 401) {
+          
           return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
             method: "POST",
             headers: {
