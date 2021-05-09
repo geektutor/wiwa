@@ -159,67 +159,6 @@ const UserList = () => {
          
          }
 
-          {/* {data2 && 
-                       <div className="coverSection">
-
-                       <div className="heading">
-                           <p className="text"> <span className="nama"></span>User List</p>
-                           <form onSubmit={handleSubmit} className="searchUser">
-                                 <input onChange={(e)=>{setSearch(e.target.value)}}  type="text" name="name" placeholder="Search Name"/>
-                                 <button type="submit"><i className="fas fa-search"></i></button>
-                             </form>
-                       </div>
-                       <div className="cover">
-                           <div className="overFlow" >
-                                 <table>
-                                   <thead>
-                       
-                                         <tr>
-                       
-                                             <th>S/N</th>
-                                             <th>Name</th>
-                                             <th>Username</th>
-                                             <th>Email</th>
-                                             <th>Action</th>            
-                                         </tr>
-                       
-                                   </thead>
-                       
-                                   <tbody>
-                                     { data2.map((eachData)=>{
-                                         return(
-                       
-                                           <tr key={eachData.id}>
-                                             <td className="first">{data2.indexOf(eachData) + 1}</td>       
-                                             <td >{eachData.name}</td>
-                                             <td>{eachData.username}</td>
-                                             <td>{eachData.email}</td>
-                                             <td className="last"><Link to={`/admin/userprofile/${eachData.username}`}><button>View User</button></Link></td>
-                                           </tr>
-                       
-                                         )})
-                                     }
-                       
-                                    
-                       
-                                     
-                       
-                                    
-                                   </tbody>
-                                 
-                                   
-                                 </table>
-                                 
-                       
-                             </div>
-                       
-                          
-                       
-                           </div>
-                       
-                       </div>
-                                
-          } */}
 
           {error && <ConnectionError msg={error}/>}
 
