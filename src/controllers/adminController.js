@@ -14,7 +14,7 @@ const getAllKeys = async (req, res) => {
 		keys = keys.map(sanitizeKey);
 		sendData(keys, 200, res);
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 		sendError('Server Error', 500, res);
 	}
 };
@@ -26,7 +26,7 @@ const getKey = async (req, res) => {
 		if (!key) return sendError('Key not found', 404, res);
 		sendData(sanitizeKey(key), 200, res);
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 		sendError('Server Error', 500, res);
 	}
 };
@@ -104,7 +104,7 @@ const enlistUser = async (req, res) => {
 	try {
 		user = await User.findById(userId);
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 		return sendError('User not found', 404, res);
 	}
 	user.active = true;
@@ -119,7 +119,7 @@ const delistUser = async (req, res) => {
 	try {
 		user = await User.findById(userId);
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 		return sendError('User not found', 404, res);
 	}
 	user.active = false;
@@ -149,7 +149,7 @@ const removeAdmin = async (req, res) => {
 	try {
 		user = await User.findById(userId);
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 		return sendError('User not found', 404, res);
 	}
 	user.isAdmin = false;
@@ -177,7 +177,7 @@ const getAFeedback = async (req, res) => {
 	try {
 		feedback = await Feedback.findById(feedbackId).populate('user');
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 		return sendError('Feedback not found', 404, res);
 	}
 	return sendData(sanitizeFeedback(feedback), 200, res);

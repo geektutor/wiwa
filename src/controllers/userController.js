@@ -43,7 +43,7 @@ const getUsersByName = async (req, res) => {
 		users = users.map(sanitizeUser);
 		sendData(users, 200, res);
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 	}
 };
 
@@ -67,7 +67,7 @@ const getUsersBySkill = async (req, res) => {
 		users = users.map(sanitizeUser);
 		sendData(users, 200, res);
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 	}
 };
 
@@ -222,6 +222,12 @@ const signupInfo = async (req, res) => {
 	if (isUsernameTaken)
 		return sendError('This username has been taken', 400, res);
 
+	if (username.contains('*' || ' '))
+		return sendError(
+			'This username has unallowed special characters',
+			400,
+			res
+		);
 	const isEmailTaken = await User.findOne({ email });
 	if (isEmailTaken) return sendError('This email has been taken', 400, res);
 

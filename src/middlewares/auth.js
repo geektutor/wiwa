@@ -9,7 +9,7 @@ const adminAuth = async (req, res, next) => {
 	try {
 		verifiedAccessToken = jwt.verify(token, process.env.TOKEN_SECRET);
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 	}
 	if (!verifiedAccessToken) return sendError('Invalid Auth Token', 401, res);
 	if (!verifiedAccessToken.userId)
@@ -37,7 +37,7 @@ const userAuth = async (req, res, next) => {
 	try {
 		verifiedAccessToken = jwt.verify(token, process.env.TOKEN_SECRET);
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 	}
 	if (!verifiedAccessToken) return sendError('Invalid Auth Token', 401, res);
 	if (!verifiedAccessToken.userId)
