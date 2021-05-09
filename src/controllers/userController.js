@@ -116,11 +116,16 @@ const login = async (req, res) => {
 const refreshToken = async (req, res) => {
 	const refToken = req.get('refresh_token');
 	if (!refToken) return sendError('No Refresh Token', 401, res);
-
-	const verifiedRefToken = jwt.verify(
-		refToken,
-		process.env.REFRESH_TOKEN_SECRET
-	);
+	let verifiedRefToken;
+	try {
+		verifiedRefToken = jwt.verify(
+			refToken,
+			process.env.REFRESH_TOKEN_SECRET
+		);
+	} catch (e) {
+		console.log(e.message);
+		return sendError('Invalid Refresh Token', 401, res);
+	}
 	if (!verifiedRefToken) return sendError('Invalid Refresh Token', 401, res);
 
 	const user = await User.findById(verifiedRefToken.userId);

@@ -134,7 +134,7 @@ const makeAdmin = async (req, res) => {
 	try {
 		user = await User.findById(userId);
 	} catch (e) {
-		console.log(e);
+		console.log(e.message);
 		return sendError('User not found', 404, res);
 	}
 	user.isAdmin = true;
@@ -158,7 +158,13 @@ const removeAdmin = async (req, res) => {
 };
 
 const getAllFeedback = async (req, res) => {
-	let feedback = await Feedback.find({}).populate('user');
+	let feedback;
+	try {
+		feedback = await Feedback.find({}).populate('user');
+	} catch (e) {
+		console.log(e.message);
+		sendError('DB Error', 500, res);
+	}
 	console.log(feedback);
 	feedback = feedback.map(sanitizeFeedback);
 	return sendData(feedback, 200, res);
