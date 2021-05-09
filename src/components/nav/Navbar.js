@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import "./nav.css";
 
 const Navbar = () => {
-  const [isLoggedIn, setisLoggedIn] = useState(
+  const [isLoggedIn] = useState(
     localStorage.getItem("userData") ? true : false
   );
 
