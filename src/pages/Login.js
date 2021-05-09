@@ -130,7 +130,7 @@ const Login = () => {
               <i className="fas fa-circle-notch fa-spin "></i> Loading{" "}
             </span>
           ) : (
-            <span>Submit</span>
+            <span>Login</span>
           )}
         </button>
 
