@@ -7,11 +7,11 @@ import Loader from "../components/Loader";
 import ConnectionError from "../components/errors/connectionError";
 
 const UserDetail = () => {
-  const {id} = useParams();
+  const {username} = useParams();
   const {data, error, isPending} = useFetch(
-    `https://wiwa.herokuapp.com/users/${id}`
+    `https://wiwa.herokuapp.com/users/${username}`
   );
-  console.log(data);
+  console.log(error);
   return (
     <>
       <Navbar />
@@ -44,7 +44,7 @@ const UserDetail = () => {
           </a>
         </main>
       )}
-      {error && <ConnectionError />}
+      {error && <ConnectionError msg={error} />}
       <Footer />
     </>
   );

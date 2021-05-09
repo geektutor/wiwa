@@ -5,86 +5,74 @@ import displayMsg from "../components/Message";
 
 const Login = () => {
   const [inputType, setInputType] = useState("password");
-  const history = useHistory()
-  const [isPending,setIsPending] = useState(false)
-  const toks = "Bearer " + window.localStorage.getItem("token")
- 
-  const [formInput,setFormInput]  = useState({
-    email:'',
-    password:''
-  })
+  const history = useHistory();
+  const [isPending, setIsPending] = useState(false);
 
-  const handleSubmit=(e)=>{
+  const toks = "Bearer " + window.localStorage.getItem("token");
+  const [formInput, setFormInput] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = e => {
     e.preventDefault();
-    setFormInput({...formInput,email:'',password:''})
+    setFormInput({...formInput, email: "", password: ""});
 
-    setIsPending(true)
+    setIsPending(true);
 
     var raw = {
-      "email": formInput.email,
-      "password": formInput.password 
+      email: formInput.email,
+      password: formInput.password,
     };
 
- 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       body: JSON.stringify(raw),
-      headers:{
-        "Content-Type":"application/json",
-        'Authorization':  toks
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: toks,
       },
-      redirect: 'follow'
+      redirect: "follow",
     };
 
     fetch("https://wiwa.herokuapp.com/users/login", requestOptions)
-      .then((res)=>{
-        if (!res.ok) {
-          console.log(res)
-          // error coming back from server
-          throw Error("something went wrong");
-        }
-        return res.json()
-      })
-      .then((result) => {
-        console.log(result)
+      .then(res => res.json())
+      .then(result => {
+        console.log(result);
         setIsPending(false);
 
         if (result.status === "Success") {
           displayMsg("success", "Login Successful");
-          window.localStorage.setItem("token",result.data.token);
-          
+          window.localStorage.setItem("token", result.data.token);
+          window.localStorage.setItem(
+            "userData",
+            JSON.stringify(result.data.user)
+          );
+          window.localStorage.setItem("refToken", result.data.refToken);
+
           if (result.data.user.isAdmin) {
             setTimeout(() => {
-              history.push('/admin')
+              history.push("/admin");
+            }, 200);
+          } else {
+            setTimeout(() => {
+              history.push("/");
             }, 200);
           }
-          else{
-            setTimeout(() => {
-              history.push('/')
-             }, 200);
-
-          }
-          
-        } 
-        else {
+        } else {
           displayMsg("error", result.message);
         }
-
       })
-      .catch((error )=>{ 
+      .catch(error => {
         setIsPending(false);
         displayMsg("error", error.message);
       });
+  };
 
-  }
-
-  const handleChange=(event)=>{
-    const {value,name} = event.target
-
-    setFormInput ({...formInput,[name]:value})
-
-  }
-
+  const handleChange = event => {
+    const {value, name} = event.target;
+    setFormInput({...formInput, [name]: value});
+  };
 
   const handlePasswordType = e => {
     e.target.classList.toggle("fa-eye-slash");
@@ -107,9 +95,11 @@ const Login = () => {
             id="email"
             required
             placeholder="johndoe@gmail.com"
-            name="email" 
-            value={formInput.email}   
-            onChange={(e)=>{handleChange(e)}}
+            name="email"
+            value={formInput.email}
+            onChange={e => {
+              handleChange(e);
+            }}
           />
         </div>
         <div className="form-group">
@@ -123,7 +113,9 @@ const Login = () => {
               minLength="6"
               name="password"
               value={formInput.password}
-              onChange={(e)=>{handleChange(e)}}
+              onChange={e => {
+                handleChange(e);
+              }}
             />
             <i
               onClick={e => handlePasswordType(e)}
@@ -132,9 +124,16 @@ const Login = () => {
           </div>
         </div>
 
-        { isPending && <button className="btn" style={{display:"flex",alignItems:"center",justifyContent:"center"}} > <i className="fas fa-circle-notch fa-spin " style={{color:"white",marginRight:"3px"}} ></i> Loading </button>}
-        { isPending === false && <button type="submit" className="btn"> Login </button>}
-        
+        <button className="btn form-btn" type="submit" disabled={isPending}>
+          {isPending ? (
+            <span>
+              <i className="fas fa-circle-notch fa-spin "></i> Loading{" "}
+            </span>
+          ) : (
+            <span>Submit</span>
+          )}
+        </button>
+
         <p className="bottom-text" id="forgetpwd">
           <Link to="/forgotpwd"> Forgot Password?</Link>
         </p>

@@ -13,7 +13,6 @@ import Settings from "./components/admin/settings/settings.component";
 import Profile from "./pages/Profile";
 import UserDetail from "./pages/UserDetail";
 
-
 function App() {
   return (
     <Router>
@@ -37,27 +36,27 @@ function App() {
           <Route path="/otp">
             <Otp />
           </Route>
-          
+
           <Route exact path="/admin">
-            <UserList/>
+            <UserList />
           </Route>
           <Route path="/admin/userprofile/:id">
-            <UserProfile/>
+            <UserProfile />
           </Route>
           <Route exact path="/admin/support">
-            <Support/>
+            <Support />
           </Route>
           <Route path="/admin/supportmessage">
-            <SupportProfile/>
+            <SupportProfile />
           </Route>
-          <Route path="/admin/settings" >
-            <Settings/>
+          <Route path="/admin/settings">
+            <Settings />
           </Route>
-         
+
           <Route path="/profile">
             <Profile />
           </Route>
-          <Route path="/user/details/:id">
+          <Route path="/user/:username">
             <UserDetail />
           </Route>
         </Switch>

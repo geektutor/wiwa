@@ -20,7 +20,7 @@ function Main() {
         <Loader close={!isPending} />
         <Filter filterUrl={filterHandler} />
         {data && !isPending && <CardWrap users={data} />}
-        {error && <ConnectionError />}
+        {error && <ConnectionError msg={error} />}
       </div>
       <Footer />
     </div>

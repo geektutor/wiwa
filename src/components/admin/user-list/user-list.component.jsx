@@ -107,7 +107,7 @@ const UserList = () => {
 </div>
           }
 
-          {error && <ConnectionError />}
+          {error && <ConnectionError msg={error}/>}
 
 
           
