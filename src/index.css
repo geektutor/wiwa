@@ -57,9 +57,20 @@ p {
   cursor: pointer;
   border: 1px solid var(--primary-color);
 }
+.btn span {
+  color: var(--sec-color);
+}
+.btn:disabled span,
+.btn:disabled:hover span {
+  color: white;
+}
 .btn a {
   width: 100%;
   height: 100%;
+}
+.btn .fa-circle-notch {
+  color: white;
+  margin-right: 5px;
 }
 .btn-tp {
   background: transparent;
@@ -69,13 +80,16 @@ p {
   background: var(--sec-color);
   color: var(--primary-color);
 }
+.btn:hover span {
+  color: var(--primary-color);
+}
 .btn-tp:hover {
   background: var(--primary-color);
   color: var(--sec-color);
 }
 .btn:disabled {
-  background-color: #96b7db;
-  cursor: wait;
+  background-color: #a54f19a9;
+  cursor: not-allowed;
 }
 button:focus,
 .btn:active,

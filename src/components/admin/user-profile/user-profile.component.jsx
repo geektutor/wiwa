@@ -430,7 +430,7 @@ const UserProfile = () => {
                 </div>
             }
 
-            {error && <ConnectionError />}
+            {error && <ConnectionError msg={error}/>}
 
             <MobileNav/>
             

@@ -1,6 +1,6 @@
 import classes from "../../assets/css/error.module.css";
 
-const ConnectionError = () => {
+const ConnectionError = ({msg}) => {
   return (
     <div className={classes.oops}>
       <svg
@@ -18,7 +18,7 @@ const ConnectionError = () => {
       </svg>
       <br />
       <h1>Oops!</h1>
-      <p>An error ocurred, you might want to check your network connection</p>
+      <p>{msg}</p>
     </div>
   );
 };

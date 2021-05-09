@@ -1,7 +1,12 @@
+import {useState} from "react";
 import {Link} from "react-router-dom";
 import "./nav.css";
 
 const Navbar = () => {
+  const [isLoggedIn, setisLoggedIn] = useState(
+    localStorage.getItem("userData") ? true : false
+  );
+
   return (
     <nav>
       <h2 className="logo">wiwa</h2>
@@ -12,8 +17,8 @@ const Navbar = () => {
           </Link>
         </li>
         <li className="navLink">
-          <Link to="/profile" className="btn btn-tp">
-            Profile
+          <Link to={isLoggedIn ? "/profile" : "/signup"} className="btn btn-tp">
+            {isLoggedIn ? "Profile" : "Signup"}
           </Link>
         </li>
       </ul>

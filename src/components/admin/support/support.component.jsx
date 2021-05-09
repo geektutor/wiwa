@@ -80,7 +80,7 @@ const Support = () => {
             </div>
             }
 
-            {error && <ConnectionError />}
+            {error && <ConnectionError msg={error}/>}
 
 
             

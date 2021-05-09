@@ -1,10 +1,10 @@
 // a form of global function used for displaying messages
-function displayMsg(type, resMsg, el) {
+function displayMsg(type, resMsg) {
   let msg;
   msg = document.createElement("p");
   msg.className = "msg";
   document.body.insertBefore(msg, document.body.firstElementChild);
-  if (type === "success") {
+  if (type.toLowerCase() === "success") {
     msg.innerHTML = `&check; &nbsp; ${resMsg}`;
   } else {
     msg.innerHTML = `&#9888; &nbsp;${resMsg}`;

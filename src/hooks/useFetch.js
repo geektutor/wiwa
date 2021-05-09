@@ -10,15 +10,9 @@ const useFetch = url => {
     const abortCont = new AbortController();
     setIsPending(true);
     setData(null);
-   
+
     fetch(url)
-      .then(res => {
-        if (!res.ok) {
-          // error coming back from server
-          throw Error("something went wrong, check your netowrk");
-        }
-        return res.json();
-      })
+      .then(res => res.json())
       .then(json => {
         setIsPending(false);
         if (json.status === "Success") {
@@ -32,10 +26,13 @@ const useFetch = url => {
       .catch(err => {
         if (err.name === "AbortError") {
           console.log("fetch aborted");
+        } else if (err.message === "Failed to fetch") {
+          setIsPending(false);
+          setError(err.message + ", you might want to check your connection");
+          displayMsg("error", err.message);
         } else {
           // auto catches network / connection error
           setIsPending(false);
-          console.log(err);
           setError(err.message);
           displayMsg("error", err.message);
         }
