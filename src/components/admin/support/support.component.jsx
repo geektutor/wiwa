@@ -11,7 +11,7 @@ import ConnectionError from '../../errors/connectionError';
 const Support = () => {
     const [url] = useState("https://wiwa.herokuapp.com/admin/feedback");
     const {data,error,isPending} = useFetchAdmin(url);
-    
+    console.log(data)
     return ( 
         <div className="overall">
             <Loader close={!isPending} />
@@ -36,8 +36,8 @@ const Support = () => {
                                     <tr>
 
                                         <th>S/N</th>
-                                        <th>Name</th>
                                         <th>Email</th>
+                                        <th>Title</th>
                                         <th>Action</th>            
                                     </tr>
                 
@@ -50,9 +50,9 @@ const Support = () => {
 
                                 <tr key={eachData.id}>
                                   <td className="first">{data.indexOf(eachData) + 1}</td>       
-                                  <td >{eachData.name}</td>
-                                  <td>{eachData.email}</td>
-                                  <td className="last"><Link to={`/admin/userprofile/${eachData.username}`}><button>View User</button></Link></td>
+                                  <td >{eachData.user}</td>
+                                  <td >{eachData.title}</td>
+                                  <td className="last"><Link to={`/admin/supportmessage/${eachData.id}`}><button>View User</button></Link></td>
                                 </tr>
 
                               )})}

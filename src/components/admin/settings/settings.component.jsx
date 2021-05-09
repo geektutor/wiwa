@@ -1,134 +1,258 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router';
+import useFetchAdmin from '../../../hooks/useFetchAdmin';
+import ConnectionError from '../../errors/connectionError';
 import Loader from '../../Loader';
+import displayMsg from '../../Message';
 import Navbar from '../../nav/Navbar';
+import BtnLoad from '../bntload/btnload.component';
 import MobileNav from '../mobileNav/mobileNav.component';
 import SideBar from '../sideBar/sideBar.component';
 import './settings.style.scss'
 
 const Settings = () => {
 
-    const [isLoading,setIsLoading]=useState(true)
-
-    setTimeout(()=>{
-        setIsLoading(false)
-    },500)
-
-    // const[openForm,setOpenForm] = useState(false)
+    const [url] = useState("https://wiwa.herokuapp.com/admin/keys");
+    const {data,error,isPending} = useFetchAdmin(url);
     const[openAffirm,setOpenAffirm]= useState(false)
+    const[isPendingAdd,setIsPendingAdd] =useState(false)
+    const[isPendingDel,setIsPendingDel] =useState(false)
+    const [addKey,setAddKey] = useState('')
+    const history = useHistory()
+    const [deleteID,setDeleteID] = useState(null)
 
-    //  const handleOpen=()=>{       
-    //      setOpenForm(!openForm)
-    //  }
+    const retrieveToken =  ()=>{
+        const token = window.localStorage.getItem("token")
+        
+        if (!token) {
+            history.push('/login')
+          }
+          else{
+            return(token)
+            }
+      }
+  
+  
+ 
+    const handleSubmit=(e)=>{
+        e.preventDefault();
+      
+        setIsPendingAdd(true)
+    
+        var raw = {
+          "key": addKey
+        };
 
+       
+    
+     
+        var requestOptions = {
+          method: 'POST',
+          body: JSON.stringify(raw),
+          headers:{
+            "Content-Type":"application/json",
+            'token': retrieveToken()
+          },
+          redirect: 'follow'
+        };
+    
+        fetch("https://wiwa.herokuapp.com/admin/keys/create", requestOptions)
+          .then((res)=>{
+            console.log(res)
+            if (res.status===401||res.status===403) {
+                history.push('/login')
+              }
+              else{
+      
+                if (!res.ok) {
+                  // error coming back from server
+                  throw Error("something went wrong");
+                }
+        
+                return res.json();
+      
+              }
+          })
+          .then((result) => {
+            console.log(result)
+            setIsPendingAdd(false);
+    
+            if (result.status === "Success") {
+              displayMsg("success", "Added Successfully");
+              history.go(0)
+            } 
+            else {
+              displayMsg("error", result.message);
+            }
+    
+          })
+          .catch((error )=>{ 
+            setIsPendingAdd(false);
+            displayMsg("error", error.message);
+          });
+    
+      }
+    
+      const handleChange=(event)=>{
+        setAddKey(event.target.value)
+        
+      }
+    
+  
+
+      
      const handleAffirm=(id)=>{
          console.log(id)
+         setDeleteID(id)
         setOpenAffirm(!openAffirm)
+    }
+
+    const handleDelete=(id)=>{
+
+        setIsPendingDel(true)
+
+        console.log(id,'delete')
+
+        var requestOptions = {
+            method:'DELETE',
+            headers:{
+              "Content-Type":"application/json",
+              "token":  retrieveToken()
+            },
+            redirect: 'follow'
+          };
+      
+          fetch(`https://wiwa.herokuapp.com/admin/keys/delete/${id}`, requestOptions)
+            .then((res)=>{
+                console.log(res)
+                if (res.status===401) {
+                    history.push('/login')
+                  }
+                  else{
+          
+                    if (!res.ok) {
+                      // error coming back from server
+                      throw Error("something went wrong");
+                    }
+            
+                    return res.json();
+          
+                  }
+            })
+            .then((result) => {
+              console.log(result)
+              setIsPendingDel(false)
+              if (result.status === "Success") {
+                
+                displayMsg("success", result.message);
+                setTimeout(()=>{
+                    history.go(0)
+
+                },2000)
+                
+              } 
+              else {
+                displayMsg("error", result.message);
+              }
+      
+            })
+            .catch((error )=>{ 
+                displayMsg("error", error.message);
+                console.log(error.message)
+                setIsPendingDel(true)
+            });
+
+
+
     }
 
 
     return ( 
         <div className="overall">
-            <Loader close={!isLoading}/>
+            <Loader close={!isPending}/>
             <Navbar/>
             <SideBar active={'set'}/>
 
-            <div className="coverSection">
+            {data && 
+                    <div className="coverSection">
 
-                <div className="heading">
-                    <p className="text usersname">Settings</p>
-                    
-                </div>
-
-                <section className="second">
-                    
-                    <div className="secondBlock">
-
-                    <div className="question">
-                            <p className="title">Question</p>
-                            <p className="text">
-                                Who is the leader of your group in Christian Church Of God Mission
-                            </p>
-                            
-                                {/* <button className="edit" onClick={handleOpen} >Edit</button>
-                             */}
-                        </div>
-
+                    <div className="heading">
+                        <p className="text usersname">Settings</p>
                         
-                        <div className="answers">
-                            <p className="title">Answers</p>
-
-                            <div className="ans-box">
-                                <div className="ans"> <span>Tope</span>  <i onClick={()=>{handleAffirm('123')}} className="fas fa-times"></i> </div>
-                                <div className="ans"> <span>Sodiq</span> <i onClick={()=>{handleAffirm('1235')}} className="fas fa-times"></i> </div>
-                                <div className="ans"> <span>Musty</span> <i onClick={()=>{handleAffirm('12356')}} className="fas fa-times"></i> </div>
-                                <div className="ans"> <span>Ade</span> <i className="fas fa-times"></i> </div>
-                                <div className="ans"> <span>Muqit</span> <i className="fas fa-times"></i> </div>
-                                <div className="ans"> <span>Kanipee</span> <i className="fas fa-times"></i> </div>
-                                
-                            </div>
-
-                            <form action="" className="addAnswer">
-                                <input type="text" name="name" placeholder="Add Answer"/>
-                                <button type="submit"><i className="fas fa-plus"></i></button>
-                            </form>
-
-
-                        
-
-                        </div>
-
-                    
                     </div>
 
-                
-
-
-                </section>
-
-
-                {/* <div className={`${openForm?'open':'closed'} modal`} onClick={handleOpen} >
-                        <div className="modal-content">
-                            <span  onClick={handleOpen }className="close">&times;</span>
+                    <section className="second">
                         
-                            <h3>Edit Question</h3>
-                            
-                            <form action="">
-                            
-            
-                            <div className="group">
-                                <label >Question</label>
-                                <input type="text"  /> 
-                            
+                        <div className="secondBlock">
+
+                        <div className="question">
+                                <p className="title">Question</p>
+                                <p className="text">
+                                    Who is the leader of your group in Christian Church Of God Mission
+                                </p>
+                                
+                                    {/* <button className="edit" onClick={handleOpen} >Edit</button>
+                                */}
                             </div>
-                            <button type="submit">Edit</button>
-            
-                        
-            
-                            </form>
-                        </div>
-                </div>
-                 */}
-                <div className={`${openAffirm?'open':'closed'} modal`} onClick={handleAffirm } >
-                        <div className="modal-content">
-                            <span  onClick={handleAffirm }className="close">&times;</span>
-                        
-                            <h3>Warning</h3>
-                            
-                            <form action="">
-                            
-            
-                            <p>Are you sure you want to delete this answer?</p>
-                            <button >Delete</button>
-            
-                        
-            
-                            </form>
-                        </div>
-                </div>
-                
 
-            </div>
-        
+                            
+                            <div className="answers">
+                                <p className="title">Answers</p>
+
+                                <div className="ans-box">
+                                    {data.map((item)=>{
+                                        return(
+                                            <div className="ans" key={item.id}> <span>{item.key}</span>  <i onClick={()=>{handleAffirm(`${item.id}`)}} className="fas fa-times"></i> </div>
+                                        )
+                                    })}
+                               
+                                </div>
+
+                                <form onSubmit={handleSubmit} className="addAnswer">
+                                    <input onChange={(e)=>{handleChange(e)}} type="text" name="name" placeholder="Add Answer"/>
+                                    { isPendingAdd ? <button type="submit"> <i className="fas fa-circle-notch fa-spin"></i> </button> : <button type="submit"> <i className="fas fa-plus"></i></button> }
+                                </form>
+
+
+                            
+
+                            </div>
+
+                        
+                        </div>
+
+
+
+
+                    </section>
+
+                    <div className={`${openAffirm?'open':'closed'} modal`}  >
+                            <div className="modal-content">
+                                <span  onClick={handleAffirm }className="close">&times;</span>
+                            
+                                <h3>Warning</h3>
+                                
+                                <form action="">
+                                
+
+                                <p>Are you sure you want to delete this answer?</p>
+                                
+                                {isPendingDel ? <BtnLoad color={'#dd5500'} className={'btn'}/> : <button onClick={()=>{ handleDelete(deleteID)}} >Delete</button>}
+
+                            
+
+                                </form>
+                            </div>
+                    </div>
+
+
+                    </div>
+
+            }
+
+            {error && <ConnectionError />}
+
+            
             <MobileNav/>
 
         </div> 

@@ -47,7 +47,7 @@ function App() {
           <Route exact path="/admin/support">
             <Support/>
           </Route>
-          <Route path="/admin/supportmessage">
+          <Route path="/admin/supportmessage/:id">
             <SupportProfile/>
           </Route>
           <Route path="/admin/settings" >

@@ -12,10 +12,14 @@ import displayMsg from '../../Message';
 
 const UserProfile = () => {
     const {id} = useParams()
-    const [url] = useState(`https://wiwa.herokuapp.com/users/${id}`);
+    const [url] = useState(`https://wiwa.herokuapp.com/admin/users/${id}`);
     const {data,error,isPending} = useFetchAdmin(url);
     const [isPendingBtn, setIsPendingBtn] = useState(false);
+    const [isPendingDel, setIsPendingDel] = useState(false);
+    const [isPendingAd, setIsPendingAd] = useState(false);
+    const [isPendingDelist, setIsPendingDelist] = useState(false);
     const history = useHistory()
+    console.log(data)
   
     
     const handleEnlist = ()=>{
@@ -62,6 +66,9 @@ const UserProfile = () => {
               setIsPendingBtn(false);
               if (result.status === "Success") {
                 displayMsg("success", result.message);
+                setTimeout(()=>{
+                    history.go(0)
+                },1000)
               } 
               else {
                 displayMsg("error", result.message);
@@ -76,10 +83,255 @@ const UserProfile = () => {
             });
         
     }
-    
 
+    const handleDelist = ()=>{
+        setIsPendingDelist(true);
+        const retrieveToken =  ()=>{
+            const token = window.localStorage.getItem("token")
+            
+            if (!token) {
+                history.push('/login')
+              }
+              else{
+                return(token)
+                }
+          }
 
-   
+        var requestOptions = {
+            method:'PUT',
+            headers:{
+              "Content-Type":"application/json",
+              "token":  retrieveToken()
+            },
+            redirect: 'follow'
+          };
+      
+          fetch(`https://wiwa.herokuapp.com/admin/user/delist/${data.id}`, requestOptions)
+            .then((res)=>{
+                console.log(res)
+                if (res.status===401) {
+                    history.push('/login')
+                  }
+                  else{
+          
+                    if (!res.ok) {
+                      // error coming back from server
+                      throw Error("something went wrong");
+                    }
+            
+                    return res.json();
+          
+                  }
+            })
+            .then((result) => {
+              console.log(result)
+              setIsPendingDelist(false);
+              if (result.status === "Success") {
+                displayMsg("success", result.message);
+                setTimeout(()=>{
+                    history.go(0)
+                },1000)
+              } 
+              else {
+                displayMsg("error", result.message);
+              }
+      
+            })
+            .catch((error )=>{ 
+                displayMsg("error", error.message);
+                console.log(error.message)
+                setIsPendingDelist(false);
+              
+            });
+        
+    }
+
+    const handleAdmin = ()=>{
+        setIsPendingAd(true);
+        const retrieveToken =  ()=>{
+            const token = window.localStorage.getItem("token")
+            
+            if (!token) {
+                history.push('/login')
+              }
+              else{
+                return(token)
+                }
+          }
+
+        var requestOptions = {
+            method:'PUT',
+            headers:{
+              "Content-Type":"application/json",
+              "token":  retrieveToken()
+            },
+            redirect: 'follow'
+          };
+      
+          fetch(`https://wiwa.herokuapp.com/admin/user/make-admin/60949a80ad92e33f486fc068`, requestOptions)
+            .then((res)=>{
+                console.log(res)
+                if (res.status===401) {
+                    history.push('/login')
+                  }
+                  else{
+          
+                    if (!res.ok) {
+                      // error coming back from server
+                      throw Error("something went wrong");
+                    }
+            
+                    return res.json();
+          
+                  }
+            })
+            .then((result) => {
+              console.log(result)
+              setIsPendingAd(false);
+              if (result.status === "Success") {
+                displayMsg("success", result.message);
+                setTimeout(()=>{
+                    history.go(0)
+                },2000)
+              } 
+              else {
+                displayMsg("error", result.message);
+              }
+      
+            })
+            .catch((error )=>{ 
+                displayMsg("error", error.message);
+                console.log(error.message)
+                setIsPendingAd(false);
+              
+            });
+        
+    }
+
+    // const handleUnadmin = ()=>{
+    //     setIsPendingAd(true);
+    //     const retrieveToken =  ()=>{
+    //         const token = window.localStorage.getItem("token")
+            
+    //         if (!token) {
+    //             history.push('/login')
+    //           }
+    //           else{
+    //             return(token)
+    //             }
+    //       }
+
+    //     var requestOptions = {
+    //         method:'PUT',
+    //         headers:{
+    //           "Content-Type":"application/json",
+    //           "token":  retrieveToken()
+    //         },
+    //         redirect: 'follow'
+    //       };
+      
+    //       fetch(`https://wiwa.herokuapp.com/admin/user/remove-admin/60949a80ad92e33f486fc068`, requestOptions)
+    //         .then((res)=>{
+    //             console.log(res)
+    //             if (res.status===401) {
+    //                 history.push('/login')
+    //               }
+    //               else{
+          
+    //                 if (!res.ok) {
+    //                   // error coming back from server
+    //                   throw Error("something went wrong");
+    //                 }
+            
+    //                 return res.json();
+          
+    //               }
+    //         })
+    //         .then((result) => {
+    //           console.log(result)
+    //           setIsPendingAd(false);
+    //           if (result.status === "Success") {
+    //             displayMsg("success", result.message);
+    //             setTimeout(()=>{
+    //                 history.go(0)
+    //             },2000)
+    //           } 
+    //           else {
+    //             displayMsg("error", result.message);
+    //           }
+      
+    //         })
+    //         .catch((error )=>{ 
+    //             displayMsg("error", error.message);
+    //             console.log(error.message)
+    //             setIsPendingAd(false);
+              
+    //         });
+        
+    // }
+
+    const handleDelete = ()=>{
+        setIsPendingDel(true);
+        const retrieveToken =  ()=>{
+            const token = window.localStorage.getItem("token")
+            
+            if (!token) {
+                history.push('/login')
+              }
+              else{
+                return(token)
+                }
+          }
+
+        var requestOptions = {
+            method:'DELETE',
+            headers:{
+              "Content-Type":"application/json",
+              "token":  retrieveToken()
+            },
+            redirect: 'follow'
+          };
+      
+          fetch(`https://wiwa.herokuapp.com/users/delete/${data.id}`, requestOptions)
+            .then((res)=>{
+                console.log(res)
+                if (res.status===401) {
+                    history.push('/login')
+                  }
+                  else{
+          
+                    if (!res.ok) {
+                      // error coming back from server
+                      throw Error("something went wrong");
+                    }
+            
+                    return res.json();
+          
+                  }
+            })
+            .then((result) => {
+              console.log(result)
+              setIsPendingDel(false);
+              if (result.status === "Success") {
+                displayMsg("success", result.message);
+                setTimeout(()=>{
+                    history.push('/admin')
+                },2000)
+                
+              } 
+              else {
+                displayMsg("error", result.message);
+              }
+      
+            })
+            .catch((error )=>{ 
+                displayMsg("error", error.message);
+                console.log(error.message)
+                setIsPendingDel(false);
+              
+            });
+        
+    }
 
     return ( 
         <div className="overall">
@@ -109,20 +361,25 @@ const UserProfile = () => {
                         </p>
 
                         <p className="status eachDetail">
-                            Status: <span>User</span>
+                            Status: <span>{data.isAdmin ? 'Admin' : 'User'}</span>
+                        </p>
+
+                        <p className="status eachDetail">
+                            Activity: <span>{data.active ? 'Enlisted' : 'Delisted'}</span>
                         </p>
 
                     </div>
                     <div className="coverall">
                         <div className="actions">
-                            {isPendingBtn ? <BtnLoad className={"enlist"}/> :<button onClick={handleEnlist} className="enlist">Enlist User</button> }
-                            {/* { isPendingBtn && <button className="btn" style={{display:"flex",alignItems:"center",justifyContent:"center"}} > <i className="fas fa-circle-notch fa-spin " style={{color:"white",marginRight:"3px"}} ></i> Loading </button>}
-                            { isPendingBtn === false && <button type="submit" className="btn"> Enlist User </button>}
-         */}
+                            {isPendingBtn ? <BtnLoad className={"enlist"} color={'white'}/> : <button onClick={handleEnlist} className="enlist">Enlist User</button> }
+                                  
                             
-                            <button className="delist">Delist User</button>
-                            <button className="delete">Make Admin</button>
-                            <button className="delete" id="myBtn2">Delete User</button>
+                            {isPendingDelist ? <BtnLoad className={"delist"} color={'white'}/> : <button className="delist" onClick={handleDelist} id="myBtn2">Delist User</button> }
+                            
+                            {isPendingAd ? <BtnLoad className={"delete"} color={'white'}/> : <button className="delete" onClick={handleAdmin} id="myBtn2">Make Admin</button> }
+                            
+                            {isPendingDel ? <BtnLoad className={"delete"} color={'white'}/> : <button className="delete" onClick={handleDelete} id="myBtn2">Delete User</button> }
+                            
                         </div>  
                     </div>
                     
