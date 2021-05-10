@@ -206,11 +206,10 @@ const Settings = () => {
                         <div className="question">
                                 <p className="title">Question</p>
                                 <p className="text">
-                                    Who is the leader of your group in Christian Church Of God Mission
+                                    Who is the leader of your group
                                 </p>
                                 
-                                    {/* <button className="edit" onClick={handleOpen} >Edit</button>
-                                */}
+                                  
                             </div>
 
                             
