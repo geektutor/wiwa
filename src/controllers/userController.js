@@ -265,7 +265,13 @@ const signupQuestions = async (req, res) => {
 		sendError('Invalid Token', 401, res);
 
 	const { userId, question1Id, answer1, question2Id, answer2 } = req.body;
-	if (!question1Id || !answer1 || !question2Id || !answer2 || !userId)
+	if (
+		question1Id === undefined ||
+		!answer1 ||
+		question2Id === undefined ||
+		!answer2 ||
+		!userId
+	)
 		return sendError(
 			'User requires questionIds and answers for signup',
 			400,
@@ -367,10 +373,9 @@ const deleteUser = async (req, res) => {
 	sendSuccess('User deleted', 202, res);
 };
 
-const changePassword = async (req, res) => {
+const forgotPassword = async (req, res) => {
 	const { questionId, answer, email, password } = req.body;
-
-	if (!questionId || !email || !answer || !password)
+	if (questionId === undefined || !email || !answer || !password)
 		return sendError(
 			'Ensure questionId, email and answer are being sent',
 			400,
@@ -378,11 +383,10 @@ const changePassword = async (req, res) => {
 		);
 	if (questionId > 4) return sendError('Invalid Question Id', 400, res);
 
-	const user = await User.find({ email });
+	const user = await User.findOne({ email });
 	if (!user) return sendError('User not found', 404, res);
 
 	let shouldChangePassword = false;
-
 	user.questions.forEach((questionObj) => {
 		if (
 			questionObj.questionIndex === parseInt(questionId) &&
@@ -408,7 +412,7 @@ module.exports = {
 	getUsersByName,
 	getUsersBySkill,
 	createFeedback,
-	changePassword,
+	forgotPassword,
 	getUsers,
 	login,
 	signupSecret,

@@ -24,7 +24,7 @@ userRouter.post('/signup/questions', userController.signupQuestions);
 
 userRouter.post('/refresh-token', userController.refreshToken);
 
-userRouter.post('/change-password', userController.changePassword);
+userRouter.post('/forgot-password', userController.forgotPassword);
 
 userRouter.post('/feedback/create', userAuth, userController.createFeedback);
 
