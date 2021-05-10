@@ -219,7 +219,7 @@ const signupInfo = async (req, res) => {
 		!password ||
 		!shortBio ||
 		!cvLink ||
-		(skills && skills.length > 0)
+		(skills && skills.length == 0)
 	)
 		return sendError(
 			'Ensure you send all necessary info for signup',
@@ -360,7 +360,7 @@ const editUser = async (req, res) => {
 
 	user.shortBio = shortBio || user.shortBio;
 	user.fullBio = fullBio || user.fullBio;
-	user.skills = skills && skills.length > 0 ? skills : user.skills;
+	user.skills = skills && skills.length == 0 ? skills : user.skills;
 
 	await user.save();
 	sendData(sanitizeUser(user), 202, res);
