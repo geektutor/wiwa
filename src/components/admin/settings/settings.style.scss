@@ -27,7 +27,7 @@ section.second{
         .question{
             @include boxes;
             padding: 20px;
-            width: 55%;
+            width: 30%;
             border-radius: 10px;   
             @include mq(600px){
                 width: 100%;
@@ -48,6 +48,7 @@ section.second{
                 font-size: 14px;
                 font-weight: 400;
                 color: $black;
+                text-align: center;
                 line-height: 28px;
                 @include mq(600px){
                    font-size: 12px;
@@ -78,7 +79,7 @@ section.second{
         .answers{
             @include boxes;
             padding: 20px;
-            width: 40%;
+            width: 57%;
             border-radius: 10px;
             @include mq(600px){
                 width: 100%;
