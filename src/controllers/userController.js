@@ -308,15 +308,7 @@ const createFeedback = async (req, res) => {
 };
 
 const editUser = async (req, res) => {
-	const {
-		name,
-		email,
-		password,
-		cvLink,
-		shortBio,
-		fullBio,
-		skills,
-	} = req.body;
+	const { name, password, cvLink, shortBio, fullBio, skills } = req.body;
 	const { userId } = req.params;
 	if (!req.user.isAdmin && req.user._id != userId)
 		return sendError('Invalid Authorization', 403, res);
@@ -327,10 +319,7 @@ const editUser = async (req, res) => {
 	const user = await User.findById(userId);
 	if (!user) sendError('User not found', 404, res);
 
-	const isEmailTaken = await User.findOne({ email });
-	if (isEmailTaken) return sendError('This email has been taken', 400, res);
 	user.name = name || user.name;
-	user.email = email || user.email;
 
 	if (password) {
 		const salt = await bcrypt.genSalt(BCRYPT_SALT);

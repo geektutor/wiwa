@@ -56,7 +56,6 @@ const getUsername = async (name) => {
 
 				const prevNumber = parseInt(lastChar);
 				username = username + `${prevNumber + 1}`;
-				console.log(username, usernameArr);
 			}
 		}
 		count++;
