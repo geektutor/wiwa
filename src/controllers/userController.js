@@ -204,8 +204,23 @@ const signupInfo = async (req, res) => {
 
 	if (!verifiedToken.userType) return sendError('Invalid Token', 401, res);
 
-	const { name, email, password, shortBio, fullBio, cvLink } = req.body;
-	if (!name || !email || !password || !shortBio || !cvLink)
+	const {
+		name,
+		email,
+		password,
+		shortBio,
+		fullBio,
+		cvLink,
+		skills,
+	} = req.body;
+	if (
+		!name ||
+		!email ||
+		!password ||
+		!shortBio ||
+		!cvLink ||
+		(skills && skills.length > 0)
+	)
 		return sendError(
 			'Ensure you send all necessary info for signup',
 			400,
@@ -229,6 +244,7 @@ const signupInfo = async (req, res) => {
 		fullBio,
 		cvLink,
 		isAdmin: false,
+		skills,
 	});
 	await user.save();
 	sendData(sanitizeUser(user), 201, res);
