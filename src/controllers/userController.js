@@ -172,12 +172,13 @@ const signupSecret = async (req, res) => {
 	let key;
 	try {
 		var regex = new RegExp(['^', accessKey, '$'].join(''), 'ig');
-		key = await Key.find({
+		key = await Key.findOne({
 			key: regex,
 		});
 	} catch (e) {
 		return sendError('Invalid Access Key Provided', 400, res);
 	}
+	if (!key) return sendError('Invalid Access Key Provided', 400, res);
 
 	const token = jwt.sign(
 		{
