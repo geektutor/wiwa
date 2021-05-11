@@ -72,29 +72,29 @@ const Forms = props => {
   };
 
   // skills dynamic functionalities
-  const addSkill = e => {
-    if (e.code === "Comma" && tempSkill !== ",") {
-      if (!formsData.skills.includes(tempSkill)) {
-        let skillsArr = formsData.skills;
-        skillsArr.push(tempSkill.substr(0, tempSkill.length));
-        setFormsData({...formsData, skills: skillsArr});
-      }
-      setTempSkill("");
-    }
-  };
-  // let skillsArr = [...formData.skills];
   // const addSkill = e => {
-  //   if (tempSkill) {
-  //     let skillsArr = [
-  //       ...formData.skills,
-  //       ...tempSkill.replace(/\s/g, "").split(","),
-  //     ];
-  //     setFormsData(items => {
-  //       return {...items, skills: [...skillsArr]};
-  //     });
+  //   if (e.code === "Comma" && tempSkill !== ",") {
+  //     if (!formsData.skills.includes(tempSkill)) {
+  //       let skillsArr = formsData.skills;
+  //       skillsArr.push(tempSkill.substr(0, tempSkill.length));
+  //       setFormsData({...formsData, skills: skillsArr});
+  //     }
+  //     setTempSkill("");
   //   }
-  //   console.log(formData.skills);
   // };
+  // let skillsArr = [...formData.skills];
+  const addSkill2 = e => {
+    if (tempSkill && tempSkill !== "," && tempSkill !== " ") {
+      let skillsArr = [
+        ...formData.skills,
+        ...tempSkill.replace(/\s/g, "").split(","),
+      ];
+      setFormsData(items => {
+        return {...items, skills: [...skillsArr]};
+      });
+    }
+    console.log(formData.skills);
+  };
   const deleteSkill = skill => {
     let skillsArr = formsData.skills.filter(item => item !== skill);
     // setFormsData(item => {
@@ -212,11 +212,11 @@ const Forms = props => {
                 id="skills"
                 value={tempSkill}
                 onChange={e => setTempSkill(e.target.value)}
-                onKeyDown={e => addSkill(e)}
+                // onKeyDown={e => addSkill(e)}
                 name="skills"
                 placeholder="eg: HTML, SEO, Digital Marketing"
               />
-              {/* <i onClick={addSkill} className="fa fa-plus view-pwd"></i> */}
+              <i onClick={addSkill2} className="fa fa-plus view-pwd"></i>
             </div>
             <div>
               {" "}
