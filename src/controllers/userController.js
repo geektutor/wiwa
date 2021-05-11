@@ -205,15 +205,8 @@ const signupInfo = async (req, res) => {
 
 	if (!verifiedToken.userType) return sendError('Invalid Token', 401, res);
 
-	const {
-		name,
-		email,
-		password,
-		shortBio,
-		fullBio,
-		cvLink,
-		skills,
-	} = req.body;
+	const { name, email, password, shortBio, fullBio, cvLink, skills } =
+		req.body;
 	if (
 		!name ||
 		!email ||
@@ -340,7 +333,7 @@ const editUser = async (req, res) => {
 		return sendError('Password must be 6 or more characters', 400, res);
 
 	const user = await User.findById(userId);
-	if (!user) sendError('User not found', 404, res);
+	if (!user) return sendError('User not found', 404, res);
 
 	user.name = name || user.name;
 
@@ -361,10 +354,35 @@ const editUser = async (req, res) => {
 
 	user.shortBio = shortBio || user.shortBio;
 	user.fullBio = fullBio || user.fullBio;
-	user.skills = skills && skills.length == 0 ? skills : user.skills;
+
+	if (skills && skills.length > 0) {
+		//Check if skill exists already
+		let userSkillsMap = {};
+		user.skills.forEach((skill) => {
+			userSkillsMap[skill.toLowerCase()] = true;
+		});
+
+		for (let i = 0; i < skills.length; i++) {
+			if (userSkillsMap[skills[0].toLowerCase()])
+				return sendError(
+					'Cannot add skill that already exists',
+					400,
+					res
+				);
+		}
+
+		user.skills = [...user.skills, ...skills];
+	}
 
 	await user.save();
-	sendData(sanitizeUser(user), 202, res);
+	sendData(
+		{
+			...sanitizeUser(user),
+			areQuestionsAnswered: user.questions.length > 0,
+		},
+		202,
+		res
+	);
 };
 
 const deleteUser = async (req, res) => {
