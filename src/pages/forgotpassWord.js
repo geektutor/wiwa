@@ -1,39 +1,36 @@
-import { useState } from "react";
+import {useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import displayMsg from "../components/Message";
 
 const ForgotPassword = () => {
-  const history = useHistory()
+  const history = useHistory();
   const [inputType, setInputType] = useState("password");
   const [isPending, setIsPending] = useState(false);
- const [questionBank] = useState([
-   { id: 0,question: "What is your mother's maiden name"},
-   {id:1,question: "What is the name of your childhood street"},
-   {id: 2, question: "What is the name of your childhood pet"},
-   {id:3,question: "What is your maternal grandmother's maiden name?"},
-   { id:4,question: "What is the name of your favorite teacher"},
-  
- ])
+  const [questionBank] = useState([
+    {id: 0, question: "What is your mother's maiden name"},
+    {id: 1, question: "What is the name of your childhood street"},
+    {id: 2, question: "What is the name of your childhood pet"},
+    {id: 3, question: "What is your maternal grandmother's maiden name?"},
+    {id: 4, question: "What is the name of your favorite teacher"},
+  ]);
   const [formInput, setFormInput] = useState({
     email: "",
     password: "",
-    answer:"",
-    questionId:"0"
+    answer: "",
+    questionId: "0",
   });
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(formInput)
-    setFormInput({...formInput, email: "", password: "",answer:""});
+    setFormInput({...formInput, email: "", password: "", answer: ""});
 
     setIsPending(true);
 
     var raw = {
       email: formInput.email,
       password: formInput.password,
-      questionId:formInput.questionId,
-      answer:formInput.answer
-
+      questionId: formInput.questionId,
+      answer: formInput.answer,
     };
 
     var requestOptions = {
@@ -41,7 +38,6 @@ const ForgotPassword = () => {
       body: JSON.stringify(raw),
       headers: {
         "Content-Type": "application/json",
-    
       },
       redirect: "follow",
     };
@@ -67,7 +63,6 @@ const ForgotPassword = () => {
       });
   };
 
-
   const handlePasswordType = e => {
     e.target.classList.toggle("fa-eye-slash");
     e.target.classList.toggle("fa-eye");
@@ -77,12 +72,9 @@ const ForgotPassword = () => {
   };
 
   const handleChange = event => {
-   console.log(event.target.value)
     const {value, name} = event.target;
     setFormInput({...formInput, [name]: value});
   };
-
-
 
   return (
     <main className="container align-top">
@@ -97,16 +89,22 @@ const ForgotPassword = () => {
 
         <div className="form-group">
           <label htmlFor="email">Select Question</label>
-          
-          <select style={{margin:'0.4rem 0'}} onChange={e=>{handleChange(e)}} name="questionId" id="">
-            
-            {questionBank.map((item)=>{
-              return (
-                <option key={item.id} value={`${item.id}`}>{item.question}</option>
-              )
-            })}
-        
 
+          <select
+            style={{margin: "0.4rem 0"}}
+            onChange={e => {
+              handleChange(e);
+            }}
+            name="questionId"
+            id=""
+          >
+            {questionBank.map(item => {
+              return (
+                <option key={item.id} value={`${item.id}`}>
+                  {item.question}
+                </option>
+              );
+            })}
           </select>
         </div>
 
@@ -121,12 +119,10 @@ const ForgotPassword = () => {
             placeholder="Answer?"
             value={formInput.answer}
             onChange={e => {
-                handleChange(e);
+              handleChange(e);
             }}
           />
-
         </div>
-
 
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -137,9 +133,9 @@ const ForgotPassword = () => {
             required
             placeholder="johndoe@gmail.com"
             value={formInput.email}
-              onChange={e => {
-                handleChange(e);
-              }}
+            onChange={e => {
+              handleChange(e);
+            }}
           />
         </div>
 
@@ -165,7 +161,6 @@ const ForgotPassword = () => {
           </div>
         </div>
 
-
         <button className="btn form-btn" type="submit" disabled={isPending}>
           {isPending ? (
             <span>
@@ -179,7 +174,6 @@ const ForgotPassword = () => {
         <p className="bottom-text">
           Return to <Link to="/login">Login</Link>
         </p>
-
       </form>
     </main>
   );

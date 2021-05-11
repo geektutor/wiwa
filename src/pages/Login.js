@@ -38,7 +38,6 @@ const Login = () => {
     fetch("https://wiwa.herokuapp.com/users/login", requestOptions)
       .then(res => res.json())
       .then(result => {
-        console.log(result);
         setIsPending(false);
 
         if (result.status === "Success") {

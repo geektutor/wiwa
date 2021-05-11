@@ -15,60 +15,38 @@ const Questions = () => {
     3: "What is your maternal grandmother's maiden name?",
     4: "What is the name of your favorite teacher",
   });
-  // const [requestBody, setRequestBody] = useState()
-  const [answerFormData, setAnswerFormData] = useState(null);
-  const history = useHistory();
-  const user = JSON.parse(localStorage.getItem("userData")) || null;
+  const user = JSON.parse(localStorage.getItem("userData"));
+  const [questionForm, setquestionForm] = useState({
+    question1Id: "0",
+    answer1: "",
+    question2Id: "1",
+    answer2: "",
+    userId: user.id,
+  });
 
+  const history = useHistory();
   useEffect(() => {
-    let obj = {};
-    Object.keys(questions).forEach(el => {
-      obj[el] = {
-        questionId: el,
-        answer: "",
-      };
-      setAnswerFormData({...obj});
-    });
     refreshToken();
-  }, [questions]);
+    if (!user) {
+      history.push("/signup");
+    }
+  }, [history, user]);
 
   const handleChange = event => {
     const {value, name} = event.target;
-    setAnswerFormData({
-      ...answerFormData,
-      [name]: {
-        questionId: name,
-        answer: value,
-      },
-    });
+    setquestionForm({...questionForm, [name]: value});
   };
 
   const onQuestionSubmit = e => {
     e.preventDefault();
     setIsPending(true);
-
-    let body = {};
-    let reqBody = {userId: user.id};
-
-    for (let i = 0; i < Object.keys(questions).length; i++) {
-      if (answerFormData[i].answer !== "") {
-        body[i] = answerFormData[i];
-        console.log(body);
-      }
-    }
-    if (Object.keys(body).length > 2 || Object.keys(body).length < 2)
-      displayMsg("error", "You can only two questions");
-    else {
-      Object.entries(body).forEach(([key, value], i) => {
-        console.log(`${key} ${value}`);
-        reqBody[`question${i + 1}Id`] = body[key].questionId;
-        reqBody[`answer${i + 1}`] = body[key].answer;
-      });
-      console.log(reqBody, body);
-
+    if (questionForm.question1Id === questionForm.question2Id) {
+      displayMsg("error", "You can't answer the same question twice");
+    } else {
+      console.log(questionForm);
       var requestOptions = {
         method: "POST",
-        body: JSON.stringify(reqBody),
+        body: JSON.stringify(questionForm),
         headers: {
           "Content-Type": "application/json",
           token: token,
@@ -78,7 +56,6 @@ const Questions = () => {
 
       fetch("https://wiwa.herokuapp.com/users/signup/questions", requestOptions)
         .then(res => {
-          console.log(res);
           setIsPending(false);
           if (res.status === 401) {
             return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
@@ -92,8 +69,7 @@ const Questions = () => {
               .then(response => {
                 console.log(response);
                 if (!response.ok) {
-                  history.push("/login");
-                  // throw new Error("something went wrong, pls try again");
+                  history.push("/signup");
                 } else {
                   return response.json();
                 }
@@ -115,48 +91,100 @@ const Questions = () => {
         })
         .then(json => {
           window.localStorage.setItem("token", json.data);
-          console.log(json);
-          displayMsg(
-            "success",
-            "registration completed!, login to finally use your acccount"
-          );
-
-          setTimeout(() => history.push("/login"), 1500);
+          if (json.status === "Success") {
+            displayMsg(
+              "success",
+              "registration completed!, login to effect your changes"
+            );
+            setTimeout(() => history.push("/login"), 1500);
+          } else if (json.status === "Failed") {
+            displayMsg("error", json.message);
+          }
         })
-        .catch(error => console.log("error", error));
+        .catch(error => displayMsg("error", error.message));
     }
   };
   return (
     <main className="container align-top margin-top">
-      <form className="login-form" onSubmit={e => onQuestionSubmit(e)}>
+      <form
+        className="login-form questions"
+        onSubmit={e => onQuestionSubmit(e)}
+      >
         <div className="signup-text">
           <h3 className="logo">wiwa</h3>
           <p>
-            To Complete Your Sign up pls answer these questions. They will be
-            used to authenticate you...
+            To Complete your registration pls chose and answer any 2 questions
+            for two factor authentication.
           </p>
         </div>
-        {answerFormData && (
-          <div>
-            {Object.entries(questions).map(([key, value], index) => {
-              return (
-                <div key={key} className="form-group">
-                  <label htmlFor={key}>{value}</label>
-                  <input
-                    type="text"
-                    id={key}
-                    placeholder="answer..."
-                    name={key}
-                    onChange={e => {
-                      handleChange(e);
-                    }}
-                    value={answerFormData[key].answer}
-                  />
-                </div>
-              );
-            })}
+        <div className="questions-wrap">
+          <div id="question1" className="question-wrap">
+            <label htmlFor="question1">Question 1:</label>
+            <select
+              id="question1"
+              name="question1Id"
+              value={questionForm.question1Id}
+              onChange={e => {
+                handleChange(e);
+              }}
+            >
+              {Object.entries(questions).map(([key, value], index) => {
+                return (
+                  <option key={key} value={key} className="form-group">
+                    {value}
+                  </option>
+                );
+              })}
+            </select>
+            <div className="form-group">
+              <label>Answer:</label>
+              <input
+                type="text"
+                required
+                placeholder="answer..."
+                name="answer1"
+                onChange={e => {
+                  handleChange(e);
+                }}
+                value={questionForm.answer1}
+              />
+            </div>
           </div>
-        )}
+          <div id="question1" className="question-wrap">
+            <div className="form-group">
+              <label htmlFor="question1">Question 2:</label>
+              <select
+                id="question2"
+                name="question2Id"
+                onChange={e => {
+                  handleChange(e);
+                }}
+                value={questionForm.question2Id}
+              >
+                {Object.entries(questions).map(([key, value], index) => {
+                  return (
+                    <option key={key} value={key} className="form-group">
+                      {value}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Answer:</label>
+              <input
+                type="text"
+                required
+                placeholder="answer..."
+                name="answer2"
+                onChange={e => {
+                  handleChange(e);
+                }}
+                value={questionForm.answer2}
+              />
+            </div>
+          </div>
+        </div>
 
         <button className="btn form-btn" type="submit" disabled={isPending}>
           {isPending ? (
