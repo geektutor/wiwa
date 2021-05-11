@@ -11,7 +11,7 @@ const Forms = props => {
   const [fileLoaded, setfileLoaded] = useState("No file chosen");
   const [formsData, setFormsData] = useState(formData);
   const [cv, setCv] = useState(null);
-  const [pdf, setPdf] = useState(null);
+  const [, setPdf] = useState(null);
 
   const onFileChange = e => {
     let file = e.target.files;
@@ -59,37 +59,48 @@ const Forms = props => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(formData);
-    // if (formsData.skills.length > 0) {
-    //   submitData(formsData); //pass the data to the parent component and run event
-    // } else {
-    //   displayMsg("error", "Enter a skill");
-    // }
+    if (!formsData.skills.length > 0) {
+      displayMsg("error", "Enter a skill");
+    } else if (
+      formData.skills.some((val, i) => formData.skills.indexOf(val) !== i)
+    ) {
+      displayMsg("error", "You can't repeat skills");
+    } else {
+      console.log(formData.skills);
+      submitData(formsData); //pass the data to the parent component and run event
+    }
   };
 
   // skills dynamic functionalities
-  // const addSkill = e => {
-  //   if (e.code === "Comma" && tempSkill !== ",") {
-  //     if (!formsData.skills.includes(tempSkill)) {
-  //       let skillsArr = formsData.skills;
-  //       skillsArr.push(tempSkill.substr(0, tempSkill.length));
-  //       setFormsData({...formsData, skills: skillsArr});
-  //     }
-  //     setTempSkill("");
-  //   }
-  // };
-  // let skillsArr = [...formData.skills];
   const addSkill = e => {
-    let skillsArr = [
-      ...formData.skills,
-      ...tempSkill.replace(/\s/g, "").split(","),
-    ];
-    setFormsData(items => {
-      return {...items, skills: [...skillsArr]};
-    });
+    if (e.code === "Comma" && tempSkill !== ",") {
+      if (!formsData.skills.includes(tempSkill)) {
+        let skillsArr = formsData.skills;
+        skillsArr.push(tempSkill.substr(0, tempSkill.length));
+        setFormsData({...formsData, skills: skillsArr});
+      }
+      setTempSkill("");
+    }
   };
+  // let skillsArr = [...formData.skills];
+  // const addSkill = e => {
+  //   if (tempSkill) {
+  //     let skillsArr = [
+  //       ...formData.skills,
+  //       ...tempSkill.replace(/\s/g, "").split(","),
+  //     ];
+  //     setFormsData(items => {
+  //       return {...items, skills: [...skillsArr]};
+  //     });
+  //   }
+  //   console.log(formData.skills);
+  // };
   const deleteSkill = skill => {
     let skillsArr = formsData.skills.filter(item => item !== skill);
-    setFormsData({...formsData, skills: skillsArr});
+    // setFormsData(item => {
+    //   return {...item, skills: skillsArr};
+    // });
+    setFormsData({...formsData, skills: [...skillsArr]});
   };
 
   // toggle password type
@@ -192,7 +203,7 @@ const Forms = props => {
         {!hide.includes("skills") && (
           <div className="form-group">
             <label htmlFor="skills">
-              Skills (seperate each skill with a comma ", " (comma and space) ,
+              Skills (seperate each skill with a comma ", " (comma and space)
               click on each skill to delete)
             </label>
             <div className="pwd-wrap">
@@ -201,19 +212,19 @@ const Forms = props => {
                 id="skills"
                 value={tempSkill}
                 onChange={e => setTempSkill(e.target.value)}
-                // onKeyDown={e => addSkill(e)}
+                onKeyDown={e => addSkill(e)}
                 name="skills"
                 placeholder="eg: HTML, SEO, Digital Marketing"
               />
-              <i onClick={addSkill} className="fa fa-plus view-pwd"></i>
+              {/* <i onClick={addSkill} className="fa fa-plus view-pwd"></i> */}
             </div>
             <div>
               {" "}
-              {formsData.skills.map(skill => (
+              {formsData.skills.map((skill, i) => (
                 <span
                   onClick={() => deleteSkill(skill)}
                   className="skill"
-                  key={skill}
+                  key={i}
                 >
                   {skill}
                 </span>

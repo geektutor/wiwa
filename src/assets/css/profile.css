@@ -26,15 +26,15 @@
   border: 1px dashed var(--primary-color);
   margin: 0.5rem 1rem 0.5rem 0;
 }
-.form-group .skill::before {
+/* .form-group .skill::before {
   content: "x";
   position: relative;
   margin-right: 0.5rem;
   border: 1px solid black;
-  /* padding: 0.1rem; */
+   padding: 0.1rem; 
   border-radius: 0%;
   color: var(--text-color);
-}
+} */
 .wrap {
   margin-top: 2rem;
 }
