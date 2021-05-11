@@ -356,22 +356,16 @@ const editUser = async (req, res) => {
 	user.fullBio = fullBio || user.fullBio;
 
 	if (skills && skills.length > 0) {
-		//Check if skill exists already
-		let userSkillsMap = {};
-		user.skills.forEach((skill) => {
-			userSkillsMap[skill.toLowerCase()] = true;
-		});
+		if (skills.length > 8)
+			return sendError('Skills cannot be greater than 8', 400, res);
 
 		for (let i = 0; i < skills.length; i++) {
-			if (userSkillsMap[skills[0].toLowerCase()])
-				return sendError(
-					'Cannot add skill that already exists',
-					400,
-					res
-				);
+			if (skills[i].trim() === '') {
+				return sendError('Cannot add empty string as skill', 400, res);
+			}
 		}
 
-		user.skills = [...user.skills, ...skills];
+		user.skills = skills;
 	}
 
 	await user.save();
