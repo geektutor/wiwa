@@ -14,9 +14,9 @@ main.container {
   /* width: 100%; */
   min-height: 100vh;
 }
-#signup form {
-  width: 60%;
-  margin: 2rem auto;
+main.margin-top form {
+  width: 60% !important;
+  margin: 2rem auto !important;
 }
 #s-bio {
   height: 100px;
@@ -177,9 +177,8 @@ label.file-upload {
   align-items: center;
 }
 @media (max-width: 800px) {
-  #signup form,
+  main.margin-top form,
   main.container form {
-    width: 100%;
+    width: 100% !important;
   }
 }
-

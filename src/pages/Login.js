@@ -30,7 +30,7 @@ const Login = () => {
       body: JSON.stringify(raw),
       headers: {
         "Content-Type": "application/json",
-        "token": toks,
+        token: toks,
       },
       redirect: "follow",
     };

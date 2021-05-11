@@ -6,9 +6,9 @@ const Card = ({user}) => {
     <div className={classes.Card}>
       <h3>{user.name}</h3>
       <p>
-        Skill:
+        Skill: &nbsp;
         {user.skills.map((skill, index) => (
-          <span key={index} className="skill">
+          <span key={index} className="skill skill-mini">
             {skill}
           </span>
         ))}

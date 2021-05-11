@@ -77,7 +77,8 @@ const UserProfile = () => {
               if (result.status === "Success") {
                 displayMsg("success", result.message);
                 setTimeout(()=>{
-                    history.go(0)
+                    // history.go(0)
+
                 },1000)
               } 
               else {

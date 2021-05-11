@@ -12,7 +12,6 @@ const AccessKey = props => {
     e.preventDefault();
     setIsPending(true);
 
-    const token = "Bearer " + window.localStorage.getItem("token");
     const requestBody = {
       accessKey: answer,
     };
@@ -21,7 +20,6 @@ const AccessKey = props => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
       },
       body: JSON.stringify(requestBody),
       redirect: "follow",
@@ -29,12 +27,14 @@ const AccessKey = props => {
       .then(res => res.json())
       .then(json => {
         setIsPending(false);
+        console.log(json);
         if (json.status === "Success") {
+          props.showForm(); //show sign up form
           window.localStorage.setItem("token", json.data.token);
           displayMsg("success", "Correct Answer");
           props.showForm(); //show sign up form
         } else {
-          displayMsg("error", "Wrong Answre");
+          displayMsg("error", json.message);
         }
       })
       .catch(error => {
@@ -54,9 +54,7 @@ const AccessKey = props => {
         <p>To continue, answer this question...</p>
       </div>
       <div className="form-group">
-        <label htmlFor="question">
-          Who is the leader of your group in Christian Church Of God Mission
-        </label>
+        <label htmlFor="question">Who is the leader of your group?</label>
         <input
           value={answer}
           onChange={e => setAnswer(e.target.value)}
@@ -71,7 +69,7 @@ const AccessKey = props => {
               <i className="fas fa-circle-notch fa-spin "></i> Loading{" "}
             </span>
           ) : (
-            <span>Submit</span>
+            <span>Next</span>
           )}
         </button>
       </div>

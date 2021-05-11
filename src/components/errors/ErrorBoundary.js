@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import NoContent from "./NoContent";
+import ConnectionError from "./connectionError";
+// import NoContent from "./NoContent";
 
 class ErrorBoundary extends Component {
   state = {
@@ -13,7 +14,7 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
-      return <NoContent msg={this.state.errorMessage} />;
+      return <ConnectionError msg={this.state.errorMessage} />;
     } else {
       return this.props.children;
     }

@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import "./nav.css";
 
@@ -6,7 +6,10 @@ const Navbar = () => {
   const [isLoggedIn, setisLoggedIn] = useState(
     localStorage.getItem("userData") ? true : false
   );
-
+  useEffect(
+    () => setisLoggedIn(localStorage.getItem("userData") ? true : false),
+    [isLoggedIn]
+  );
   return (
     <nav>
       <h2 className="logo">wiwa</h2>
