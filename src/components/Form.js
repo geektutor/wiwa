@@ -58,26 +58,34 @@ const Forms = props => {
   // submitform
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(pdf);
-    if (formsData.skills.length > 0) {
-      // console.log(formsData);
-      // setfileLoaded(() => "No file chosen");
-      submitData(formsData); //pass the data to the parent component and run event
-    } else {
-      displayMsg("error", "Enter a skill");
-    }
+    console.log(formData);
+    // if (formsData.skills.length > 0) {
+    //   submitData(formsData); //pass the data to the parent component and run event
+    // } else {
+    //   displayMsg("error", "Enter a skill");
+    // }
   };
 
   // skills dynamic functionalities
+  // const addSkill = e => {
+  //   if (e.code === "Comma" && tempSkill !== ",") {
+  //     if (!formsData.skills.includes(tempSkill)) {
+  //       let skillsArr = formsData.skills;
+  //       skillsArr.push(tempSkill.substr(0, tempSkill.length));
+  //       setFormsData({...formsData, skills: skillsArr});
+  //     }
+  //     setTempSkill("");
+  //   }
+  // };
+  // let skillsArr = [...formData.skills];
   const addSkill = e => {
-    if (e.key === "," && tempSkill) {
-      if (!formsData.skills.includes(tempSkill)) {
-        let skillsArr = formsData.skills;
-        skillsArr.push(tempSkill.substr(0, tempSkill.length - 1));
-        setFormsData({...formsData, skills: skillsArr});
-      }
-      setTempSkill("");
-    }
+    let skillsArr = [
+      ...formData.skills,
+      ...tempSkill.replace(/\s/g, "").split(","),
+    ];
+    setFormsData(items => {
+      return {...items, skills: [...skillsArr]};
+    });
   };
   const deleteSkill = skill => {
     let skillsArr = formsData.skills.filter(item => item !== skill);
@@ -184,18 +192,21 @@ const Forms = props => {
         {!hide.includes("skills") && (
           <div className="form-group">
             <label htmlFor="skills">
-              Skills (seperate each skill with a comma "," and click on each
-              skill to delete)
+              Skills (seperate each skill with a comma ", " (comma and space) ,
+              click on each skill to delete)
             </label>
-            <input
-              type="text"
-              id="skills"
-              value={tempSkill}
-              onChange={e => setTempSkill(e.target.value)}
-              onKeyUp={e => addSkill(e)}
-              name="skills"
-              placeholder="eg: HTML, SEO, Digital Marketing"
-            />
+            <div className="pwd-wrap">
+              <input
+                type="text"
+                id="skills"
+                value={tempSkill}
+                onChange={e => setTempSkill(e.target.value)}
+                // onKeyDown={e => addSkill(e)}
+                name="skills"
+                placeholder="eg: HTML, SEO, Digital Marketing"
+              />
+              <i onClick={addSkill} className="fa fa-plus view-pwd"></i>
+            </div>
             <div>
               {" "}
               {formsData.skills.map(skill => (

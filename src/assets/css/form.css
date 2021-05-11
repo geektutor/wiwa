@@ -189,3 +189,7 @@ label.file-upload {
 .question-wrap .form-group {
   flex-direction: column;
 }
+.fa-plus {
+  background-color: var(--primary-color);
+  color: white;
+}
