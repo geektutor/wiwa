@@ -6,15 +6,24 @@ const ForgotPassword = () => {
   const history = useHistory()
   const [inputType, setInputType] = useState("password");
   const [isPending, setIsPending] = useState(false);
-
+ const [questionBank] = useState([
+   { id: 0,question: "What is your mother's maiden name"},
+   {id:1,question: "What is the name of your childhood street"},
+   {id: 2, question: "What is the name of your childhood pet"},
+   {id:3,question: "What is your maternal grandmother's maiden name?"},
+   { id:4,question: "What is the name of your favorite teacher"},
+  
+ ])
   const [formInput, setFormInput] = useState({
     email: "",
     password: "",
-    answer:""
+    answer:"",
+    questionId:"0"
   });
 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log(formInput)
     setFormInput({...formInput, email: "", password: "",answer:""});
 
     setIsPending(true);
@@ -22,6 +31,9 @@ const ForgotPassword = () => {
     var raw = {
       email: formInput.email,
       password: formInput.password,
+      questionId:formInput.questionId,
+      answer:formInput.answer
+
     };
 
     var requestOptions = {
@@ -65,7 +77,7 @@ const ForgotPassword = () => {
   };
 
   const handleChange = event => {
-   
+   console.log(event.target.value)
     const {value, name} = event.target;
     setFormInput({...formInput, [name]: value});
   };
@@ -79,12 +91,28 @@ const ForgotPassword = () => {
           <h3 className="logo">wiwa</h3>
           {/* <h4 style={{textAlign: "center"}}>Enter Email Address</h4> */}
           <p style={{fontSize: "1rem", textAlign: "center", color: "black"}}>
-            Answer this question and provide the details below
+            Answer your selected question and provide the details below
           </p>
         </div>
 
         <div className="form-group">
-          <label htmlFor="email">Who is the leader of your group</label>
+          <label htmlFor="email">Select Question</label>
+          
+          <select style={{margin:'0.4rem 0'}} onChange={e=>{handleChange(e)}} name="questionId" id="">
+            
+            {questionBank.map((item)=>{
+              return (
+                <option key={item.id} value={`${item.id}`}>{item.question}</option>
+              )
+            })}
+        
+
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="Answer">Answer</label>
+
           <input
             type="text"
             id="text"
@@ -96,6 +124,7 @@ const ForgotPassword = () => {
                 handleChange(e);
             }}
           />
+
         </div>
 
 
@@ -115,7 +144,7 @@ const ForgotPassword = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="pwd">Password</label>
+          <label htmlFor="pwd">Set Password</label>
           <div className="pwd-wrap">
             <input
               type={inputType}
@@ -150,6 +179,7 @@ const ForgotPassword = () => {
         <p className="bottom-text">
           Return to <Link to="/login">Login</Link>
         </p>
+
       </form>
     </main>
   );
