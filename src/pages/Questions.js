@@ -9,22 +9,21 @@ const Questions = () => {
   const [isPending, setIsPending] = useState(false);
   const history = useHistory();
   const user = JSON.parse(localStorage.getItem("userData"));
-  const [questionForm, setquestionForm] = useState(null);
   // refreshToken();
   useEffect(() => {
     if (!user) {
       history.push("/signup");
-    } else {
-      setquestionForm({
-        question1Id: "0",
-        answer1: "",
-        question2Id: "1",
-        answer2: "",
-        userId: user.id,
-      });
     }
   }, [history, user]);
-
+  const [questionForm, setquestionForm] = useState({
+    question1Id: "0",
+    answer1: "",
+    question2Id: "1",
+    answer2: "",
+    userId: user.id,
+  });
+  // setquestionForm();
+  const [disableSelf, setDisableSelf] = useState("0");
   const {token} = useContext(TokenContext);
   const [questions] = useState({
     0: "What is your mother's maiden name",
@@ -37,12 +36,13 @@ const Questions = () => {
   const handleChange = event => {
     const {value, name} = event.target;
     setquestionForm({...questionForm, [name]: value});
+    setDisableSelf(value);
   };
 
   const onQuestionSubmit = e => {
     e.preventDefault();
     setIsPending(true);
-    if (questionForm.question1Id === questionForm.question2Id) {
+    if (questionForm.question2Id === questionForm.question1Id) {
       displayMsg("error", "You can't answer the same question twice");
     } else {
       console.log(questionForm);
@@ -133,7 +133,12 @@ const Questions = () => {
               >
                 {Object.entries(questions).map(([key, value], index) => {
                   return (
-                    <option key={key} value={key} className="form-group">
+                    <option
+                      disabled={disableSelf === key}
+                      key={key}
+                      value={key}
+                      className="form-group"
+                    >
                       {value}
                     </option>
                   );
@@ -166,7 +171,12 @@ const Questions = () => {
                 >
                   {Object.entries(questions).map(([key, value], index) => {
                     return (
-                      <option key={key} value={key} className="form-group">
+                      <option
+                        key={key}
+                        disabled={disableSelf === key}
+                        value={key}
+                        className="form-group"
+                      >
                         {value}
                       </option>
                     );

@@ -1,8 +1,8 @@
 .main-wrap,
 main {
   margin: 0 auto;
-  margin-top: 110px;
-  width: 90vw;
+  width: 95vw;
+  margin-top: 100px;
   min-height: 100vh;
   max-width: 1000px;
 }
@@ -18,7 +18,6 @@ main {
 }
 .bio {
   white-space: pre-line;
-  line-height: 1;
 }
 /* preloader */
 .pre-loader {
@@ -119,13 +118,15 @@ main {
 }
 @media (max-width: 500px) {
   .msg {
-    position: sticky;
+    position: fixed;
     width: 95%;
+    margin: auto;
+    left: 0;
     right: 0;
     padding: 0.5rem 1.5rem;
     transform: translate(0);
+    -webkit-clip-path: inset(0 0 100% 0);
     clip-path: inset(0 0 100% 0);
-    -webkit-animation: sm-msg 0.5s ease forwards;
     animation: sm-msg 0.5s ease forwards;
   }
   @keyframes sm-msg {
@@ -135,8 +136,8 @@ main {
   }
 }
 main.contact {
-  margin: 120px auto 20px auto;
   min-height: auto;
+  margin: 140px auto;
 }
 .contact h1 {
   text-align: center;

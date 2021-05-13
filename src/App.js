@@ -22,7 +22,10 @@ function App() {
     <Router>
       <TokenProvider>
         <div
-          style={{background: "var(--bg-color)", width: "100vw"}}
+          style={{
+            background: "var(--bg-color)",
+            width: "100vw",
+          }}
           className="App"
         >
           <Switch>
