@@ -11,7 +11,7 @@ const Questions = () => {
   const user = JSON.parse(localStorage.getItem("userData"));
   // refreshToken();
   useEffect(() => {
-    if (!user) {
+    if (user === null) {
       history.push("/signup");
     }
   }, [history, user]);
@@ -20,7 +20,6 @@ const Questions = () => {
     answer1: "",
     question2Id: "1",
     answer2: "",
-    userId: user.id,
   });
   // setquestionForm();
   const [disableSelf, setDisableSelf] = useState("0");
@@ -46,9 +45,10 @@ const Questions = () => {
       displayMsg("error", "You can't answer the same question twice");
     } else {
       console.log(questionForm);
+      let body = {...questionForm, userId: user.id};
       var requestOptions = {
         method: "POST",
-        body: JSON.stringify(questionForm),
+        body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
           token: token,
