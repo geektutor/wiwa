@@ -20,32 +20,36 @@ const SignUp = () => {
     } else if (!emailPattern.test(dataForm.email)) {
       displayMsg("error", "Enter a valid email");
     } else {
-      // console.log(dataForm);
-      fetch("https://wiwa.herokuapp.com/users/signup/info", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          token: token,
-        },
-        body: JSON.stringify(dataForm),
-        redirect: "follow",
-      })
-        .then(res => res.json())
-        .then(json => {
-          setIsPending(false);
-          console.log(json);
-          if (json.status === "Success") {
-            localStorage.setItem("userData", JSON.stringify(json.data));
-            // displayMsg("success", json.message);
-            setTimeout(() => history.push("/questions"), 1300);
-          } else {
-            displayMsg("error", json.message);
-          }
+      if (dataForm.skills.length <= 6) {
+        // console.log(dataForm);
+        fetch("https://wiwa.herokuapp.com/users/signup/info", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            token: token,
+          },
+          body: JSON.stringify(dataForm),
+          redirect: "follow",
         })
-        .catch(error => {
-          setIsPending(false);
-          displayMsg("error", error.message);
-        });
+          .then(res => res.json())
+          .then(json => {
+            setIsPending(false);
+            console.log(json);
+            if (json.status === "Success") {
+              localStorage.setItem("userData", JSON.stringify(json.data));
+              // displayMsg("success", json.message);
+              setTimeout(() => history.push("/questions"), 1300);
+            } else {
+              displayMsg("error", json.message);
+            }
+          })
+          .catch(error => {
+            setIsPending(false);
+            displayMsg("error", error.message);
+          });
+      } else {
+        displayMsg("error", "maximum of 6 skills exceeded");
+      }
     }
   };
 
@@ -57,7 +61,7 @@ const SignUp = () => {
       {isAuthorized && (
         <Forms
           hide={["username"]}
-          formData={{
+          data={{
             name: "",
             email: "",
             password: "",

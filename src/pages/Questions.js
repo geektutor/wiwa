@@ -1,12 +1,30 @@
 import {useContext, useEffect, useState} from "react";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import displayMsg from "../components/Message";
 import {TokenContext} from "../contexts/TokenContext";
-import refreshToken from "../hooks/refreshToken";
+// import refreshToken from "../hooks/refreshToken";
 // import refreshToken from "../hooks/refreshToken";
 
 const Questions = () => {
   const [isPending, setIsPending] = useState(false);
+  const history = useHistory();
+  const user = JSON.parse(localStorage.getItem("userData"));
+  const [questionForm, setquestionForm] = useState(null);
+  // refreshToken();
+  useEffect(() => {
+    if (!user) {
+      history.push("/signup");
+    } else {
+      setquestionForm({
+        question1Id: "0",
+        answer1: "",
+        question2Id: "1",
+        answer2: "",
+        userId: user.id,
+      });
+    }
+  }, [history, user]);
+
   const {token} = useContext(TokenContext);
   const [questions] = useState({
     0: "What is your mother's maiden name",
@@ -15,22 +33,6 @@ const Questions = () => {
     3: "What is your maternal grandmother's maiden name?",
     4: "What is the name of your favorite teacher",
   });
-  const user = JSON.parse(localStorage.getItem("userData"));
-  const [questionForm, setquestionForm] = useState({
-    question1Id: "0",
-    answer1: "",
-    question2Id: "1",
-    answer2: "",
-    userId: user.id,
-  });
-
-  const history = useHistory();
-  useEffect(() => {
-    refreshToken();
-    if (!user) {
-      history.push("/signup");
-    }
-  }, [history, user]);
 
   const handleChange = event => {
     const {value, name} = event.target;
@@ -106,60 +108,28 @@ const Questions = () => {
   };
   return (
     <main className="container align-top margin-top">
-      <form
-        className="login-form questions"
-        onSubmit={e => onQuestionSubmit(e)}
-      >
-        <div className="signup-text">
-          <h3 className="logo">wiwa</h3>
-          <p>
-            To Complete your registration pls chose and answer any 2 questions
-            for two factor authentication.
-          </p>
-        </div>
-        <div className="questions-wrap">
-          <div id="question1" className="question-wrap">
-            <label htmlFor="question1">Question 1:</label>
-            <select
-              id="question1"
-              name="question1Id"
-              value={questionForm.question1Id}
-              onChange={e => {
-                handleChange(e);
-              }}
-            >
-              {Object.entries(questions).map(([key, value], index) => {
-                return (
-                  <option key={key} value={key} className="form-group">
-                    {value}
-                  </option>
-                );
-              })}
-            </select>
-            <div className="form-group">
-              <label>Answer:</label>
-              <input
-                type="text"
-                required
-                placeholder="answer..."
-                name="answer1"
-                onChange={e => {
-                  handleChange(e);
-                }}
-                value={questionForm.answer1}
-              />
-            </div>
+      {questionForm && (
+        <form
+          className="login-form questions"
+          onSubmit={e => onQuestionSubmit(e)}
+        >
+          <div className="signup-text">
+            <h3 className="logo">wiwa</h3>
+            <p>
+              To Complete your registration pls chose and answer any 2 questions
+              for two factor authentication.
+            </p>
           </div>
-          <div id="question1" className="question-wrap">
-            <div className="form-group">
-              <label htmlFor="question1">Question 2:</label>
+          <div className="questions-wrap">
+            <div id="question1" className="question-wrap">
+              <label htmlFor="question1">Question 1:</label>
               <select
-                id="question2"
-                name="question2Id"
+                id="question1"
+                name="question1Id"
+                value={questionForm.question1Id}
                 onChange={e => {
                   handleChange(e);
                 }}
-                value={questionForm.question2Id}
               >
                 {Object.entries(questions).map(([key, value], index) => {
                   return (
@@ -169,37 +139,67 @@ const Questions = () => {
                   );
                 })}
               </select>
+              <div className="form-group">
+                <label>Answer:</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="answer..."
+                  name="answer1"
+                  onChange={e => {
+                    handleChange(e);
+                  }}
+                  value={questionForm.answer1}
+                />
+              </div>
             </div>
-            <div className="form-group">
-              <label>Answer:</label>
-              <input
-                type="text"
-                required
-                placeholder="answer..."
-                name="answer2"
-                onChange={e => {
-                  handleChange(e);
-                }}
-                value={questionForm.answer2}
-              />
+            <div id="question1" className="question-wrap">
+              <div className="form-group">
+                <label htmlFor="question1">Question 2:</label>
+                <select
+                  id="question2"
+                  name="question2Id"
+                  onChange={e => {
+                    handleChange(e);
+                  }}
+                  value={questionForm.question2Id}
+                >
+                  {Object.entries(questions).map(([key, value], index) => {
+                    return (
+                      <option key={key} value={key} className="form-group">
+                        {value}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className="form-group">
+                <label>Answer:</label>
+                <input
+                  type="text"
+                  required
+                  placeholder="answer..."
+                  name="answer2"
+                  onChange={e => {
+                    handleChange(e);
+                  }}
+                  value={questionForm.answer2}
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        <button className="btn form-btn" type="submit" disabled={isPending}>
-          {isPending ? (
-            <span>
-              <i className="fas fa-circle-notch fa-spin "></i> Loading{" "}
-            </span>
-          ) : (
-            <span>Complete Registration</span>
-          )}
-        </button>
-
-        <p className="bottom-text">
-          Already have an account? <Link to="/login">Login.</Link>
-        </p>
-      </form>
+          <button className="btn form-btn" type="submit" disabled={isPending}>
+            {isPending ? (
+              <span>
+                <i className="fas fa-circle-notch fa-spin "></i> Loading{" "}
+              </span>
+            ) : (
+              <span>Complete Registration</span>
+            )}
+          </button>
+        </form>
+      )}
     </main>
   );
 };

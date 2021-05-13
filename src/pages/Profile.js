@@ -55,36 +55,46 @@ const Profile = () => {
           .catch(err => console.log(err));
         console.log(body);
       }
-      setIsLoading(true);
-      fetch(
-        `https://wiwa.herokuapp.com/users/edit/${
-          JSON.parse(localStorage.getItem("userData")).id
-        }`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            token: token,
-          },
-          body: JSON.stringify(body),
-          redirect: "follow",
-        }
-      )
-        .then(res => res.json())
-        .then(json => {
-          console.log(json);
-          setIsLoading(false);
-          if (json.status === "Success") {
-            window.localStorage.setItem("userData", JSON.stringify(json.data));
-            displayMsg("success", "profile saved");
-          } else {
-            displayMsg("error", json.message);
+      if (dataForm.skills.length <= 6) {
+        setIsLoading(true);
+        fetch(
+          `https://wiwa.herokuapp.com/users/edit/${
+            JSON.parse(localStorage.getItem("userData")).id
+          }`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              token: token,
+            },
+            body: JSON.stringify(body),
+            redirect: "follow",
           }
-        })
-        .catch(error => {
-          setIsLoading(false);
-          displayMsg("error", error.message);
-        });
+        )
+          .then(res => res.json())
+          .then(json => {
+            console.log(json);
+            setIsLoading(false);
+            if (json.status === "Success") {
+              window.localStorage.setItem(
+                "userData",
+                JSON.stringify(json.data)
+              );
+              displayMsg("success", "profile saved");
+              setTimeout(() => {
+                history.go(0);
+              }, 2000);
+            } else {
+              displayMsg("error", json.message);
+            }
+          })
+          .catch(error => {
+            setIsLoading(false);
+            displayMsg("error", error.message);
+          });
+      } else {
+        displayMsg("error", "maximum of 6 skills exceeded");
+      }
     } else {
       return;
     }

@@ -11,7 +11,10 @@ const Forms = props => {
   const [fileLoaded, setfileLoaded] = useState("No file chosen");
   const [formsData, setFormsData] = useState(data);
   const [cv, setCv] = useState(null);
-  const [count, setcount] = useState(100 - data.shortBio.length);
+  console.log(data);
+  const [count, setcount] = useState(
+    data.shortBio ? 100 - data.shortBio.length : 100
+  );
   // const [pdf, setPdf] = useState(null);
 
   const readFile = (evt, file) => {
