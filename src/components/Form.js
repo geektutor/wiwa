@@ -1,31 +1,40 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {Link} from "react-router-dom";
 import "../assets/css/form.css";
 import displayMsg from "../components/Message";
 import {storage} from "../config";
 
 const Forms = props => {
-  const {hide, formData, submitData, btnName, isPending} = props;
+  const {hide, data, submitData, btnName, isPending} = props;
   const [inputType, setInputType] = useState("password");
   const [tempSkill, setTempSkill] = useState("");
   const [fileLoaded, setfileLoaded] = useState("No file chosen");
-  const [formsData, setFormsData] = useState(formData);
+  const [formsData, setFormsData] = useState(data);
   const [cv, setCv] = useState(null);
-  const [, setPdf] = useState(null);
+  const [count, setcount] = useState(100 - data.shortBio.length);
+  // const [pdf, setPdf] = useState(null);
 
-  const onFileChange = e => {
-    let file = e.target.files;
-    if (file.length > 0) {
-      if (file.length === 1) {
-        setCv(file[0]);
-        setfileLoaded(() => "Loading...");
-      } else {
-        setCv(null);
-        return false;
-      }
+  const readFile = (evt, file) => {
+    let count = evt.target.result.match(/\/Type[\s]*\/Page[^s]/g).length;
+    if (count === 1) {
+      setCv(file);
+      setfileLoaded(file.name);
+    } else if (count > 1) {
+      setCv(null);
+      displayMsg("error", "Only one page is allowed");
+      console.log("Only one page is allowed");
     } else {
       setCv(null);
     }
+  };
+  const onFileChange = e => {
+    let reader = new FileReader();
+    reader.readAsBinaryString(e.target.files[0]);
+    reader.onload = (function (file) {
+      return function (e) {
+        readFile(e, file);
+      };
+    })(e.target.files[0]);
   };
 
   // get all form data
@@ -34,72 +43,65 @@ const Forms = props => {
     setFormsData({...formsData, [name]: value});
   };
 
-  useEffect(() => {
-    const uploadFile = () => {
-      if (cv) {
-        const storageRef = storage.ref();
-        const pdfRef = storageRef.child(cv.name);
-        pdfRef.put(cv).then(fAppRef => {
-          fAppRef.ref.getDownloadURL().then(url => {
-            setPdf(() => url);
-            setFormsData(item => {
-              return {...item, cvLink: url};
-            });
-            setfileLoaded(() => cv.name);
-            console.log(url);
-          });
-        });
-      }
-    };
-
-    uploadFile();
-  }, [cv]);
-
-  // submitform
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log(formData);
-    if (!formsData.skills.length > 0) {
-      displayMsg("error", "Enter a skill");
-    } else if (
-      formData.skills.some((val, i) => formData.skills.indexOf(val) !== i)
-    ) {
-      displayMsg("error", "You can't repeat skills");
-    } else {
-      console.log(formData.skills);
-      submitData(formsData); //pass the data to the parent component and run event
+  const uploadFile = async () => {
+    if (cv) {
+      let name = cv.name.split(".");
+      let ref = `${name[0]}${new Date().getTime().toString()}.${
+        name[name.length - 1]
+      }`;
+      console.log(ref);
+      localStorage.setItem("cvRef", ref);
+      const storageRef = storage.ref();
+      const pdfRef = storageRef.child(ref);
+      let fileRef = await pdfRef.put(cv);
+      let url = await fileRef.ref.getDownloadURL();
+      return url;
     }
   };
 
-  // skills dynamic functionalities
-  // const addSkill = e => {
-  //   if (e.code === "Comma" && tempSkill !== ",") {
-  //     if (!formsData.skills.includes(tempSkill)) {
-  //       let skillsArr = formsData.skills;
-  //       skillsArr.push(tempSkill.substr(0, tempSkill.length));
-  //       setFormsData({...formsData, skills: skillsArr});
-  //     }
-  //     setTempSkill("");
-  //   }
-  // };
-  // let skillsArr = [...formData.skills];
+  // submitform
+  const handleSubmit = async e => {
+    e.preventDefault();
+    if (!formsData.skills.length > 0) {
+      displayMsg("error", "Enter a skill");
+    } else {
+      try {
+        if (cv) {
+          uploadFile().then(url => {
+            setFormsData(items => {
+              items.cvLink = url;
+              return {...items};
+            });
+            submitData(formsData); //pass the data to the parent component and run event);
+          });
+        } else {
+          submitData(formsData);
+        }
+      } catch (error) {
+        displayMsg("error", error.message);
+      }
+    }
+  };
+
+  // skills functionality
   const addSkill2 = e => {
-    if (tempSkill && tempSkill !== "," && tempSkill !== " ") {
-      let skillsArr = [
-        ...formData.skills,
-        ...tempSkill.replace(/\s/g, "").split(","),
-      ];
+    let skillsArr = formsData.skills;
+    let pattern = new RegExp(/^[a-zA-Z ]+$/);
+    if (!skillsArr.includes(tempSkill) && pattern.test(tempSkill)) {
+      skillsArr.push(tempSkill);
       setFormsData(items => {
         return {...items, skills: [...skillsArr]};
       });
+    } else {
+      setTempSkill("");
+      return;
     }
-    console.log(formData.skills);
+    setTempSkill("");
+    console.log(formsData.skills);
   };
+
   const deleteSkill = skill => {
     let skillsArr = formsData.skills.filter(item => item !== skill);
-    // setFormsData(item => {
-    //   return {...item, skills: skillsArr};
-    // });
     setFormsData({...formsData, skills: [...skillsArr]});
   };
 
@@ -170,7 +172,17 @@ const Forms = props => {
         )}
         {!hide.includes("shortBio") && (
           <div className="form-group">
-            <label htmlFor="s-bio">Short Bio</label>
+            <label htmlFor="s-bio" id="sBioCount">
+              <span>Short Bio</span>{" "}
+              <span
+                style={
+                  count > 15 ? {background: "#46e046"} : {background: "red"}
+                }
+                className="count"
+              >
+                {count}
+              </span>
+            </label>
             <textarea
               name="shortBio"
               id="s-bio"
@@ -178,6 +190,8 @@ const Forms = props => {
               value={formsData.shortBio}
               onChange={e => {
                 handleChange(e);
+                let cnt = 100 - e.target.value.length;
+                setcount(cnt);
               }}
               minLength="10"
               maxLength="100"

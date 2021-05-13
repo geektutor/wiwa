@@ -9,13 +9,10 @@ const Navbar = () => {
 
   return (
     <nav>
-      <h2 className="logo">wiwa</h2>
+      <h2 className="logo">
+        <Link to="/">wiwa</Link>
+      </h2>
       <ul className="navList">
-        <li className="navLink">
-          <Link to="/" className="btn">
-            Home
-          </Link>
-        </li>
         <li className="navLink">
           <Link to={isLoggedIn ? "/profile" : "/signup"} className="btn btn-tp">
             {isLoggedIn ? "Profile" : "Signup"}

@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import UserDetail from "./pages/UserDetail";
 import {TokenProvider} from "./contexts/TokenContext";
 import Questions from "./pages/Questions";
+import ContactSupport from "./pages/contactSupport";
 // import {storage} from "./config";
 
 function App() {
@@ -65,6 +66,9 @@ function App() {
             </Route>
             <Route path="/questions">
               <Questions />
+            </Route>
+            <Route path="/contact">
+              <ContactSupport />
             </Route>
           </Switch>
         </div>

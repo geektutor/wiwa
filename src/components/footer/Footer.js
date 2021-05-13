@@ -13,6 +13,10 @@ const Footer = () => {
           Login
         </Link>{" "}
         <p>|</p>
+        <Link to="/contact" className="footer-link">
+          Contact Support
+        </Link>{" "}
+        <p>|</p>
         <a href="#g" className="footer-link link-last">
           Terms Of Use
         </a>

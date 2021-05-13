@@ -48,15 +48,18 @@ const Login = () => {
             JSON.stringify(result.data.user)
           );
           window.localStorage.setItem("refToken", result.data.refToken);
-
-          if (result.data.user.isAdmin) {
+          if (!result.data.user.areQuestionsAnswered) {
+            setTimeout(() => {
+              history.push("/questions");
+            }, 1000);
+          } else if (result.data.user.isAdmin) {
             setTimeout(() => {
               history.push("/admin");
-            }, 200);
+            }, 1000);
           } else {
             setTimeout(() => {
               history.push("/");
-            }, 200);
+            }, 1000);
           }
         } else {
           displayMsg("error", result.message);

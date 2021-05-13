@@ -16,18 +16,6 @@ const Filter = ({filterUrl}) => {
         className={classes.topSearch}
         id="search-title"
       >
-        <div className={classes.formGroup}>
-          <input
-            type="search"
-            placeholder="Search..."
-            value={searchVal}
-            onChange={e => setsearchVal(e.target.value)}
-            required
-          />
-          <button aria-label="Search Topic" type="submit">
-            <i className="fa fa-search"></i>
-          </button>
-        </div>
         <select
           value={url}
           onChange={e => seturl(e.target.value)}
@@ -44,6 +32,18 @@ const Filter = ({filterUrl}) => {
             Filter By Skill
           </option>
         </select>
+        <div className={classes.formGroup}>
+          <input
+            type="search"
+            placeholder="Enter search term..."
+            value={searchVal}
+            onChange={e => setsearchVal(e.target.value)}
+            required
+          />
+          <button aria-label="Search Topic" type="submit">
+            <i className="fa fa-search"></i>
+          </button>
+        </div>
       </form>
     </section>
   );

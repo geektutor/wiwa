@@ -20,10 +20,10 @@ const UserDetail = () => {
         <main className="main-wrap details-wrap">
           <h1 className="name">{data.name}</h1>
           <p className="br">
-            Email:{" "}
+            <span className="title">Email:</span>
             <a
               className="link"
-              href="mailto:johndoe@gmail.com"
+              href={`mailto:${data.email}`}
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -31,14 +31,16 @@ const UserDetail = () => {
             </a>
           </p>
           <p className="br">
-            Skill:
+            <span className="title">Skills:</span>
             {data.skills.map((skill, index) => (
               <span key={index} className="skill">
                 {skill}
               </span>
             ))}
           </p>
-          <p className="br">Bio: {data.fullBio}</p>
+          <p className="br bio">
+            <span className="title">Bio:</span> {data.fullBio}
+          </p>
           <a href={data.cvLink} className="btn" download>
             Download CV
           </a>
