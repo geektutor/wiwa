@@ -160,7 +160,7 @@ const removeAdmin = async (req, res) => {
 const getAllFeedback = async (req, res) => {
 	let feedback;
 	try {
-		feedback = await Feedback.find({}).populate('user');
+		feedback = await Feedback.find({});
 	} catch (e) {
 		console.log(e.message);
 		sendError('DB Error', 500, res);
@@ -175,7 +175,7 @@ const getAFeedback = async (req, res) => {
 	if (!feedbackId) return sendError('feedbackId must be sent', 400, res);
 	let feedback;
 	try {
-		feedback = await Feedback.findById(feedbackId).populate('user');
+		feedback = await Feedback.findById(feedbackId);
 	} catch (e) {
 		console.log(e.message);
 		return sendError('Feedback not found', 404, res);

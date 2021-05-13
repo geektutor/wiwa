@@ -72,7 +72,7 @@ const sanitizeFeedback = (feedback) => ({
 	id: feedback._id,
 	title: feedback.title,
 	message: feedback.message,
-	user: feedback.user.email,
+	email: feedback.email,
 });
 
 const jsonParserErrorHandler = (err, req, res, next) => {

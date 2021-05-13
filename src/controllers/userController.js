@@ -303,14 +303,14 @@ const signupQuestions = async (req, res) => {
 };
 
 const createFeedback = async (req, res) => {
-	const { title, message } = req.body;
-	if (!title || !message)
-		return sendError('Title and/or Message not included', 400, res);
+	const { title, message, email } = req.body;
+	if (!title || !message || !email)
+		return sendError('One of Title, Message, Email not included', 400, res);
 
 	let feedback = new Feedback({
 		title,
 		message,
-		user: req.user._id,
+		email,
 	});
 
 	try {

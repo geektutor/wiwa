@@ -10,9 +10,9 @@ const feedbackSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		user: {
-			ref: 'User',
-			type: mongoose.Schema.Types.ObjectId,
+		email: {
+			type: String,
+			required: true,
 		},
 	},
 	{ timestamps: true }

@@ -26,7 +26,7 @@ userRouter.post('/refresh-token', userController.refreshToken);
 
 userRouter.post('/forgot-password', userController.forgotPassword);
 
-userRouter.post('/feedback/create', userAuth, userController.createFeedback);
+userRouter.post('/feedback/create', userController.createFeedback);
 
 userRouter.put('/edit/:userId', userAuth, userController.editUser);
 
