@@ -43,6 +43,7 @@ const Questions = () => {
     setIsPending(true);
     if (questionForm.question2Id === questionForm.question1Id) {
       displayMsg("error", "You can't answer the same question twice");
+      setIsPending(false);
     } else {
       console.log(questionForm);
       let body = {...questionForm, userId: user.id};
@@ -57,36 +58,37 @@ const Questions = () => {
       };
 
       fetch("https://wiwa.herokuapp.com/users/signup/questions", requestOptions)
-        .then(res => {
+        .then(async res => {
           setIsPending(false);
           if (res.status === 401) {
-            return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                refresh_token: localStorage.getItem("refToken"),
-              },
-              redirect: "follow",
-            })
-              .then(response => {
-                console.log(response);
-                if (!response.ok) {
-                  history.push("/signup");
-                } else {
-                  return response.json();
+            try {
+              const response = await fetch(
+                "https://wiwa.herokuapp.com/users/refresh-token",
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                    refresh_token: localStorage.getItem("refToken"),
+                  },
+                  redirect: "follow",
                 }
-              })
-              .then(result => {
-                console.log(result.data.token);
-                return localStorage.setItem("token", result.data.token);
-              })
-              .catch(error => {
-                console.log("error", error);
-                displayMsg(
-                  "error",
-                  "something went wrong, pls try logging in again"
-                );
-              });
+              );
+              console.log(response);
+              if (!response.ok) {
+                history.push("/signup");
+              } else {
+                return response.json();
+              }
+              const result_1 = undefined;
+              console.log(result_1.data.token);
+              return localStorage.setItem("token", result_1.data.token);
+            } catch (error) {
+              console.log("error", error);
+              displayMsg(
+                "error",
+                "something went wrong, pls try logging in again"
+              );
+            }
           } else {
             return res.json();
           }
@@ -131,18 +133,20 @@ const Questions = () => {
                   handleChange(e);
                 }}
               >
-                {Object.entries(questions).map(([key, value], index) => {
-                  return (
-                    <option
-                      disabled={disableSelf === key}
-                      key={key}
-                      value={key}
-                      className="form-group"
-                    >
-                      {value}
-                    </option>
-                  );
-                })}
+                {Object.entries(questions)
+                  .filter(([key, value]) => key !== questionForm.question2Id)
+                  .map(([key, value], index) => {
+                    return (
+                      <option
+                        disabled={disableSelf === key}
+                        key={key}
+                        value={key}
+                        className="form-group"
+                      >
+                        {value}
+                      </option>
+                    );
+                  })}
               </select>
               <div className="form-group">
                 <label>Answer:</label>
@@ -169,18 +173,20 @@ const Questions = () => {
                   }}
                   value={questionForm.question2Id}
                 >
-                  {Object.entries(questions).map(([key, value], index) => {
-                    return (
-                      <option
-                        key={key}
-                        disabled={disableSelf === key}
-                        value={key}
-                        className="form-group"
-                      >
-                        {value}
-                      </option>
-                    );
-                  })}
+                  {Object.entries(questions)
+                    .filter(([key, value]) => key !== questionForm.question1Id)
+                    .map(([key, value], index) => {
+                      return (
+                        <option
+                          key={key}
+                          disabled={disableSelf === key}
+                          value={key}
+                          className="form-group"
+                        >
+                          {value}
+                        </option>
+                      );
+                    })}
                 </select>
               </div>
               <div className="form-group">

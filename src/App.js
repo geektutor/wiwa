@@ -15,6 +15,8 @@ import UserDetail from "./pages/UserDetail";
 import {TokenProvider} from "./contexts/TokenContext";
 import Questions from "./pages/Questions";
 import ContactSupport from "./pages/contactSupport";
+import TnC from "./pages/tnc";
+import Privacy from "./pages/Privacy";
 // import {storage} from "./config";
 
 function App() {
@@ -72,6 +74,12 @@ function App() {
             </Route>
             <Route path="/contact">
               <ContactSupport />
+            </Route>
+            <Route path="/tnc">
+              <TnC />
+            </Route>
+            <Route path="/privacy">
+              <Privacy />
             </Route>
           </Switch>
         </div>

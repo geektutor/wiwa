@@ -220,8 +220,8 @@ const Forms = props => {
         {!hide.includes("skills") && (
           <div className="form-group">
             <label htmlFor="skills">
-              Skills (seperate each skill with a comma ", " (comma and space)
-              click on each skill to delete)
+              Skills (click "+add" to add a new skill, and click on each skill
+              to delete)
             </label>
             <div className="pwd-wrap">
               <input
