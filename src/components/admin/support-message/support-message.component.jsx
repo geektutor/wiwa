@@ -12,7 +12,7 @@ const SupportMessage = () => {
     const {id} = useParams()
     const [url] = useState(`https://wiwa.herokuapp.com/admin/feedback/${id}`);
     const {data,error,isPending} = useFetchAdmin(url);
-  
+    console.log(data)
 
     return ( 
        
@@ -38,7 +38,7 @@ const SupportMessage = () => {
       <div className="details">
           <p className="title">User Details</p>
           <p className="name eachDetail">
-              Email: <span>{data.user}</span>
+              Email: <span>{data.email}</span>
           </p>   
           <p className="email eachDetail">
               Title: <span>{data.title}</span>
@@ -75,6 +75,8 @@ const SupportMessage = () => {
 
          
           <MobileNav/>
+
+          
             
         </div> 
      );
