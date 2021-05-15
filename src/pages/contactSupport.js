@@ -73,7 +73,7 @@ const ContactSupport = () => {
               </div>
             )}
             <div className="form-group">
-              <label htmlFor="title">Title</label>
+              <label htmlFor="title">Subject</label>
               <input
                 type="text"
                 id="title"
