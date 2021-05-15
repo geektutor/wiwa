@@ -1,6 +1,17 @@
-import {Link} from "react-router-dom";
+import {useState} from "react";
+import {Link, useHistory} from "react-router-dom";
 import "./footer.css";
 const Footer = () => {
+  const history = useHistory();
+  const userData = window.localStorage.getItem("userData");
+  const [isloggedIn] = useState(userData ? true : false);
+
+  const handleLogout = e => {
+    e.preventDefault();
+    localStorage.clear();
+    history.push("/login");
+  };
+
   return (
     <footer>
       <div className="right">
@@ -9,17 +20,23 @@ const Footer = () => {
       </div>
       <div className="left">
         {" "}
-        <Link to="/login" className="footer-link">
-          Login
-        </Link>{" "}
+        {isloggedIn ? (
+          <Link to="" onClick={handleLogout} className="footer-link">
+            Logout
+          </Link>
+        ) : (
+          <Link to="/login" className="footer-link">
+            Login
+          </Link>
+        )}{" "}
         <p>|</p>
         <Link to="/contact" className="footer-link">
           Contact Support
         </Link>{" "}
         <p>|</p>
-        <a href="#g" className="footer-link link-last">
+        <Link href="/tnc" className="footer-link link-last">
           Terms Of Use
-        </a>
+        </Link>
       </div>
     </footer>
   );
