@@ -1,0 +1,58 @@
+.tnc ol {
+  margin-left: 3.5rem;
+}
+.tnc .heading {
+  font-weight: 600;
+  color: var(--grey);
+  text-align: left;
+}
+
+.privacyLinks {
+  text-align: left;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+  padding-right: 1rem;
+}
+.privacyLinks a {
+  padding: 0.5rem;
+  border-radius: 4px !important;
+}
+.privacyLinks a.active {
+  color: white;
+  background: var(--primary-color);
+}
+.detailsWrap {
+  padding: 2rem;
+}
+.privacyLinks a:last-child {
+  margin-left: 1rem;
+}
+
+.tnc .link {
+  color: var(--primary-color);
+  border-bottom: 1px dashed var(--primary-color);
+  background-color: rgba(245, 211, 189, 0.637) !important;
+}
+.tnc ol li {
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: normal;
+  margin: 15px 0;
+}
+.tnc .i {
+  color: var(--primary-color);
+}
+.tnc p,
+.tnc li {
+  line-height: 1.8;
+  margin: 1rem 0;
+}
+.tnc .i > ::marker {
+  color: var(--primary-color);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
