@@ -79,7 +79,7 @@ const getUsersBySkill = async (req, res) => {
 
 const login = async (req, res) => {
 	const { email, password } = req.body;
-	const user = await User.findOne({ email });
+	const user = await User.findOne({ email: email.toLowerCase() });
 	if (!user)
 		return sendError('Invalid Email & Password Combination', 400, res);
 
@@ -267,7 +267,7 @@ const signupInfo = async (req, res) => {
 
 	const user = new User({
 		name,
-		email,
+		email: email.toLowerCase(),
 		username,
 		password: hash,
 		shortBio,
