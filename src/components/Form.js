@@ -43,7 +43,11 @@ const Forms = props => {
   // get all form data
   const handleChange = event => {
     const {value, name} = event.target;
-    setFormsData({...formsData, [name]: value});
+    if (formsData.shortBio.length >= 99) {
+      setFormsData({...formsData, [name]: value, shortBio: formsData.shortBio});
+    } else {
+      setFormsData({...formsData, [name]: value});
+    }
   };
 
   const uploadFile = async () => {
@@ -197,7 +201,7 @@ const Forms = props => {
                 setcount(cnt);
               }}
               minLength="10"
-              maxLength="100"
+              // maxLength="100"
               placeholder="Not more than 100 characters..."
             ></textarea>
           </div>
