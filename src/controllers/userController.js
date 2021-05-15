@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const validator = require('validator');
+const { isAlphanumeric, isEmail, isURL, isLength, isAlpha } = validator.default;
 const { sendData, sendError, sendSuccess } = require('./../helpers/responders');
 const {
 	sanitizeUser,
@@ -220,11 +222,45 @@ const signupInfo = async (req, res) => {
 			400,
 			res
 		);
+	const names = name.split(' ');
+	for (let i = 0; i < names.length; i++) {
+		if (!isAlpha(names[i])) {
+			return sendError('Name must be alphabets only', 400, res);
+		}
+	}
+
+	if (!isEmail(email)) {
+		return sendError('Invalid Email', 400, res);
+	}
+	if (!isURL(cvLink)) {
+		return sendError('Invalid CV Link', 400, res);
+	}
+	if (!isLength(password, { min: 6 })) {
+		return sendError('Password must be 6 or more characters', 400, res);
+	}
 
 	const username = await getUsername(name);
 
 	const isEmailTaken = await User.findOne({ email });
 	if (isEmailTaken) return sendError('This email has been taken', 400, res);
+
+	// Checking Skills Array for Issues
+	{
+		if (skills.length > 8)
+			return sendError('Skills cannot be greater than 8', 400, res);
+
+		let skillsMap = {};
+		for (let i = 0; i < skills.length; i++) {
+			if (skillsMap[skills[i].toLowerCase()]) {
+				return sendError('Skills should not be repeated', 400, res);
+			} else {
+				skillsMap[skills[i].toLowerCase()] = 1;
+			}
+			if (skills[i].trim() === '') {
+				return sendError('Cannot add empty string as skill', 400, res);
+			}
+		}
+	}
 
 	const salt = await bcrypt.genSalt(BCRYPT_SALT);
 	const hash = await bcrypt.hash(password, salt);
@@ -324,24 +360,27 @@ const createFeedback = async (req, res) => {
 };
 
 const editUser = async (req, res) => {
-	const { name, password, cvLink, shortBio, fullBio, skills } = req.body;
+	const { name, cvLink, shortBio, fullBio, skills } = req.body;
 	const { userId } = req.params;
 	if (!req.user.isAdmin && req.user._id != userId)
 		return sendError('Invalid Authorization', 403, res);
 
-	if (password && password.length < 6)
-		return sendError('Password must be 6 or more characters', 400, res);
-
 	const user = await User.findById(userId);
 	if (!user) return sendError('User not found', 404, res);
 
+	const names = name.split(' ');
+	for (let i = 0; i < names.length; i++) {
+		if (!isAlpha(names[i])) {
+			return sendError('Name must be alphabets only', 400, res);
+		}
+	}
+
+	if (!isURL(cvLink)) {
+		return sendError('Invalid CV Link', 400, res);
+	}
+
 	user.name = name || user.name;
 
-	if (password) {
-		const salt = await bcrypt.genSalt(BCRYPT_SALT);
-		const hash = await bcrypt.hash(password, salt);
-		user.password = hash;
-	}
 	if (cvLink) {
 		const lastCvChange = new Date(user.cvChanged);
 		const currentDay = new Date(Date.now());
@@ -356,16 +395,27 @@ const editUser = async (req, res) => {
 	user.fullBio = fullBio || user.fullBio;
 
 	if (skills && skills.length > 0) {
-		if (skills.length > 8)
-			return sendError('Skills cannot be greater than 8', 400, res);
+		// Checking Skills Array for Issues
+		{
+			if (skills.length > 8)
+				return sendError('Skills cannot be greater than 8', 400, res);
 
-		for (let i = 0; i < skills.length; i++) {
-			if (skills[i].trim() === '') {
-				return sendError('Cannot add empty string as skill', 400, res);
+			let skillsMap = {};
+			for (let i = 0; i < skills.length; i++) {
+				if (skillsMap[skills[i].toLowerCase()]) {
+					return sendError('Skills should not be repeated', 400, res);
+				} else {
+					skillsMap[skills[i].toLowerCase()] = 1;
+				}
+				if (skills[i].trim() === '') {
+					return sendError(
+						'Cannot add empty string as skill',
+						400,
+						res
+					);
+				}
 			}
 		}
-
-		user.skills = skills;
 	}
 
 	await user.save();
@@ -395,6 +445,9 @@ const forgotPassword = async (req, res) => {
 			res
 		);
 	if (questionId > 4) return sendError('Invalid Question Id', 400, res);
+
+	if (password && password.length < 6)
+		return sendError('Password must be 6 or more characters', 400, res);
 
 	const user = await User.findOne({ email });
 	if (!user) return sendError('User not found', 404, res);
