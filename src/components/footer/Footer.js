@@ -34,7 +34,7 @@ const Footer = () => {
           Contact Support
         </Link>{" "}
         <p>|</p>
-        <Link href="/tnc" className="footer-link link-last">
+        <Link to="/tnc" className="footer-link link-last">
           Terms Of Use
         </Link>
       </div>
