@@ -1,6 +1,23 @@
-import {Link} from "react-router-dom";
+import { useState } from "react";
+import {Link, useHistory} from "react-router-dom";
 import "./footer.css";
 const Footer = () => {
+  
+  const history = useHistory()
+  const token = window.localStorage.getItem("token");
+  const [isloggedIn] = useState(token?true:false)
+  
+
+
+  const handleLogout = (e) => {
+    e.preventDefault()
+    window.localStorage.setItem("token", '');
+    
+    history.push('/login')
+}
+
+
+
   return (
     <footer>
       <div className="right">
@@ -9,9 +26,11 @@ const Footer = () => {
       </div>
       <div className="left">
         {" "}
-        <Link to="/login" className="footer-link">
+        {isloggedIn ? <Link to="" onClick={handleLogout} className="footer-link">
+          Logout
+        </Link>  : <Link to="/login" className="footer-link">
           Login
-        </Link>{" "}
+        </Link>  }{" "}
         <p>|</p>
         <Link to="/contact" className="footer-link">
           Contact Support

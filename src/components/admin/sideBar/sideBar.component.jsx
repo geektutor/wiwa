@@ -14,8 +14,6 @@ const SideBar = ({active}) => {
         
         history.push('/login')
 
-
-
     }
     return ( 
         <section className="nav">
