@@ -6,12 +6,14 @@ import Navbar from "../components/nav/Navbar";
 import useFetch from "../hooks/useFetch";
 import Loader from "../components/Loader";
 import ConnectionError from "../components/errors/connectionError";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 function Main() {
   const [url, setUrl] = useState("https://wiwa.herokuapp.com/users");
   const {data, error, isPending} = useFetch(url);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const filterHandler = formData => setUrl(formData);
   return (
     <div className="main">

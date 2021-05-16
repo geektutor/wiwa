@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import displayMsg from "../components/Message";
 
@@ -19,7 +19,9 @@ const ForgotPassword = () => {
     answer: "",
     questionId: "0",
   });
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleSubmit = e => {
     e.preventDefault();
     setFormInput({...formInput, email: "", password: "", answer: ""});

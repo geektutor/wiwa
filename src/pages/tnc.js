@@ -3,8 +3,12 @@ import Navbar from "../components/nav/Navbar";
 import "../assets/css/profile.css";
 import classes from "../assets/css/tnc.module.css";
 import {Link} from "react-router-dom";
+import {useEffect} from "react";
 
 const TnC = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Navbar />

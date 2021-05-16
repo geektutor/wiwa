@@ -17,9 +17,13 @@ import Questions from "./pages/Questions";
 import ContactSupport from "./pages/contactSupport";
 import TnC from "./pages/tnc";
 import Privacy from "./pages/Privacy";
+import {useEffect} from "react";
 // import {storage} from "./config";
 
 function App() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Router>
       <TokenProvider>

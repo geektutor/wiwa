@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {TokenContext} from "../contexts/TokenContext";
 import "../assets/css/profile.css";
 import displayMsg from "../components/Message";
@@ -16,6 +16,9 @@ const ContactSupport = () => {
     title: "",
     message: "",
   });
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const onContactFormChange = e => {
     const {value, name} = e.target;
     setcontactForm({...contactForm, [name]: value});

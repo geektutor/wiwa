@@ -108,6 +108,9 @@ const Questions = () => {
         .catch(error => displayMsg("error", error.message));
     }
   };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <main className="container align-top margin-top">
       {questionForm && (

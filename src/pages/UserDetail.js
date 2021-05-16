@@ -5,12 +5,16 @@ import {useParams} from "react-router";
 import useFetch from "../hooks/useFetch";
 import Loader from "../components/Loader";
 import ConnectionError from "../components/errors/connectionError";
+import {useEffect} from "react";
 
 const UserDetail = () => {
   const {username} = useParams();
   const {data, error, isPending} = useFetch(
     `https://wiwa.herokuapp.com/users/${username}`
   );
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   console.log(error);
   return (
     <>

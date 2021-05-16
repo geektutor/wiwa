@@ -18,6 +18,9 @@ import refreshToken from "../hooks/refreshToken";
 const Profile = () => {
   const {token} = useContext(TokenContext);
   const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [userData, setUserData] = useState(null);
   const history = useHistory();
   const [showModal, setshowModal] = useState(false);
