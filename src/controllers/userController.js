@@ -365,21 +365,28 @@ const editUser = async (req, res) => {
 	if (!req.user.isAdmin && req.user._id != userId)
 		return sendError('Invalid Authorization', 403, res);
 
-	const user = await User.findById(userId);
+	let user;
+	try {
+		await User.findById(userId);
+	} catch (e) {
+		console.log(e.message);
+		return sendError('User not found', 404, res);
+	}
 	if (!user) return sendError('User not found', 404, res);
 
-	const names = name.split(' ');
-	for (let i = 0; i < names.length; i++) {
-		if (!isAlpha(names[i])) {
-			return sendError('Name must be alphabets only', 400, res);
+	if (name) {
+		const names = name.split(' ');
+		for (let i = 0; i < names.length; i++) {
+			if (!isAlpha(names[i])) {
+				return sendError('Name must be alphabets only', 400, res);
+			}
 		}
+		user.name = name;
 	}
 
 	if (!isURL(cvLink)) {
 		return sendError('Invalid CV Link', 400, res);
 	}
-
-	user.name = name || user.name;
 
 	if (cvLink) {
 		const lastCvChange = new Date(user.cvChanged);
