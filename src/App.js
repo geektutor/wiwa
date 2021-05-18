@@ -79,7 +79,7 @@ function App() {
             <Route path="/contact">
               <ContactSupport />
             </Route>
-            <Route path="/tnc">
+            <Route path="/terms">
               <TnC />
             </Route>
             <Route path="/privacy">
