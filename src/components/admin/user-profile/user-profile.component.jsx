@@ -442,7 +442,7 @@ const UserProfile = () => {
                            { data.skills.length !== 0 
                            ? 
                            <div className="skill-box">
-                              { data.skills.map((item)=>{return (<p>{item}</p>)})}
+                              { data.skills.map((item,i)=>{return (<p key={i}>{item}</p>)})}
                            </div> : <h5 style={{textAlign:'center',fontSize:'14px',fontWeight:'400'}} >No skill For this user yet</h5>
 
                            }

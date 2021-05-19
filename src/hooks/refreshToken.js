@@ -13,7 +13,7 @@ export default function refreshToken() {
     })
       .then(response => {
         if (!response.ok) {
-          // console.log(response)
+          console.log(response)
           return;
         } else {
           return response.json();

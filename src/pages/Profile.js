@@ -17,16 +17,17 @@ import refreshToken from "../hooks/refreshToken";
 
 const Profile = () => {
   const {token} = useContext(TokenContext);
+  // console.log(token)
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
+    refreshToken();
   }, []);
   const [userData, setUserData] = useState(null);
   const history = useHistory();
   const [showModal, setshowModal] = useState(false);
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("userData"))) {
-      refreshToken();
       setUserData(JSON.parse(localStorage.getItem("userData")));
       setshowModal(
         !JSON.parse(localStorage.getItem("userData")).areQuestionsAnswered
@@ -89,14 +90,16 @@ const Profile = () => {
               }, 2000);
             } else {
               displayMsg("error", json.message);
+              console.log(json.message)
             }
           })
           .catch(error => {
             setIsLoading(false);
+            console.log(error.message)
             displayMsg("error", error.message);
           });
       } else {
-        displayMsg("error", "maximum of 6 skills exceeded");
+        displayMsg("error", "maximum of 6 skills can be added");
       }
     } else {
       return;
@@ -115,7 +118,7 @@ const Profile = () => {
           >
             x
           </span>
-          <p>You still one more crucial stage to complete your signup.</p>
+          <p>You still have one more crucial stage to complete your registration.</p>
           <Link to="/questions" className="btn btn-tp">
             Complete Registration!
           </Link>

@@ -11,7 +11,6 @@ const Forms = props => {
   const [fileLoaded, setfileLoaded] = useState("No file chosen");
   const [formsData, setFormsData] = useState(data);
   const [cv, setCv] = useState(null);
-  console.log(data);
   const [count, setcount] = useState(
     data.shortBio ? 100 - data.shortBio.length : 100
   );
@@ -224,7 +223,7 @@ const Forms = props => {
         {!hide.includes("skills") && (
           <div className="form-group">
             <label htmlFor="skills">
-              Skills (click "+add" to add a new skill, and click on each skill
+              Skills (click "+" to add a new skill, and click on each skill
               to delete)
             </label>
             <div className="pwd-wrap">

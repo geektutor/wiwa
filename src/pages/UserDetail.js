@@ -15,7 +15,6 @@ const UserDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  console.log(error);
   return (
     <>
       <Navbar />
