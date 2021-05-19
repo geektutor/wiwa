@@ -27,6 +27,7 @@ const adminAuth = async (req, res, next) => {
 			403,
 			res
 		);
+	req.user = user;
 	next();
 };
 
