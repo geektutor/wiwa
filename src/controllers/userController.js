@@ -246,8 +246,8 @@ const signupInfo = async (req, res) => {
 
 	// Checking Skills Array for Issues
 	{
-		if (skills.length > 8)
-			return sendError('Skills cannot be greater than 8', 400, res);
+		if (skills.length > 6)
+			return sendError('Skills cannot be greater than 6', 400, res);
 
 		let skillsMap = {};
 		for (let i = 0; i < skills.length; i++) {
@@ -384,11 +384,10 @@ const editUser = async (req, res) => {
 		user.name = name;
 	}
 
-	if (!isURL(cvLink)) {
-		return sendError('Invalid CV Link', 400, res);
-	}
-
 	if (cvLink) {
+		if (!isURL(cvLink)) {
+			return sendError('Invalid CV Link', 400, res);
+		}
 		const lastCvChange = new Date(user.cvChanged);
 		const currentDay = new Date(Date.now());
 		const dateDifference = currentDay - lastCvChange;
@@ -404,8 +403,8 @@ const editUser = async (req, res) => {
 	if (skills && skills.length > 0) {
 		// Checking Skills Array for Issues
 		{
-			if (skills.length > 8)
-				return sendError('Skills cannot be greater than 8', 400, res);
+			if (skills.length > 6)
+				return sendError('Skills cannot be greater than 6', 400, res);
 
 			let skillsMap = {};
 			for (let i = 0; i < skills.length; i++) {
