@@ -367,7 +367,7 @@ const editUser = async (req, res) => {
 
 	let user;
 	try {
-		await User.findById(userId);
+		user = await User.findById(userId);
 	} catch (e) {
 		console.log(e.message);
 		return sendError('User not found', 404, res);
