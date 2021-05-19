@@ -362,7 +362,8 @@ const createFeedback = async (req, res) => {
 const editUser = async (req, res) => {
 	const { name, cvLink, shortBio, fullBio, skills } = req.body;
 	const { userId } = req.params;
-	if (!req.user.isAdmin && req.user._id != userId)
+	// !req.user.isAdmin &&
+	if (req.user._id != userId)
 		return sendError('Invalid Authorization', 403, res);
 
 	let user;
