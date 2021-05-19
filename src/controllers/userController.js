@@ -423,7 +423,7 @@ const editUser = async (req, res) => {
 				}
 			}
 		}
-		user.skill = skills;
+		user.skills = skills;
 	}
 
 	await user.save();
