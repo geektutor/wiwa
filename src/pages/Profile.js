@@ -84,10 +84,11 @@ const Profile = () => {
                 "userData",
                 JSON.stringify(json.data)
               );
+              console.log(json)
               displayMsg("success", "profile saved");
-              setTimeout(() => {
-                history.go(0);
-              }, 2000);
+              // setTimeout(() => {
+              //   history.go(0);
+              // }, 2000);
             } else {
               displayMsg("error", json.message);
               console.log(json.message)

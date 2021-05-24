@@ -14,6 +14,7 @@ const Forms = props => {
   const [count, setcount] = useState(
     data.shortBio ? 100 - data.shortBio.length : 100
   );
+  const [skillCount, setSkillCount]= useState(  data.skills ? 6 - data.skills.length : 6)
   // const [pdf, setPdf] = useState(null);
 
   const readFile = (evt, file) => {
@@ -93,7 +94,11 @@ const Forms = props => {
   const addSkill2 = e => {
     let skillsArr = formsData.skills;
     let pattern = new RegExp(/^[a-zA-Z ]+$/);
-    if (!skillsArr.includes(tempSkill) && pattern.test(tempSkill)) {
+    if (skillCount <= 0) {
+      displayMsg("error", "maximum of 6 can be added");
+      setTempSkill("");
+    }
+    else if (!skillsArr.includes(tempSkill) && pattern.test(tempSkill)) {
       skillsArr.push(tempSkill);
       setFormsData(items => {
         return {...items, skills: [...skillsArr]};
@@ -103,12 +108,12 @@ const Forms = props => {
       return;
     }
     setTempSkill("");
-    console.log(formsData.skills);
   };
 
   const deleteSkill = skill => {
     let skillsArr = formsData.skills.filter(item => item !== skill);
     setFormsData({...formsData, skills: [...skillsArr]});
+    setSkillCount(6 - skillsArr.length)
   };
 
   // toggle password type
@@ -178,7 +183,7 @@ const Forms = props => {
         )}
         {!hide.includes("shortBio") && (
           <div className="form-group">
-            <label htmlFor="s-bio" id="sBioCount">
+            <label htmlFor="s-bio" id="sBioCount" className="countInputLabel">
               <span>Short Bio</span>{" "}
               <span
                 style={
@@ -222,9 +227,17 @@ const Forms = props => {
         )}
         {!hide.includes("skills") && (
           <div className="form-group">
-            <label htmlFor="skills">
+            <label htmlFor="skills"  className="countInputLabel">
               Skills (click "+" to add a new skill, and click on each skill
               to delete)
+              <span
+                style={
+                  skillCount > 0 ? {background: "#46e046"} : {background: "red"}
+                }
+                className="count"
+              >
+                {skillCount}
+              </span>
             </label>
             <div className="pwd-wrap">
               <input
@@ -236,7 +249,11 @@ const Forms = props => {
                 name="skills"
                 placeholder="eg: HTML, SEO, Digital Marketing"
               />
-              <i onClick={addSkill2} className="fa fa-plus view-pwd"></i>
+              <i onClick={() => {
+                addSkill2()
+                let cnt = 6 - formsData.skills.length;
+                setSkillCount(cnt);
+              }} className="fa fa-plus view-pwd"></i>
             </div>
             <div>
               {" "}
