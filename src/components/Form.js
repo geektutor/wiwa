@@ -227,18 +227,19 @@ const Forms = props => {
         )}
         {!hide.includes("skills") && (
           <div className="form-group">
-            <label htmlFor="skills"  className="countInputLabel">
-              Skills (click "+" to add a new skill, and click on each skill
-              to delete)
+            <label style={{fontSize: "0.9rem", marginRight:".7rem"}} htmlFor="skills"  className="countInputLabel">
+              Skills (click "+" to add a new skill, and click on each skill to delete), 
               <span
                 style={
-                  skillCount > 0 ? {background: "#46e046"} : {background: "red"}
+                  {background:skillCount > 0 ? "#46e046": "red"}
+                  
                 }
                 className="count"
               >
                 {skillCount}
               </span>
             </label>
+          <span style={{fontSize: "0.7rem", margin:".5rem .7rem 0 0", color:"red"}} >maximum of 6 skills are allowed</span>
             <div className="pwd-wrap">
               <input
                 type="text"
