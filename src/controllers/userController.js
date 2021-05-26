@@ -215,6 +215,7 @@ const signupInfo = async (req, res) => {
 		!password ||
 		!shortBio ||
 		!cvLink ||
+		!skills ||
 		(skills && skills.length == 0)
 	)
 		return sendError(
