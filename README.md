@@ -1,8 +1,4 @@
-Login Details :
-
-Url : https://wiwa.netlify.app/login
-
-Email: wiwa1@wiwa.admin.com Password: wiwapass
+Url : https://tcn-ccg-dt.netlify.app/
 
 Users List: This page consists list of users and a form to search for users and buttons to view each user's profile
 
