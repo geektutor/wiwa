@@ -10,7 +10,7 @@ import {useEffect} from "react";
 const UserDetail = () => {
   const {username} = useParams();
   const {data, error, isPending} = useFetch(
-    `https://wiwa.herokuapp.com/users/${username}`
+    `https://tcn-ccg-dt.herokuapp.com/users/${username}`
   );
   useEffect(() => {
     window.scrollTo(0, 0);

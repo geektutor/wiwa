@@ -16,7 +16,7 @@ const Footer = () => {
     <footer>
       <div className="right">
         <p>&copy; {new Date().getFullYear()}</p>
-        <h1 className="logo logo-white">wiwa</h1>
+        <h1 className="logo logo-white">TCN-CCG-DT</h1>
       </div>
       <div className="left">
         {" "}

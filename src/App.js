@@ -18,6 +18,7 @@ import ContactSupport from "./pages/contactSupport";
 import TnC from "./pages/tnc";
 import Privacy from "./pages/Privacy";
 import {useEffect} from "react";
+import Page404 from "./pages/404.js";
 // import {storage} from "./config";
 
 function App() {
@@ -84,6 +85,9 @@ function App() {
             </Route>
             <Route path="/privacy">
               <Privacy />
+            </Route>
+            <Route path="*">
+              <Page404/>
             </Route>
           </Switch>
         </div>

@@ -9,7 +9,7 @@ import ConnectionError from "../components/errors/connectionError";
 import {useEffect, useState} from "react";
 
 function Main() {
-  const [url, setUrl] = useState("https://wiwa.herokuapp.com/users");
+  const [url, setUrl] = useState("https://tcn-ccg-dt.herokuapp.com/users");
   const {data, error, isPending} = useFetch(url);
   useEffect(() => {
     window.scrollTo(0, 0);

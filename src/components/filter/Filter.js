@@ -2,7 +2,7 @@ import {useState} from "react";
 import classes from "./filter.module.css";
 
 const Filter = ({filterUrl}) => {
-  const [url, seturl] = useState("https://wiwa.herokuapp.com/users/search/");
+  const [url, seturl] = useState("https://tcn-ccg-dt.herokuapp.com/users/search/");
   const [searchVal, setsearchVal] = useState("");
   const handleSubmit = e => {
     e.preventDefault();
@@ -22,12 +22,12 @@ const Filter = ({filterUrl}) => {
           name="filterSkill"
           id="filterSkill"
         >
-          <option value="https://wiwa.herokuapp.com/users/search/">
+          <option value="https://tcn-ccg-dt.herokuapp.com/users/search/">
             Filter By Name
           </option>
           <option
             required
-            value="https://wiwa.herokuapp.com/users/search/skill/"
+            value="https://tcn-ccg-dt.herokuapp.com/users/search/skill/"
           >
             Filter By Skill
           </option>

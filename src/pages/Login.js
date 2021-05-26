@@ -35,7 +35,7 @@ const Login = () => {
       redirect: "follow",
     };
 
-    fetch("https://wiwa.herokuapp.com/users/login", requestOptions)
+    fetch("https://tcn-ccg-dt.herokuapp.com/users/login", requestOptions)
       .then(res => res.json())
       .then(result => {
         setIsPending(false);
@@ -88,7 +88,7 @@ const Login = () => {
     <main className="container align-top">
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="signup-text">
-          <h3 className="logo">wiwa</h3>
+          <h3 className="logo">TCN-CCG-DT</h3>
         </div>
         <div className="form-group">
           <label htmlFor="email">Email</label>

@@ -57,13 +57,13 @@ const Questions = () => {
         redirect: "follow",
       };
 
-      fetch("https://wiwa.herokuapp.com/users/signup/questions", requestOptions)
+      fetch("https://tcn-ccg-dt.herokuapp.com/users/signup/questions", requestOptions)
         .then(async res => {
           setIsPending(false);
           if (res.status === 401) {
             try {
               const response = await fetch(
-                "https://wiwa.herokuapp.com/users/refresh-token",
+                "https://tcn-ccg-dt.herokuapp.com/users/refresh-token",
                 {
                   method: "POST",
                   headers: {
@@ -119,7 +119,7 @@ const Questions = () => {
           onSubmit={e => onQuestionSubmit(e)}
         >
           <div className="signup-text">
-            <h3 className="logo">wiwa</h3>
+            <h3 className="logo">TCN-CCG-DT</h3>
             <p>
               To Complete your registration pls chose and answer any 2 questions
               for two factor authentication.

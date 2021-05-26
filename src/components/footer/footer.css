@@ -13,6 +13,9 @@ footer > div {
   display: flex;
   align-items: center;
 }
+footer .logo{
+  font-size: 1.3rem;
+}
 footer p {
   font-size: 1rem;
 }

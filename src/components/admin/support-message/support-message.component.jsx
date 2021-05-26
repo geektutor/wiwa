@@ -10,7 +10,7 @@ import './support-message.style.scss'
 
 const SupportMessage = () => {
     const {id} = useParams()
-    const [url] = useState(`https://wiwa.herokuapp.com/admin/feedback/${id}`);
+    const [url] = useState(`https://tcn-ccg-dt.herokuapp.com/admin/feedback/${id}`);
     const {data,error,isPending} = useFetchAdmin(url);
     console.log(data)
 

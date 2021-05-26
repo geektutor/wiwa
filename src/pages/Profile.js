@@ -62,7 +62,7 @@ const Profile = () => {
       if (dataForm.skills.length <= 6) {
         setIsLoading(true);
         fetch(
-          `https://wiwa.herokuapp.com/users/edit/${
+          `https://tcn-ccg-dt.herokuapp.com/users/edit/${
             JSON.parse(localStorage.getItem("userData")).id
           }`,
           {

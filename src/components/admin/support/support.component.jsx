@@ -9,7 +9,7 @@ import useFetchAdmin from '../../../hooks/useFetchAdmin';
 import ConnectionError from '../../errors/connectionError';
 
 const Support = () => {
-    const [url] = useState("https://wiwa.herokuapp.com/admin/feedback");
+    const [url] = useState("https://tcn-ccg-dt.herokuapp.com/admin/feedback");
     const {data,error,isPending} = useFetchAdmin(url);
     console.log(data)
     return ( 

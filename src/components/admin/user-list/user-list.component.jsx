@@ -11,7 +11,7 @@ import './user-list.style.scss'
 
 const UserList = () => {
 
-  const [url] = useState("https://wiwa.herokuapp.com/admin/users");
+  const [url] = useState("https://tcn-ccg-dt.herokuapp.com/admin/users");
   let {data,error,isPending} = useFetchAdmin(url);
   const [isSearch,setIsSearch]= useState(false)
   const[data2,setData2] = useState(null);
@@ -34,7 +34,7 @@ const UserList = () => {
   const handleSubmit = (e)=>{
     e.preventDefault()
       setIsSearch(true)
-      const searchUrl = `https://wiwa.herokuapp.com/users/search/${search}`;
+      const searchUrl = `https://tcn-ccg-dt.herokuapp.com/users/search/${search}`;
       
       fetch(searchUrl)
       .then((res)=>{
@@ -42,7 +42,7 @@ const UserList = () => {
           history.push("/login");
         } else if (res.status === 401) {
           
-          return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+          return fetch("https://tcn-ccg-dt.herokuapp.com/users/refresh-token", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

@@ -13,7 +13,7 @@ import AdminBtn from '../adminBtn/adminBtn.component';
 
 const UserProfile = () => {
     const {id} = useParams()
-    const [url] = useState(`https://wiwa.herokuapp.com/admin/users/${id}`);
+    const [url] = useState(`https://tcn-ccg-dt.herokuapp.com/admin/users/${id}`);
     const {data,error,isPending} = useFetchAdmin(url);
     const [isPendingBtn, setIsPendingBtn] = useState(false);
     const [isPendingDel, setIsPendingDel] = useState(false);
@@ -45,13 +45,13 @@ const UserProfile = () => {
             redirect: 'follow'
           };
       
-          fetch(`https://wiwa.herokuapp.com/admin/user/enlist/${data.id}`, requestOptions)
+          fetch(`https://tcn-ccg-dt.herokuapp.com/admin/user/enlist/${data.id}`, requestOptions)
             .then((res)=>{
               if (res.status === 403) {
                 history.push("/login");
               } else if (res.status === 401) {
                 
-                return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+                return fetch("https://tcn-ccg-dt.herokuapp.com/users/refresh-token", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -117,13 +117,13 @@ const UserProfile = () => {
             redirect: 'follow'
           };
       
-          fetch(`https://wiwa.herokuapp.com/admin/user/delist/${data.id}`, requestOptions)
+          fetch(`https://tcn-ccg-dt.herokuapp.com/admin/user/delist/${data.id}`, requestOptions)
             .then((res)=>{
               if (res.status === 403) {
                 history.push("/login");
               } else if (res.status === 401) {
                 
-                return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+                return fetch("https://tcn-ccg-dt.herokuapp.com/users/refresh-token", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -188,13 +188,13 @@ const UserProfile = () => {
             redirect: 'follow'
           };
       
-          fetch(`https://wiwa.herokuapp.com/admin/user/make-admin/${data.id}`, requestOptions)
+          fetch(`https://tcn-ccg-dt.herokuapp.com/admin/user/make-admin/${data.id}`, requestOptions)
             .then((res)=>{
               if (res.status === 403) {
                 history.push("/login");
               } else if (res.status === 401) {
                 
-                return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+                return fetch("https://tcn-ccg-dt.herokuapp.com/users/refresh-token", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -259,13 +259,13 @@ const UserProfile = () => {
             redirect: 'follow'
           };
       
-          fetch(`https://wiwa.herokuapp.com/admin/user/remove-admin/${data.id}`, requestOptions)
+          fetch(`https://tcn-ccg-dt.herokuapp.com/admin/user/remove-admin/${data.id}`, requestOptions)
             .then((res)=>{
               if (res.status === 403) {
                 history.push("/login");
               } else if (res.status === 401) {
                 
-                return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+                return fetch("https://tcn-ccg-dt.herokuapp.com/users/refresh-token", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",
@@ -330,13 +330,13 @@ const UserProfile = () => {
             redirect: 'follow'
           };
       
-          fetch(`https://wiwa.herokuapp.com/users/delete/${data.id}`, requestOptions)
+          fetch(`https://tcn-ccg-dt.herokuapp.com/users/delete/${data.id}`, requestOptions)
             .then((res)=>{
               if (res.status === 403) {
                 history.push("/login");
               } else if (res.status === 401) {
                 
-                return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+                return fetch("https://tcn-ccg-dt.herokuapp.com/users/refresh-token", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",

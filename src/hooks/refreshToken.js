@@ -3,7 +3,7 @@ import displayMsg from "../components/Message";
 export default function refreshToken() {
   if (localStorage.getItem("refToken")) {
     let token;
-    fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+    fetch("https://tcn-ccg-dt.herokuapp.com/users/refresh-token", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -37,7 +37,7 @@ const ContactSupport = () => {
       redirect: "follow",
     };
 
-    fetch("https://wiwa.herokuapp.com/users/feedback/create", requestOptions)
+    fetch("https://tcn-ccg-dt.herokuapp.com/users/feedback/create", requestOptions)
       .then(response => response.json())
       .then(result => {
         setcontactForm({

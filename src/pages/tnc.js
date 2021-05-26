@@ -26,8 +26,8 @@ const TnC = () => {
 
           <p>
             These are the terms of use binding all Visitors and Users of
-            Wiwa.xyz from the time of first visit or use till exit or
-            termination. By accessing wiwa.xyz, you agree to be bound by all the
+            TCN-CCG-DT from the time of first visit or use till exit or
+            termination. By accessing TCN-CCG-DT, you agree to be bound by all the
             terms of use alongside the{" "}
             <Link to="/privacy" className={classes.link}>
               Privacy Policy
@@ -44,7 +44,7 @@ const TnC = () => {
           </p>
           <p>
             For the purpose of this agreement, ‘we,’ ‘our’, ‘ours,’ and ‘us’will
-            refer to Wiwa, while ‘you’ ‘and ‘yours’will refer to the Visitors
+            refer to TCN-CCG-DT, while ‘you’ ‘and ‘yours’will refer to the Visitors
             and Users.
           </p>
           <ol className={classes.i} type="I">
@@ -52,7 +52,7 @@ const TnC = () => {
               <h2 className="name"> Our Services:</h2>
               <ol type="a">
                 <li>
-                  Wiwa is an avenue to showcase your skills and host your
+                  TCN-CCG-DT is an avenue to showcase your skills and host your
                   Curriculum Vitae (CV). You can also search for people with
                   different skills to access their details via our platform. We
                   are responsible for enabling you to do the above.
@@ -73,7 +73,7 @@ const TnC = () => {
             </li>
             <li>
               <h2 className="name"> Your Responsibilities:</h2>
-              <p>By using wiwa.xyz, you agree:</p>
+              <p>By using TCN-CCG-DT, you agree:</p>
               <ol type="a">
                 <li>That you are at least eighteen (18) years old.</li>
                 <li>
@@ -101,7 +101,7 @@ const TnC = () => {
                 </li>
                 <li>
                   That you are not entitled to remuneration of any form from
-                  Wiwa.
+                  TCN-CCG-DT.
                 </li>
               </ol>
             </li>
@@ -115,10 +115,10 @@ const TnC = () => {
                   and confirmation.
                 </li>
                 <li>
-                  If you discover that any Wiwa user violates any of the stated
+                  If you discover that any TCN-CCG-DT user violates any of the stated
                   rules, you can report by sending an email to{" "}
-                  <a href="mailto:wiwa@wiwa.com" className={classes.link}>
-                    wiwa
+                  <a href="mailto:sodiq.akinjobi@gmail.com" className={classes.link}>
+                    TCN-CCG-DT
                   </a>
                 </li>
               </ol>
@@ -132,7 +132,7 @@ const TnC = () => {
                   based on the terms listed above.
                 </li>
                 <li>
-                  All content on Wiwa and our service is covered by trademarks,
+                  All content on TCN-CCG-DT and our service is covered by trademarks,
                   database, copyright, and other intellectual property rights
                   and laws. You are not allowed to use our name and trademark
                   with any product or service hat is not affiliated with us,
@@ -144,7 +144,7 @@ const TnC = () => {
               <h2 className="name"> Termination:</h2>
               <ol type="a">
                 <li>
-                  You can cancel your Wiwa account whenever you wish. Once you
+                  You can cancel your TCN-CCG-DT account whenever you wish. Once you
                   cancel your account, you would no longer have access to it or
                   the information on it. We are not responsible for providing
                   you with access to your content once you cancel.
@@ -171,8 +171,8 @@ const TnC = () => {
                 <li>
                   In case of further questions regarding our services and terms,
                   you can reach us via{" "}
-                  <a href="mailto:wiwa@wiwa.com" className={classes.link}>
-                    wiwa
+                  <a href="mailto:sodiq.akinjobi@gmail.com" className={classes.link}>
+                    TCN-CCG-DT
                   </a>
                 </li>
               </ol>

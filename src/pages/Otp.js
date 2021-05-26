@@ -5,7 +5,7 @@ const Otp = () => {
     <main className="container align-top">
       <form className="login-form">
         <div className="signup-text">
-          <h3 className="logo">wiwa</h3>
+          <h3 className="logo">TCN-CCG-DT</h3>
           <h4 style={{textAlign: "center"}}>Enter OTP</h4>
         </div>
         <div className="form-group">

@@ -16,7 +16,7 @@ const AccessKey = props => {
       accessKey: answer,
     };
 
-    fetch("https://wiwa.herokuapp.com/users/signup/secret", {
+    fetch("https://tcn-ccg-dt.herokuapp.com/users/signup/secret", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

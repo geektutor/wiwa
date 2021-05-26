@@ -12,7 +12,7 @@ import './settings.style.scss'
 
 const Settings = () => {
 
-    const [url] = useState("https://wiwa.herokuapp.com/admin/keys");
+    const [url] = useState("https://tcn-ccg-dt.herokuapp.com/admin/keys");
     const {data,error,isPending} = useFetchAdmin(url);
     const[openAffirm,setOpenAffirm]= useState(false)
     const[isPendingAdd,setIsPendingAdd] =useState(false)
@@ -56,13 +56,13 @@ const Settings = () => {
           redirect: 'follow'
         };
     
-        fetch("https://wiwa.herokuapp.com/admin/keys/create", requestOptions)
+        fetch("https://tcn-ccg-dt.herokuapp.com/admin/keys/create", requestOptions)
           .then((res)=>{
             if (res.status === 403) {
               history.push("/login");
             } else if (res.status === 401) {
               
-              return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+              return fetch("https://tcn-ccg-dt.herokuapp.com/users/refresh-token", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -131,13 +131,13 @@ const Settings = () => {
             redirect: 'follow'
           };
       
-          fetch(`https://wiwa.herokuapp.com/admin/keys/delete/${id}`, requestOptions)
+          fetch(`https://tcn-ccg-dt.herokuapp.com/admin/keys/delete/${id}`, requestOptions)
             .then((res)=>{
               if (res.status === 403) {
                 history.push("/login");
               } else if (res.status === 401) {
                 
-                return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+                return fetch("https://tcn-ccg-dt.herokuapp.com/users/refresh-token", {
                   method: "POST",
                   headers: {
                     "Content-Type": "application/json",

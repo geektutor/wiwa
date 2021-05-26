@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <nav>
       <h2 className="logo">
-        <Link to="/">wiwa</Link>
+        <Link to="/">TCN-CCG-DT</Link>
       </h2>
       <ul className="navList">
         <li className="navLink">

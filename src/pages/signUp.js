@@ -25,7 +25,7 @@ const SignUp = () => {
     } else {
       if (dataForm.skills.length <= 6) {
         // console.log(dataForm);
-        fetch("https://wiwa.herokuapp.com/users/signup/info", {
+        fetch("https://tcn-ccg-dt.herokuapp.com/users/signup/info", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -25,7 +25,7 @@ const Privacy = () => {
           <h1 className="name">Privacy Policy</h1>
 
           <p>
-            Wiwa respects and protects your privacy, we take serious and
+            TCN-CCG-DT respects and protects your privacy, we take serious and
             necessary steps and measures to secure all your information. We have
             outlined the information we request from and hold about you and how
             we use them below:

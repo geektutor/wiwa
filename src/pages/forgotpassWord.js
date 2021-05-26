@@ -44,7 +44,7 @@ const ForgotPassword = () => {
       redirect: "follow",
     };
 
-    fetch("https://wiwa.herokuapp.com/users/forgot-password", requestOptions)
+    fetch("https://tcn-ccg-dt.herokuapp.com/users/forgot-password", requestOptions)
       .then(res => res.json())
       .then(result => {
         console.log(result);
@@ -82,7 +82,7 @@ const ForgotPassword = () => {
     <main className="container align-top">
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="signup-text">
-          <h3 className="logo">wiwa</h3>
+          <h3 className="logo">TCN-CCG-DT</h3>
           {/* <h4 style={{textAlign: "center"}}>Enter Email Address</h4> */}
           <p style={{fontSize: "1rem", textAlign: "center", color: "black"}}>
             Answer your selected question and provide the details below

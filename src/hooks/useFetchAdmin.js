@@ -36,7 +36,7 @@ const useFetchAdmin = url => {
         if (res.status === 403) {
           history.push("/login");
         } else if (res.status === 401) {
-          return fetch("https://wiwa.herokuapp.com/users/refresh-token", {
+          return fetch("https://tcn-ccg-dt.herokuapp.com/users/refresh-token", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

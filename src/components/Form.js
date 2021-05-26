@@ -130,7 +130,7 @@ const Forms = props => {
       <form onSubmit={e => handleSubmit(e)} className="login-form">
         {!hide.includes("bt-text") && (
           <div className="signup-text">
-            <h3 className="logo">wiwa</h3>
+            <h3 className="logo">TCN-CCG-DT</h3>
           </div>
         )}
         {!hide.includes("name") && (
@@ -227,7 +227,7 @@ const Forms = props => {
         )}
         {!hide.includes("skills") && (
           <div className="form-group">
-            <label style={{fontSize: "0.9rem", marginRight:".7rem"}} htmlFor="skills"  className="countInputLabel">
+            <label style={{fontSize: "0.9rem"}} htmlFor="skills"  className="countInputLabel">
               Skills (click "+" to add a new skill, and click on each skill to delete), 
               <span
                 style={
