@@ -1,18 +1,6 @@
 {
   "short_name": "TCN-CCG-DT",
   "name": "TCN-CCG-DT sample",
-  "icons": [
-    {
-      "src": "https://geektutor.github.io/ccg/assets/img/icon/favicon.ico",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "https://geektutor.github.io/ccg/assets/img/icon/favicon.ico",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#dd5500",
